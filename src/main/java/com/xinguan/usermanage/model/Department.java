@@ -1,33 +1,70 @@
-package com.xinguan.model;
+package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * 员工状态
+ * 部门
  *
  * @author zhangzhan
- * @date 2019-02-16 09:21
+ * @date 2019-02-16 08:20
  */
 @Entity
-public class EmployeeStatus {
+public class Department {
+
     @Id
     @GeneratedValue
     private Long id;
-    @Column
+    /**
+     * 部门名称
+     */
+    @Column(nullable = false)
     private String name;
+    /**
+     * 部门描述
+     */
     @Column
     private String description;
-    @Column
-    private boolean status;
+    /**
+     * 部门主管
+     */
+    @ManyToOne
+    private Employee chiefEmployee;
+    /**
+     * 上级部门
+     */
+    @ManyToOne
+    private Department superiorDepartment;
+    /**
+     * 创建日期
+     */
     @Column
     private Date createDate;
+    /**
+     * 修改日期
+     */
     @Column
     private Date modificationDate;
     @ManyToOne
     private Employee createUser;
     @ManyToOne
     private Employee modificationUser;
+
+    public Employee getChiefEmployee() {
+        return chiefEmployee;
+    }
+
+    public void setChiefEmployee(Employee chiefEmployee) {
+        this.chiefEmployee = chiefEmployee;
+    }
+
+    public Department getSuperiorDepartment() {
+        return superiorDepartment;
+    }
+
+    public void setSuperiorDepartment(Department superiorDepartment) {
+        this.superiorDepartment = superiorDepartment;
+    }
 
     public Long getId() {
         return id;
@@ -53,13 +90,6 @@ public class EmployeeStatus {
         this.description = description;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
     public Date getCreateDate() {
         return createDate;
@@ -76,6 +106,7 @@ public class EmployeeStatus {
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
     }
+
 
     public Employee getCreateUser() {
         return createUser;

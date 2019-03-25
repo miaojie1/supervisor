@@ -1,7 +1,7 @@
-package com.xinguan.controller;
+package com.xinguan.usermanage.controller;
 
-import com.xinguan.model.Employee;
-import com.xinguan.service.EmployeeService;
+import com.xinguan.usermanage.model.Employee;
+import com.xinguan.usermanage.service.EmployeeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

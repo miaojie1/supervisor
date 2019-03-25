@@ -1,4 +1,4 @@
-package com.xinguan.model;
+package com.xinguan.usermanage.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

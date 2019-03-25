@@ -1,55 +1,68 @@
-package com.xinguan.model;
+package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
- * 系统公告
+ * 角色
  *
  * @author zhangzhan
- * @date 2019-02-16 09:52
+ * @date 2019-01-04 18:21
  */
 @Entity
-public class PostingSystem {
+public class Role {
     @Id
     @GeneratedValue
     private Long id;
-    @Column
+    @Column(nullable = false,unique = true)
     private String name;
     @Column
-    private String content;
-    @ManyToMany
-    @JoinTable(name = "postingSystem_attachment")
-    private List<Attachment> attachments;
-    @Column
-    private Date effectDate;
-    @Column
-    private Date expireDate;
+    private String description;
     @Column
     private Date createDate;
     @Column
     private Date modificationDate;
     @ManyToOne
+    private Role superiorRole;
+    @ManyToMany
+    @JoinTable(name = "role_menu")
+    private Set<Menu> menus;
+    @ManyToOne
     private Employee createUser;
     @ManyToOne
     private Employee modificationUser;
 
-
-    public Date getEffectDate() {
-        return effectDate;
+    public Set<Menu> getMenus() {
+        return menus;
     }
 
-    public void setEffectDate(Date effectDate) {
-        this.effectDate = effectDate;
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
     }
 
-    public Date getExpireDate() {
-        return expireDate;
+    public Role getSuperiorRole() {
+        return superiorRole;
     }
 
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
+    public void setSuperiorRole(Role superiorRole) {
+        this.superiorRole = superiorRole;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreateDate() {
@@ -68,36 +81,12 @@ public class PostingSystem {
         this.modificationDate = modificationDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public List<Attachment> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
     }
 
     public Employee getCreateUser() {

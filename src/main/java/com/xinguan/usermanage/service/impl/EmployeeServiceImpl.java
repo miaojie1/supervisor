@@ -1,8 +1,8 @@
-package com.xinguan.service.impl;
+package com.xinguan.usermanage.service.impl;
 
-import com.xinguan.model.Employee;
-import com.xinguan.repository.EmployeeRepository;
-import com.xinguan.service.EmployeeService;
+import com.xinguan.usermanage.model.Employee;
+import com.xinguan.usermanage.repository.EmployeeRepository;
+import com.xinguan.usermanage.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

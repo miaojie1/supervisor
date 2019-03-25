@@ -1,8 +1,8 @@
 package com.xinguan.security;
 
-import com.xinguan.model.Employee;
-import com.xinguan.model.Role;
-import com.xinguan.service.EmployeeService;
+import com.xinguan.usermanage.model.Employee;
+import com.xinguan.usermanage.model.Role;
+import com.xinguan.usermanage.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

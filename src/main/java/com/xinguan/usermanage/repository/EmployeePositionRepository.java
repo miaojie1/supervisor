@@ -1,6 +1,6 @@
-package com.xinguan.repository;
+package com.xinguan.usermanage.repository;
 
-import com.xinguan.model.EmployeePosition;
+import com.xinguan.usermanage.model.EmployeePosition;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmployeePositionRepository extends JpaRepository<EmployeePosition, String> {

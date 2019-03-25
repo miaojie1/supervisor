@@ -1,6 +1,7 @@
 package com.xinguan.service;
 
 import com.xinguan.Application;
+import com.xinguan.usermanage.service.EmployeeService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

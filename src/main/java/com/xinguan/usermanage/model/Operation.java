@@ -1,4 +1,4 @@
-package com.xinguan.model;
+package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;

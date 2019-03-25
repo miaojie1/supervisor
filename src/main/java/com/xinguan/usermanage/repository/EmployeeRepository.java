@@ -1,10 +1,7 @@
-package com.xinguan.repository;
+package com.xinguan.usermanage.repository;
 
-import com.xinguan.model.Employee;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.xinguan.usermanage.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

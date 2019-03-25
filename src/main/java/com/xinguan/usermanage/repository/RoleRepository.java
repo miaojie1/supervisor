@@ -1,6 +1,6 @@
-package com.xinguan.repository;
+package com.xinguan.usermanage.repository;
 
-import com.xinguan.model.Role;
+import com.xinguan.usermanage.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role,String> {

@@ -1,68 +1,55 @@
-package com.xinguan.model;
+package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
- * 角色
+ * 系统公告
  *
  * @author zhangzhan
- * @date 2019-01-04 18:21
+ * @date 2019-02-16 09:52
  */
 @Entity
-public class Role {
+public class PostingSystem {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = false,unique = true)
+    @Column
     private String name;
     @Column
-    private String description;
+    private String content;
+    @ManyToMany
+    @JoinTable(name = "postingSystem_attachment")
+    private List<Attachment> attachments;
+    @Column
+    private Date effectDate;
+    @Column
+    private Date expireDate;
     @Column
     private Date createDate;
     @Column
     private Date modificationDate;
     @ManyToOne
-    private Role superiorRole;
-    @ManyToMany
-    @JoinTable(name = "role_menu")
-    private Set<Menu> menus;
-    @ManyToOne
     private Employee createUser;
     @ManyToOne
     private Employee modificationUser;
 
-    public Set<Menu> getMenus() {
-        return menus;
+
+    public Date getEffectDate() {
+        return effectDate;
     }
 
-    public void setMenus(Set<Menu> menus) {
-        this.menus = menus;
+    public void setEffectDate(Date effectDate) {
+        this.effectDate = effectDate;
     }
 
-    public Role getSuperiorRole() {
-        return superiorRole;
+    public Date getExpireDate() {
+        return expireDate;
     }
 
-    public void setSuperiorRole(Role superiorRole) {
-        this.superiorRole = superiorRole;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
     }
 
     public Date getCreateDate() {
@@ -81,12 +68,36 @@ public class Role {
         this.modificationDate = modificationDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     public Employee getCreateUser() {

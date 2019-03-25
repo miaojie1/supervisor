@@ -1,6 +1,6 @@
-package com.xinguan.controller;
+package com.xinguan.usermanage.controller;
 
-import com.xinguan.model.Menu;
+import com.xinguan.usermanage.model.Menu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
 package com.xinguan.service.impl;
 
-import com.xinguan.model.Employee;
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.service.BaseServiceTest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

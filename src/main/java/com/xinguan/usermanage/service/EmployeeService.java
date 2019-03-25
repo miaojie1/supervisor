@@ -1,6 +1,6 @@
-package com.xinguan.service;
+package com.xinguan.usermanage.service;
 
-import com.xinguan.model.Employee;
+import com.xinguan.usermanage.model.Employee;
 
 public interface EmployeeService {
 

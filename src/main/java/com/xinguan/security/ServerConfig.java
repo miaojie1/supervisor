@@ -32,7 +32,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerConfig.class);
 
-    @Qualifier("myUserDetailsService")
+    @Qualifier("customUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 

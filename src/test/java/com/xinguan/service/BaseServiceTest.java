@@ -2,6 +2,7 @@ package com.xinguan.service;
 
 import com.xinguan.Application;
 import com.xinguan.usermanage.service.EmployeeService;
+import com.xinguan.usermanage.service.MenuService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,5 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class BaseServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     protected EmployeeService employeeService;
+    @Autowired
+    protected MenuService menuService;
 
 }

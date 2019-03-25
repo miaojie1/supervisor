@@ -2,6 +2,7 @@ package com.xinguan.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -13,9 +14,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  */
 @Configuration
 @EnableResourceServer
-public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class CustomResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    private final static Logger LOG = LoggerFactory.getLogger(MyResourceServerConfig.class);
+    @Autowired
+    private CustomAccessDecisionManager customAccessDecisionManager;
+
+    private final static Logger LOG = LoggerFactory.getLogger(CustomResourceServerConfig.class);
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -31,6 +35,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
 
                 .antMatchers("/webjars/**","/swagger-ui.html","/swagger-ui.html#!/**","/swagger-resources/**","/v2/**","/oauth/token").permitAll()
                 .anyRequest().authenticated()
+                .accessDecisionManager(customAccessDecisionManager)
                 .and()
                 .csrf().disable();
 

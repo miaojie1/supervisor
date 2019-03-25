@@ -37,6 +37,8 @@ public class Menu {
     private Employee modificationUser;
     @OneToMany
     private List<Operation> operation;
+    @Column
+    private Integer sort;
 
     public List<Operation> getOperation() {
         return operation;
@@ -62,6 +64,13 @@ public class Menu {
         this.modificationAuthority = modificationAuthority;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
     public boolean isDeleteAutority() {
         return deleteAutority;

@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 
 import java.util.*;
 
-public class MyRedisTokenStore implements TokenStore {
+public class CustomRedisTokenStore implements TokenStore {
     private static final String ACCESS = "access:";
     private static final String AUTH_TO_ACCESS = "auth_to_access:";
     private static final String AUTH = "auth:";
@@ -36,7 +36,7 @@ public class MyRedisTokenStore implements TokenStore {
 
     private String prefix = "";
 
-    public MyRedisTokenStore(RedisConnectionFactory connectionFactory) {
+    public CustomRedisTokenStore(RedisConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 

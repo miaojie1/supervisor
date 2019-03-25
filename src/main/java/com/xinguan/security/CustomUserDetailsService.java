@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Component
-public class MyUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private EmployeeService employeeService;
     @Override

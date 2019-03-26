@@ -1,7 +1,7 @@
 package com.xinguan.service.impl;
 
-import com.xinguan.usermanage.model.Employee;
 import com.xinguan.service.BaseServiceTest;
+import com.xinguan.usermanage.model.Employee;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -40,6 +40,6 @@ public class EmployeeServiceImplTest extends BaseServiceTest {
 
     @DataProvider(name = "usernameParam")
     private Object[] getParamters() {
-        return new String[]{null, "", "admin", "xinguan"};
+        return new String[]{null, ""};
     }
 }

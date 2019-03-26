@@ -33,7 +33,7 @@ public class CustomResourceServerConfig extends ResourceServerConfigurerAdapter 
 //                }).permitAll()
 
 
-                .antMatchers("/webjars/**","/swagger-ui.html","/swagger-ui.html#!/**","/swagger-resources/**","/v2/**","/oauth/token").permitAll()
+                .antMatchers("/webjars/**","/swagger-ui.html","/swagger-ui.html#!/**","/swagger-resources/**","/v2/**","/oauth/token","/employee/saveEmployeeTemp").permitAll()
                 .anyRequest().authenticated()
                 .accessDecisionManager(customAccessDecisionManager)
                 .and()

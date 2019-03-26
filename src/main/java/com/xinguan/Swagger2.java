@@ -28,7 +28,7 @@ public class Swagger2 {
                 .apiInfo(getApiInfo())
                 .securitySchemes(securitySchemes())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.xinguan.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.xinguan.usermanage.controller"))
                 .paths(PathSelectors.any())
                 .build();
               //  .globalOperationParameters(setHeaderToken());
@@ -36,7 +36,7 @@ public class Swagger2 {
 
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("建设监理信息系统接口文档")
+                .title("系统接口文档")
                 .version("1.0")
                 .description("API接口")
                 .build();

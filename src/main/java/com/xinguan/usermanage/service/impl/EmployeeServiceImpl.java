@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhangzhan
@@ -24,6 +25,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByUsernameAndPassword(username, password);
     }
 
+
+
     @Override
     public Employee findEmployeeByUsername(String username) {
         return employeeRepository.findByUsername(username);
@@ -38,6 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService {
             currentEmployee = findEmployeeByUsername(username);
         }
         return currentEmployee;
+    }
+
+    @Transactional
+    @Override
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
 }

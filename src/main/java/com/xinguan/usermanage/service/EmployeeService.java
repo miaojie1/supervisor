@@ -19,4 +19,6 @@ public interface EmployeeService {
      * @return
      */
     Employee getCurrentUser();
+
+    Employee saveEmployee(final Employee employee);
 }

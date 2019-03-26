@@ -1,5 +1,6 @@
 package com.xinguan.usermanage.controller;
 
+import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.usermanage.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,5 +13,7 @@ import org.springframework.stereotype.Controller;
 public class BaseController {
     @Autowired
     protected MenuService menuService;
+    @Autowired
+    protected EmployeeService employeeService;
 
 }

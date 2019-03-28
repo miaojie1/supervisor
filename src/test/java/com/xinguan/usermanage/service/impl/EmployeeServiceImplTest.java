@@ -1,4 +1,4 @@
-package com.xinguan.service.impl;
+package com.xinguan.usermanage.service.impl;
 
 import com.xinguan.service.BaseServiceTest;
 import com.xinguan.usermanage.model.Employee;

@@ -12,6 +12,17 @@ import java.util.Set;
  */
 @Entity
 public class Employee {
+
+    public Employee() {
+    }
+
+    public Employee(Long id,String name, String username, Set<Role> roles) {
+        this.name = name;
+        this.username = username;
+        this.roles = roles;
+        this.id=id;
+    }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -47,7 +58,7 @@ public class Employee {
     /**
      * 上级主管
      */
-    @ManyToOne
+    @OneToOne
     private Employee chief;
     /**
      * 性别
@@ -67,12 +78,12 @@ public class Employee {
     /**
      * 员工状态
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = EmployeeStatus.class,cascade = CascadeType.ALL)
     private EmployeeStatus employeeStatus;
     /**
      * 员工职位
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = EmployeePosition.class,cascade = CascadeType.ALL)
     private EmployeePosition employeePosition;
     /**
      * 创建日期
@@ -92,7 +103,7 @@ public class Employee {
     /**
      * 员工角色
      */
-    @ManyToMany
+    @ManyToMany(targetEntity = Role.class,cascade = CascadeType.ALL)
     @JoinTable(name = "employee_role")
     private Set<Role> roles;
     /**

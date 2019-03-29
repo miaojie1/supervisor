@@ -23,15 +23,12 @@ public class Role {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @ManyToOne
+    @OneToOne(targetEntity = Role.class,cascade = CascadeType.ALL)
     private Role superiorRole;
-    @ManyToMany
+    @ManyToMany(targetEntity = Menu.class,cascade = CascadeType.ALL)
     @JoinTable(name = "role_menu")
     private Set<Menu> menus;
-    @ManyToOne
-    private Employee createUser;
-    @ManyToOne
-    private Employee modificationUser;
+
 
     public Set<Menu> getMenus() {
         return menus;
@@ -89,19 +86,4 @@ public class Role {
         this.name = name;
     }
 
-    public Employee getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Employee createUser) {
-        this.createUser = createUser;
-    }
-
-    public Employee getModificationUser() {
-        return modificationUser;
-    }
-
-    public void setModificationUser(Employee modificationUser) {
-        this.modificationUser = modificationUser;
-    }
 }

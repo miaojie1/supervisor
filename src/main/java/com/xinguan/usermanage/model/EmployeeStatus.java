@@ -1,6 +1,9 @@
 package com.xinguan.usermanage.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -24,10 +27,6 @@ public class EmployeeStatus {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @ManyToOne
-    private Employee createUser;
-    @ManyToOne
-    private Employee modificationUser;
 
     public Long getId() {
         return id;
@@ -77,19 +76,4 @@ public class EmployeeStatus {
         this.modificationDate = modificationDate;
     }
 
-    public Employee getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Employee createUser) {
-        this.createUser = createUser;
-    }
-
-    public Employee getModificationUser() {
-        return modificationUser;
-    }
-
-    public void setModificationUser(Employee modificationUser) {
-        this.modificationUser = modificationUser;
-    }
 }

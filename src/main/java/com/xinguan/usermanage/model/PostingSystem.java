@@ -30,10 +30,6 @@ public class PostingSystem {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @ManyToOne
-    private Employee createUser;
-    @ManyToOne
-    private Employee modificationUser;
 
 
     public Date getEffectDate() {
@@ -100,19 +96,5 @@ public class PostingSystem {
         this.attachments = attachments;
     }
 
-    public Employee getCreateUser() {
-        return createUser;
-    }
 
-    public void setCreateUser(Employee createUser) {
-        this.createUser = createUser;
-    }
-
-    public Employee getModificationUser() {
-        return modificationUser;
-    }
-
-    public void setModificationUser(Employee modificationUser) {
-        this.modificationUser = modificationUser;
-    }
 }

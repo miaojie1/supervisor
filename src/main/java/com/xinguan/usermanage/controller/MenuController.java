@@ -1,5 +1,6 @@
 package com.xinguan.usermanage.controller;
 
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +23,8 @@ public class MenuController extends BaseController{
     @RequestMapping(value = "/listMenu")
     @ApiOperation(value = "获取当前登录用户的菜单")
     public Set<Menu> listMenuByCurrentUser() {
-        return menuService.listMenuByCurrentUser();
+        Employee employee = employeeService.getCurrentUser();
+        return menuService.listMenuByEmployee(employee);
     }
 
 

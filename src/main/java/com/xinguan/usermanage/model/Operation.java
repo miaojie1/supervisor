@@ -1,6 +1,9 @@
 package com.xinguan.usermanage.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -21,16 +24,6 @@ public class Operation {
     private Date createTime;
     @Column
     private Date modificationTime;
-    @OneToOne
-    private Menu menu;
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
 
     public Long getId() {
         return id;

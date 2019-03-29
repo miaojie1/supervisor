@@ -9,11 +9,17 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import javax.sql.DataSource;
 
 /**
  * @author zhangzhan
@@ -24,6 +30,14 @@ import org.springframework.web.filter.CorsFilter;
 @EnableTransactionManagement
 @EnableResourceServer
 public class Application extends SpringBootServletInitializer {
+
+
+    @Value("${http.port}")
+    private Integer port;
+    @Value("classpath:initdata.sql")
+    private Resource initSql;
+
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -32,9 +46,6 @@ public class Application extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(Application.class);
     }
-
-    @Value("${http.port}")
-    private Integer port;
 
     @Bean
     public TomcatServletWebServerFactory ServletWebServerFactoryservletContainer() {
@@ -53,6 +64,14 @@ public class Application extends SpringBootServletInitializer {
     }
 
 
+    @Bean
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
+        final DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource);
+        dataSourceInitializer.setDatabasePopulator(databasePopulator());
+        return dataSourceInitializer;
+    }
+
     private CorsConfiguration configuration() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");
@@ -60,6 +79,13 @@ public class Application extends SpringBootServletInitializer {
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
         return corsConfiguration;
+    }
+
+
+    private DatabasePopulator databasePopulator() {
+        final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        databasePopulator.addScript(initSql);
+        return databasePopulator;
     }
 
 

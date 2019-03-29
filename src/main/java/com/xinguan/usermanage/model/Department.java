@@ -28,12 +28,12 @@ public class Department {
     /**
      * 部门主管
      */
-    @ManyToOne
+    @ManyToOne(targetEntity = Employee.class,cascade = CascadeType.ALL)
     private Employee chiefEmployee;
     /**
      * 上级部门
      */
-    @ManyToOne
+    @OneToOne(targetEntity = Department.class,cascade = CascadeType.ALL)
     private Department superiorDepartment;
     /**
      * 创建日期
@@ -45,10 +45,7 @@ public class Department {
      */
     @Column
     private Date modificationDate;
-    @ManyToOne
-    private Employee createUser;
-    @ManyToOne
-    private Employee modificationUser;
+
 
     public Employee getChiefEmployee() {
         return chiefEmployee;
@@ -108,19 +105,4 @@ public class Department {
     }
 
 
-    public Employee getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Employee createUser) {
-        this.createUser = createUser;
-    }
-
-    public Employee getModificationUser() {
-        return modificationUser;
-    }
-
-    public void setModificationUser(Employee modificationUser) {
-        this.modificationUser = modificationUser;
-    }
 }

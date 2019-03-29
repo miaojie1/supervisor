@@ -3,6 +3,7 @@ package com.xinguan.usermanage.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 系统资源
@@ -17,28 +18,57 @@ public class Menu {
     private Long id;
     @Column(nullable = false,unique = true)
     private String name;
-    @Column(nullable = false)
+    @Column
     private String url;
     @Column
     private Date createDate;
     @Column
     private Date modificationDate;
-    @Column
-    private boolean createAuthority;
-    @Column
-    private boolean modificationAuthority;
-    @Column
-    private boolean deleteAutority;
-    @Column
-    private boolean queryAutority;
-    @ManyToOne
-    private Employee createUser;
-    @ManyToOne
-    private Employee modificationUser;
-    @OneToMany
+
+    @OneToMany(targetEntity = Operation.class,cascade =CascadeType.ALL)
     private List<Operation> operation;
     @Column
     private Integer sort;
+    @OneToOne(targetEntity = Menu.class,cascade = CascadeType.ALL)
+    private Menu parentMenu;
+    @Column
+    private boolean status;
+    @Column
+    private String remark;
+    @Transient
+    private Set<Menu> subMenus;
+
+    public Set<Menu> getSubMenus() {
+        return subMenus;
+    }
+
+    public void setSubMenus(Set<Menu> subMenus) {
+        this.subMenus = subMenus;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Menu getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
 
     public List<Operation> getOperation() {
         return operation;
@@ -48,21 +78,6 @@ public class Menu {
         this.operation = operation;
     }
 
-    public boolean isCreateAuthority() {
-        return createAuthority;
-    }
-
-    public void setCreateAuthority(boolean createAuthority) {
-        this.createAuthority = createAuthority;
-    }
-
-    public boolean isModificationAuthority() {
-        return modificationAuthority;
-    }
-
-    public void setModificationAuthority(boolean modificationAuthority) {
-        this.modificationAuthority = modificationAuthority;
-    }
 
     public Integer getSort() {
         return sort;
@@ -70,22 +85,6 @@ public class Menu {
 
     public void setSort(Integer sort) {
         this.sort = sort;
-    }
-
-    public boolean isDeleteAutority() {
-        return deleteAutority;
-    }
-
-    public void setDeleteAutority(boolean deleteAutority) {
-        this.deleteAutority = deleteAutority;
-    }
-
-    public boolean isQueryAutority() {
-        return queryAutority;
-    }
-
-    public void setQueryAutority(boolean queryAutority) {
-        this.queryAutority = queryAutority;
     }
 
     public Long getId() {
@@ -127,22 +126,6 @@ public class Menu {
 
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
-    }
-
-    public Employee getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Employee createUser) {
-        this.createUser = createUser;
-    }
-
-    public Employee getModificationUser() {
-        return modificationUser;
-    }
-
-    public void setModificationUser(Employee modificationUser) {
-        this.modificationUser = modificationUser;
     }
 
 

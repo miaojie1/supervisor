@@ -28,7 +28,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public Set<Menu> listMenuByEmployee(Employee employee) {
-        if (employee==null||employee.getRoles()==null||employee.getRoles().size()==0) {
+        if (employee == null || employee.getRoles() == null || employee.getRoles().size() == 0) {
             return null;
         }
         //获取当前用户的所有角色
@@ -39,40 +39,8 @@ public class MenuServiceImpl implements MenuService {
                 menus.addAll(e.getMenus());
             }
         });
-        Set<Menu> result = new HashSet<>();
-        processRootMenu(menus, result);
-        Set<Menu> notRootMenu = menus.stream().filter(e -> null != e.getParentMenu()).collect(Collectors.toSet());
-        result.forEach(e -> processSubMenu(notRootMenu, e));
-        return result;
+        return menus.stream().filter(e -> e.getRootMenu() != null && e.getRootMenu()).collect(Collectors.toSet());
 
-    }
-
-    private void processSubMenu(Set<Menu> menus, Menu resultMenu) {
-        Set<Menu> menuSet = menus.stream().filter(e -> e.getParentMenu().getId().equals(resultMenu.getId())).collect(Collectors.toSet());
-        if (menuSet.size() == 0) {
-            return;
-        }
-        menus.forEach(e -> {
-            if (e.getParentMenu().getId().equals(resultMenu.getId())) {
-                if (resultMenu.getSubMenus() == null) {
-                    resultMenu.setSubMenus(new HashSet<>());
-                }
-                e.setParentMenu(null);
-                resultMenu.getSubMenus().add(e);
-            } else {
-                processSubMenu(menus, e);
-            }
-        });
-    }
-
-    /**
-     * 处理一级菜单
-     *
-     * @param menus  待处理的菜单
-     * @param result 结果
-     */
-    private void processRootMenu(Set<Menu> menus, Set<Menu> result) {
-        result.addAll(menus.stream().filter(e -> null == e.getParentMenu()).collect(Collectors.toSet()));
     }
 
 

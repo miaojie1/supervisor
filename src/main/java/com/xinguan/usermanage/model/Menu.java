@@ -25,18 +25,21 @@ public class Menu {
     @Column
     private Date modificationDate;
 
-    @OneToMany(targetEntity = Operation.class,cascade =CascadeType.ALL)
+    @OneToMany
     private List<Operation> operation;
     @Column
     private Integer sort;
-    @OneToOne(targetEntity = Menu.class,cascade = CascadeType.ALL)
-    private Menu parentMenu;
     @Column
-    private boolean status;
+    private Boolean status;
     @Column
     private String remark;
-    @Transient
+    @OneToMany
     private Set<Menu> subMenus;
+    @Column
+    private Boolean rootMenu;
+
+
+
 
     public Set<Menu> getSubMenus() {
         return subMenus;
@@ -54,20 +57,21 @@ public class Menu {
         this.remark = remark;
     }
 
-    public boolean isStatus() {
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
-    public Menu getParentMenu() {
-        return parentMenu;
+    public Boolean getRootMenu() {
+        return rootMenu;
     }
 
-    public void setParentMenu(Menu parentMenu) {
-        this.parentMenu = parentMenu;
+    public void setRootMenu(Boolean rootMenu) {
+        this.rootMenu = rootMenu;
     }
 
     public List<Operation> getOperation() {

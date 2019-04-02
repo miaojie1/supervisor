@@ -14,11 +14,17 @@ values (1, 1)
 on duplicate key update employee_id=values(employee_id);
 
 
-insert into menu(id, create_date, modification_date, name, url, sort, parent_menu_id, remark, status)
-values (1, current_date, null, '系统管理', null, 1, null, null, true),
-       (2, current_date, null, '用户管理', '#', 2, 1, '', true),
-       (3, current_date, null, '菜单管理', '##', 2, 1, '', true)
+insert into menu(id, create_date, modification_date, name, url, sort, remark, status, root_menu)
+values (1, current_date, null, '公共功能', null, 2, null, true, true),
+       (2, current_date, null, '用户管理', '#', 1, '', true, false),
+       (3, current_date, null, '菜单管理', '##', 1, '', true, false)
 on duplicate key update id=values(id);
+
+
+insert into menu_sub_menus(menu_id, sub_menus_id)
+values (1, 2),
+       (1, 3)
+on duplicate key update menu_id=values(menu_id) and sub_menus_id = values(sub_menus_id);
 
 
 insert into role_menu(role_id, menus_id)
@@ -34,9 +40,9 @@ values (1, 'addBtn', '####', current_date, current_date),
 on duplicate key update id=values(id);
 
 
-insert into menu_operation(menu_id, operation_id)
+replace into menu_operation(menu_id, operation_id)
 values (2, 1),
-       (3, 2)
-on duplicate key update menu_id=values(menu_id) and operation_id = values(operation_id);
+       (3, 2);
+
 
 

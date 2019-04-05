@@ -36,6 +36,8 @@ public class Application extends SpringBootServletInitializer {
     private Integer port;
     @Value("classpath:initdata.sql")
     private Resource initSql;
+    @Value("${spring.jpa.properties.hibernate.hbm2ddl.auto}")
+    private String initialize;
 
 
     public static void main(String[] args) {
@@ -83,9 +85,13 @@ public class Application extends SpringBootServletInitializer {
 
 
     private DatabasePopulator databasePopulator() {
-        final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(initSql);
-        return databasePopulator;
+        if (initialize.equals("create")) {
+            final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+            databasePopulator.addScript(initSql);
+            return databasePopulator;
+        }else{
+            return null;
+        }
     }
 
 

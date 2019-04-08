@@ -42,7 +42,7 @@ public class MenuController extends BaseController {
 
     public static void main(String[] args) {
         String str = "/menu/listMenuPage/pageNo/1/pageSize/10";
-        String regex = "/menu/listMenuPage/pageNo/.*/pageSize/.*";
+        String regex = "/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}";
         System.out.println(CommonUtil.verificationStr(regex, str));
     }
 }

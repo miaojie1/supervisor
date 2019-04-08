@@ -43,8 +43,10 @@ public class CommonUtil {
         if (StringUtils.isEmpty(regex)) {
             return false;
         }
+        regex = regex.replaceAll("\\{[0-9a-zA-Z]*\\}", ".*");
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+
 }

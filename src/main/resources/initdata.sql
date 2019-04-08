@@ -13,7 +13,7 @@ replace into menu(id, create_date, modification_date, name, url, sort, remark, s
 values (1, current_date, null, '公共功能', null, 2, null, true, true),
        (2, current_date, null, '用户管理', '/user/listUser', 1, '', true, false),
        (3, current_date, null, '用户菜单', '/menu/listMenu', 1, '', true, false),
-       (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/.*/pageSize/.*', 1, '', true, false);
+       (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false);
 
 
 insert into menu_sub_menus(menu_id, sub_menus_id)

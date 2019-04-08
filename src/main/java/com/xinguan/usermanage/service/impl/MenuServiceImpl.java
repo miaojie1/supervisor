@@ -3,12 +3,17 @@ package com.xinguan.usermanage.service.impl;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.usermanage.model.Role;
+import com.xinguan.usermanage.repository.MenuRepository;
+import com.xinguan.usermanage.service.BaseService;
 import com.xinguan.usermanage.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,9 +22,16 @@ import java.util.stream.Collectors;
  * @date 2019-03-25 14:11
  */
 @Service
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuServiceImpl.class);
+
+    private MenuRepository menuRepository;
+
+    @Autowired
+    public MenuServiceImpl(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
+    }
 
     /**
      * 获取当前登录用户的菜单
@@ -41,6 +53,29 @@ public class MenuServiceImpl implements MenuService {
         });
         return menus.stream().filter(e -> e.getRootMenu() != null && e.getRootMenu()).collect(Collectors.toSet());
 
+    }
+
+    @Override
+    public Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params) {
+        pageNo = pageNo <= 0 ? 1 : pageNo;
+        return menuRepository.findAll(new Example<Menu>() {
+            @Override
+            public Menu getProbe() {
+                Menu menu = new Menu();
+                transforObject(menu, params);
+                return menu;
+            }
+
+            @Override
+            public ExampleMatcher getMatcher() {
+
+                return ExampleMatcher.matching()
+                        .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
+                        .withMatcher("url", ExampleMatcher.GenericPropertyMatchers.contains())
+                        .withMatcher("remark", ExampleMatcher.GenericPropertyMatchers.contains())
+                        .withIgnoreCase();
+            }
+        }, PageRequest.of(pageNo - 1, pageSize, Sort.Direction.ASC, "id", "name", "url", "createDate", "modificationDate"));
     }
 
 

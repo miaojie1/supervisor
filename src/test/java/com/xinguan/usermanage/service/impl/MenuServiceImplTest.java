@@ -6,11 +6,14 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class MenuServiceImplTest extends BaseServiceTest {
@@ -39,4 +42,13 @@ public class MenuServiceImplTest extends BaseServiceTest {
     public void tearDown() {
     }
 
+    @Test
+    public void testListMenuByPage() {
+        Map<String, Object> param = new HashMap<>();
+        //param.put("name", "功能");
+        Page<Menu> menus = menuService.listMenuByPage(2, 1, param);
+        System.out.println(menus);
+        System.out.println("总条数：" + menus.getTotalElements() + ", 总页数：" + menus.getTotalPages() + ",当前页：" + menus.getNumber() + ",当前页条数：" + menus.getNumberOfElements());
+        System.out.println(menus.getContent());
+    }
 }

@@ -5,6 +5,7 @@ import com.xinguan.usermanage.model.Menu;
 import com.xinguan.usermanage.model.Operation;
 import com.xinguan.usermanage.model.Role;
 import com.xinguan.usermanage.service.EmployeeService;
+import com.xinguan.utils.CommonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
 
 /**
  * @author zhangzhan
@@ -45,12 +45,13 @@ public class UrlInterceptor implements HandlerInterceptor {
             a:
             for (Role role : employee.getRoles()) {
                 for (Menu menu : role.getMenus()) {
-                    if (Objects.equals(menu.getUrl(), url)) {
+
+                    if (CommonUtil.verificationStr(menu.getUrl(), url)) {
                         flag = true;
                         break a;
                     }
                     for (Operation operation : menu.getOperation()) {
-                        if (Objects.equals(operation.getButtonUrl(), url)) {
+                        if (CommonUtil.verificationStr(operation.getButtonUrl(), url)) {
                             flag = true;
                             break a;
                         }
@@ -60,7 +61,7 @@ public class UrlInterceptor implements HandlerInterceptor {
         }
 
         if (!flag) {
-            response.setStatus(401);
+            response.setStatus(403);
             response.getWriter().write("Invalid access");
             LOGGER.warn("User:" + (employee == null ? "" : employee.getUsername()) + " try to access " + request.getRequestURI());
         }

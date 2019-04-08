@@ -31,6 +31,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         excludUrl.add("/swagger-ui.html#!/**");
         excludUrl.add("/swagger-resources/**");
         excludUrl.add("/v2/**");
+        excludUrl.add("/error");
         excludUrl.add("/oauth/token");
         excludUrl.add("/employee/saveEmployeeTemp");
         registry.addInterceptor(urlInterceptor).addPathPatterns("/**").excludePathPatterns(excludUrl);

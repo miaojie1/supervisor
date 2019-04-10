@@ -37,9 +37,17 @@ public class Menu {
     private Set<Menu> subMenus;
     @Column
     private Boolean rootMenu;
+    @Transient
+    private Long parentMenu;
 
 
+    public Long getParentMenu() {
+        return parentMenu;
+    }
 
+    public void setParentMenu(Long parentMenu) {
+        this.parentMenu = parentMenu;
+    }
 
     public Set<Menu> getSubMenus() {
         return subMenus;

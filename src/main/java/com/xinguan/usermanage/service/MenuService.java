@@ -11,4 +11,10 @@ public interface MenuService {
     Set<Menu> listMenuByEmployee(Employee employee);
 
     Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params);
+
+    Menu addOrEditMenu(Menu menu);
+
+    void removeMenu(Long id);
+
+    Menu getMenuById(Long id);
 }

@@ -1,12 +1,17 @@
 package com.xinguan.usermanage.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.utils.CommonUtil;
 import com.xinguan.utils.PageInfo;
+import com.xinguan.utils.ResultInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +26,8 @@ import java.util.Set;
 @RequestMapping("/menu")
 @Api(value = "菜单相关接口 ")
 public class MenuController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
 
     @PostMapping(value = "/listMenu")
     @ApiOperation(value = "获取当前登录用户的菜单")
@@ -38,6 +45,36 @@ public class MenuController extends BaseController {
         Page<Menu> page = menuService.listMenuByPage(pageSize, pageNo, param);
         return new PageInfo<>(page, param);
     }
+
+    @GetMapping(value = "/addOrEditMenu/menuId/{menuId}")
+    @ApiOperation(value = "资源新增或修改GET方法")
+    public Menu addOrEditMenu(@ApiParam(name = "menuId", value = "menu id,如果是修改，此值不能为空") @PathVariable String menuId) {
+        Menu menu;
+        if (StringUtils.isEmpty(menuId) || "{menuId}".equals(menuId)) {
+            menu = new Menu();
+        } else {
+            menu = menuService.getMenuById(Long.parseLong(menuId));
+        }
+        return menu;
+    }
+
+    @PostMapping(value = "/saveMenu")
+    @ApiOperation(value = "资源新增或修改POST方法")
+    public ResultInfo addOrEdit(@ApiParam(name = "menu", required = true, value = "待保存的对象") @RequestBody Menu menu) {
+        Menu result = menuService.addOrEditMenu(menu);
+        if (menu.getParentMenu() != null) {
+            Menu parentMenu = menuService.getMenuById(menu.getParentMenu());
+            if (parentMenu != null) {
+                parentMenu.getSubMenus().add(result);
+                menuService.addOrEditMenu(parentMenu);
+            }
+        }
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("save menu data:" + JSON.toJSONString(result));
+        }
+        return new ResultInfo(true, "保存成功");
+    }
+
 
 
     public static void main(String[] args) {

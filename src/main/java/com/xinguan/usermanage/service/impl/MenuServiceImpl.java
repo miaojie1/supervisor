@@ -78,5 +78,19 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         }, PageRequest.of(pageNo - 1, pageSize, Sort.Direction.ASC, "id", "name", "url", "createDate", "modificationDate"));
     }
 
+    @Override
+    public Menu addOrEditMenu(Menu menu) {
+        return menuRepository.saveAndFlush(menu);
+    }
+
+    @Override
+    public void removeMenu(Long id) {
+        menuRepository.deleteById(id);
+    }
+
+    @Override
+    public Menu getMenuById(Long id) {
+        return menuRepository.getOne(id);
+    }
 
 }

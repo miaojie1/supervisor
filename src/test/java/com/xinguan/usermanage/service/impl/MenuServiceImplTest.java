@@ -51,4 +51,9 @@ public class MenuServiceImplTest extends BaseServiceTest {
         System.out.println("总条数：" + menus.getTotalElements() + ", 总页数：" + menus.getTotalPages() + ",当前页：" + menus.getNumber() + ",当前页条数：" + menus.getNumberOfElements());
         System.out.println(menus.getContent());
     }
+
+    @Test
+    public void testAddOrEditMenu() {
+
+    }
 }

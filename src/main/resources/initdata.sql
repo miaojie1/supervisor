@@ -1,4 +1,3 @@
-
 insert into employee(id, name, username, password, create_date, modification_date)
 values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date);
 
@@ -28,12 +27,16 @@ values (1, 1),
 
 insert into operation(id, button_id, button_url, create_time, modification_time)
 values (1, 'addBtn', '123', current_date, current_date),
-       (2, 'editBtn', '123', current_date, current_date);
+       (2, 'editBtn', '123', current_date, current_date),
+       (3, 'addBtn', '/menu/addOrEditMenu/menuId/{menuId}', current_date, current_date),
+       (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date);
 
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
-       (3, 2);
+       (3, 2),
+       (4, 3),
+       (4, 4);
 
 
 

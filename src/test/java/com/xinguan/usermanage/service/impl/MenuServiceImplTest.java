@@ -7,6 +7,7 @@ import com.xinguan.usermanage.model.Menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -55,5 +56,25 @@ public class MenuServiceImplTest extends BaseServiceTest {
     @Test
     public void testAddOrEditMenu() {
 
+    }
+
+    @Test
+    public void testListMenuByEmployee() {
+    }
+
+    @Test
+    public void testRemoveMenu() {
+
+    }
+
+    @Test
+    public void testBatchRemoveMenu() {
+    }
+
+    @Test
+    public void testGetMenuById() {
+        Menu menu = menuService.getMenuById(2L);
+        Assert.assertNotNull(menu);
+        Assert.assertEquals(menu.getName(), "用户管理");
     }
 }

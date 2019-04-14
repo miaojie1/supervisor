@@ -16,5 +16,7 @@ public interface MenuService {
 
     void removeMenu(Long id);
 
+    void batchRemoveMenu(Set<Long> ids);
+
     Menu getMenuById(Long id);
 }

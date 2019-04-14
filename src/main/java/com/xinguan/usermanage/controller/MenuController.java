@@ -1,6 +1,7 @@
 package com.xinguan.usermanage.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Sets;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.utils.CommonUtil;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author zhangzhan
@@ -75,6 +77,39 @@ public class MenuController extends BaseController {
         return new ResultInfo(true, "保存成功");
     }
 
+    @PostMapping("/delete/menuId/{menuId}")
+    @ApiOperation(value = "根据Menu ID删除资源")
+    public ResultInfo deleteById(@ApiParam(name = "menuId", required = true, value = "需要删除的Menu ID") @PathVariable String menuId) {
+        final ResultInfo resultInfo = new ResultInfo();
+        try {
+            menuService.removeMenu(Long.parseLong(menuId));
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("删除成功");
+        } catch (Exception e) {
+            LOGGER.error("删除Menu失败：id:" + menuId + ",errorMessage:" + e.getMessage());
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("删除失败");
+        }
+        return resultInfo;
+    }
+
+    @PostMapping("/batch/delete/menu")
+    @ApiOperation(value = "批量删除Menu")
+    public ResultInfo batchDeleteMenu(@ApiParam(name = "menuIds", required = true, value = "需要删除的MenuId，多个MenuId用英文逗号分隔") String menuIds) {
+        final ResultInfo resultInfo = new ResultInfo();
+        try {
+            String[] ids = menuIds.split(",");
+            Set<String> idStr = Sets.newHashSet(ids);
+            Set<Long> idLong = idStr.stream().map(Long::parseLong).collect(Collectors.toSet());
+            menuService.batchRemoveMenu(idLong);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("删除成功");
+        } catch (Exception e) {
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("删除失败");
+        }
+        return resultInfo;
+    }
 
 
     public static void main(String[] args) {

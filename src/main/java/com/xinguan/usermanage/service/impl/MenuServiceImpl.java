@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -78,14 +80,24 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         }, PageRequest.of(pageNo - 1, pageSize, Sort.Direction.ASC, "id", "name", "url", "createDate", "modificationDate"));
     }
 
+    @Transactional
     @Override
     public Menu addOrEditMenu(Menu menu) {
         return menuRepository.saveAndFlush(menu);
     }
 
+    @Transactional
     @Override
     public void removeMenu(Long id) {
+        Assert.notNull(id, "The given Id must not be null!");
         menuRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void batchRemoveMenu(Set<Long> ids) {
+        Set<Menu> menus = ids.stream().map(id -> getMenuById(id)).collect(Collectors.toSet());
+        menuRepository.deleteInBatch(menus);
     }
 
     @Override

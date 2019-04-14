@@ -22,6 +22,9 @@ public class ResultInfo implements Serializable {
         this.object = object;
     }
 
+    public ResultInfo() {
+    }
+
     public ResultInfo(boolean status) {
         this.status = status;
     }

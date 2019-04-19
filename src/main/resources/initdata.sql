@@ -5,7 +5,7 @@ values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, c
 insert into role(id, create_date, description, modification_date, name, superior_role_id, version)
 values (1, current_date, '管理员', current_date, 'admin', null, 1);
 
-insert into employee_role(employee_id, roles_id)
+insert into employee_role(employees_id, roles_id)
 values (1, 1);
 
 replace into menu(id, create_date, modification_date, name, url, sort, remark, status, root_menu, version)
@@ -17,9 +17,11 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1),
 
 insert into menu_sub_menus(menu_id, sub_menus_id)
 values (1, 2),
-       (1, 3);
+       (1, 3),
+       (1, 4);
 
-insert into role_menu(role_id, menus_id)
+
+insert into role_menu(roles_id, menus_id)
 values (1, 1),
        (1, 2),
        (1, 3),
@@ -28,8 +30,16 @@ values (1, 1),
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
 values (1, 'addBtn', '123', current_date, current_date, 1),
        (2, 'editBtn', '123', current_date, current_date, 1),
-       (3, 'addBtn', '/menu/addOrEditMenu/menuId/{menuId}', current_date, current_date, 1),
-       (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1);
+       (3, 'addBtn', '/menu/addOrEditMenu', current_date, current_date, 1),
+       (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
+       (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1);
+
+insert into role_operation(roles_id, operations_id)
+values (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -38,5 +48,7 @@ values (2, 1),
        (4, 3),
        (4, 4);
 
-
+update hibernate_sequence
+set next_val=10
+where 1 = 1;
 

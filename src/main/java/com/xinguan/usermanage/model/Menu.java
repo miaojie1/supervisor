@@ -25,7 +25,7 @@ public class Menu {
     @Column
     private Date modificationDate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Operation> operation;
     @Column
     private Integer sort;
@@ -39,13 +39,22 @@ public class Menu {
     private Boolean rootMenu;
     @Transient
     private Long parentMenu;
-
+    @ManyToMany(mappedBy = "menus", cascade = CascadeType.MERGE)
+    private Set<Role> roles;
     @Version
     @Column
     private int version;
 
     public int getVersion() {
         return version;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public void setVersion(int version) {

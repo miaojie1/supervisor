@@ -3,6 +3,7 @@ package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 职位
@@ -28,6 +29,17 @@ public class EmployeePosition {
     @Version
     @Column
     private int version;
+
+    @OneToMany(mappedBy = "employeePosition", cascade = CascadeType.MERGE)
+    private List<Employee> employeeList;
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 
     public int getVersion() {
         return version;

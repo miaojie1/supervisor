@@ -23,14 +23,35 @@ public class Role {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @OneToOne(targetEntity = Role.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Role.class, cascade = CascadeType.MERGE)
     private Role superiorRole;
-    @ManyToMany(targetEntity = Menu.class,cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Menu.class, cascade = CascadeType.MERGE)
     @JoinTable(name = "role_menu")
     private Set<Menu> menus;
+    @ManyToMany(targetEntity = Operation.class, cascade = CascadeType.MERGE)
+    @JoinTable(name = "role_operation")
+    private Set<Operation> operations;
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE)
+    private Set<Employee> employees;
     @Version
     @Column
     private int version;
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public Set<Operation> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(Set<Operation> operations) {
+        this.operations = operations;
+    }
 
     public int getVersion() {
         return version;

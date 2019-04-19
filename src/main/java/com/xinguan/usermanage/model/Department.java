@@ -2,6 +2,7 @@ package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 部门
@@ -28,12 +29,17 @@ public class Department {
     /**
      * 部门主管
      */
-    @ManyToOne(targetEntity = Employee.class,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Employee.class, cascade = CascadeType.MERGE)
     private Employee chiefEmployee;
+    /**
+     * 部门职员
+     */
+    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    private List<Employee> memberShip;
     /**
      * 上级部门
      */
-    @OneToOne(targetEntity = Department.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Department.class, cascade = CascadeType.MERGE)
     private Department superiorDepartment;
     /**
      * 创建日期
@@ -50,6 +56,14 @@ public class Department {
     @Column
     private int version;
 
+
+    public List<Employee> getMemberShip() {
+        return memberShip;
+    }
+
+    public void setMemberShip(List<Employee> memberShip) {
+        this.memberShip = memberShip;
+    }
 
     public int getVersion() {
         return version;

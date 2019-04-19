@@ -19,7 +19,7 @@ public class PostingSystem {
     private String name;
     @Column
     private String content;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "postingSystem_attachment")
     private List<Attachment> attachments;
     @Column

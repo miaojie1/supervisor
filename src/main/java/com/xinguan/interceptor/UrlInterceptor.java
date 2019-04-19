@@ -50,11 +50,12 @@ public class UrlInterceptor implements HandlerInterceptor {
                         flag = true;
                         break a;
                     }
-                    for (Operation operation : menu.getOperation()) {
-                        if (CommonUtil.verificationStr(operation.getButtonUrl(), url)) {
-                            flag = true;
-                            break a;
-                        }
+
+                }
+                for (Operation operation : role.getOperations()) {
+                    if (CommonUtil.verificationStr(operation.getButtonUrl(), url)) {
+                        flag = true;
+                        break a;
                     }
                 }
             }

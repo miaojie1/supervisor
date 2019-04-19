@@ -4,6 +4,7 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.usermanage.model.Role;
 import com.xinguan.usermanage.repository.MenuRepository;
+import com.xinguan.usermanage.repository.RoleRepository;
 import com.xinguan.usermanage.service.BaseService;
 import com.xinguan.usermanage.service.MenuService;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -32,10 +34,14 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuServiceImpl.class);
 
     private MenuRepository menuRepository;
+    private RoleRepository roleRepository;
+
+
 
     @Autowired
-    public MenuServiceImpl(MenuRepository menuRepository) {
+    public MenuServiceImpl(MenuRepository menuRepository, RoleRepository roleRepository) {
         this.menuRepository = menuRepository;
+        this.roleRepository = roleRepository;
     }
 
     /**
@@ -79,6 +85,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     @Transactional
     @Override
     public Menu addOrEditMenu(Menu menu) {
+        menu.setModificationDate(new Date());
         return menuRepository.saveAndFlush(menu);
     }
 

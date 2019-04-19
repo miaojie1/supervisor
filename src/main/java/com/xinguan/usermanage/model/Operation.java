@@ -3,6 +3,7 @@ package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author zhangzhan
@@ -22,10 +23,31 @@ public class Operation {
     private Date createTime;
     @Column
     private Date modificationTime;
+    @Column
+    private String name;
 
     @Version
     @Column
     private int version;
+    @ManyToMany(mappedBy = "operations", cascade = CascadeType.MERGE)
+    private Set<Role> roles;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getVersion() {
         return version;

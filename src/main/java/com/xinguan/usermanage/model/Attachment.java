@@ -3,6 +3,7 @@ package com.xinguan.usermanage.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 附件
@@ -39,6 +40,17 @@ public class Attachment {
     @Version
     @Column
     private int version;
+
+    @ManyToMany(mappedBy = "attachments", cascade = CascadeType.MERGE)
+    private List<PostingSystem> postingSystemList;
+
+    public List<PostingSystem> getPostingSystemList() {
+        return postingSystemList;
+    }
+
+    public void setPostingSystemList(List<PostingSystem> postingSystemList) {
+        this.postingSystemList = postingSystemList;
+    }
 
     public int getVersion() {
         return version;

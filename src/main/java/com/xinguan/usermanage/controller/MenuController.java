@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -113,8 +115,9 @@ public class MenuController extends BaseController {
 
 
     public static void main(String[] args) {
-        String str = "/menu/listMenuPage/pageNo/1/pageSize/10";
-        String regex = "/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}";
-        System.out.println(CommonUtil.verificationStr(regex, str));
+        List<String> baseProductCodes = new ArrayList<>();
+        baseProductCodes.add("123");
+        baseProductCodes.add("454");
+        System.out.println(JSON.toJSON(baseProductCodes));
     }
 }

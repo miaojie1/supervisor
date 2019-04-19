@@ -28,7 +28,17 @@ public class Role {
     @ManyToMany(targetEntity = Menu.class,cascade = CascadeType.ALL)
     @JoinTable(name = "role_menu")
     private Set<Menu> menus;
+    @Version
+    @Column
+    private int version;
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Set<Menu> getMenus() {
         return menus;

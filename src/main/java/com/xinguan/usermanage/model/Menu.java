@@ -40,6 +40,17 @@ public class Menu {
     @Transient
     private Long parentMenu;
 
+    @Version
+    @Column
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Long getParentMenu() {
         return parentMenu;

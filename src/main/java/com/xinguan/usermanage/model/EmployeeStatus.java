@@ -1,9 +1,7 @@
 package com.xinguan.usermanage.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -27,6 +25,17 @@ public class EmployeeStatus {
     private Date createDate;
     @Column
     private Date modificationDate;
+    @Version
+    @Column
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Long getId() {
         return id;

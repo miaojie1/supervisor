@@ -46,7 +46,7 @@ public class MenuServiceImplTest extends BaseServiceTest {
     @Test
     public void testListMenuByPage() {
         Map<String, Object> param = new HashMap<>();
-        //param.put("name", "功能");
+        param.put("name", "管理");
         Page<Menu> menus = menuService.listMenuByPage(2, 1, param);
         System.out.println(menus);
         System.out.println("总条数：" + menus.getTotalElements() + ", 总页数：" + menus.getTotalPages() + ",当前页：" + menus.getNumber() + ",当前页条数：" + menus.getNumberOfElements());

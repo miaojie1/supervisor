@@ -9,7 +9,10 @@ import com.xinguan.usermanage.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -60,24 +63,17 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     @Override
     public Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params) {
         pageNo = pageNo <= 0 ? 1 : pageNo;
-        return menuRepository.findAll(new Example<Menu>() {
-            @Override
-            public Menu getProbe() {
-                Menu menu = new Menu();
-                transforObject(menu, params);
-                return menu;
-            }
-
-            @Override
-            public ExampleMatcher getMatcher() {
-
-                return ExampleMatcher.matching()
-                        .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains())
-                        .withMatcher("url", ExampleMatcher.GenericPropertyMatchers.contains())
-                        .withMatcher("remark", ExampleMatcher.GenericPropertyMatchers.contains())
-                        .withIgnoreCase();
-            }
-        }, PageRequest.of(pageNo - 1, pageSize, Sort.Direction.ASC, "id", "name", "url", "createDate", "modificationDate"));
+        Menu menu = new Menu();
+        if (params != null) {
+            transforObject(menu, params);
+        }
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase(true)
+                .withNullHandler(ExampleMatcher.NullHandler.IGNORE)
+                .withIgnorePaths("version");
+        Example<Menu> example = Example.of(menu, exampleMatcher);
+        return menuRepository.findAll(example, PageRequest.of(pageNo - 1, pageSize));
     }
 
     @Transactional

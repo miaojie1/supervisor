@@ -29,21 +29,24 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (2, 'editBtn', '123', current_date, current_date, 1),
        (3, 'addBtn', '/menu/addOrEditMenu', current_date, current_date, 1),
        (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
-       (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1);
+       (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1),
+       (6, 'batchDel', '/menu/batch/delete', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
        (1, 2),
        (1, 3),
        (1, 4),
-       (1, 5);
+       (1, 5),
+       (1, 6);
 
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
        (3, 2),
        (4, 3),
-       (4, 4);
+       (4, 4),
+       (4, 6);
 
 update hibernate_sequence
 set next_val=10

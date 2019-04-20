@@ -107,7 +107,7 @@ public class MenuController extends BaseController {
         return resultInfo;
     }
 
-    @PostMapping("/batch/delete/menu")
+    @PostMapping("/batch/delete")
     @ApiOperation(value = "批量删除Menu")
     public ResultInfo batchDeleteMenu(@ApiParam(name = "menuIds", required = true, value = "需要删除的MenuId，多个MenuId用英文逗号分隔") String menuIds) {
         final ResultInfo resultInfo = new ResultInfo();

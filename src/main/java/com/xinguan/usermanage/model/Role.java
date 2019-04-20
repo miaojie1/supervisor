@@ -1,5 +1,7 @@
 package com.xinguan.usermanage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -37,6 +39,7 @@ public class Role {
     @Column
     private int version;
 
+    @JsonIgnore
     public Set<Employee> getEmployees() {
         return employees;
     }

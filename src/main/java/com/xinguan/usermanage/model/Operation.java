@@ -1,6 +1,8 @@
 package com.xinguan.usermanage.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -32,6 +34,7 @@ public class Operation {
     @ManyToMany(mappedBy = "operations")
     private Set<Role> roles;
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }

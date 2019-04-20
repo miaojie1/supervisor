@@ -1,6 +1,8 @@
 package com.xinguan.usermanage.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +35,7 @@ public class EmployeeStatus {
     @OneToMany(mappedBy = "employeeStatus")
     private List<Employee> employeeList;
 
+    @JsonIgnore
     public List<Employee> getEmployeeList() {
         return employeeList;
     }

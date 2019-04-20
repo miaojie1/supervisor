@@ -1,5 +1,7 @@
 package com.xinguan.usermanage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -33,22 +35,36 @@ public class Menu {
     private Boolean status;
     @Column
     private String remark;
-    @OneToMany
+    @OneToMany(mappedBy = "parentMenu")
+
     private Set<Menu> subMenus;
     @Column
     private Boolean rootMenu;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+    private Menu parentMenu;
     @Transient
-    private Long parentMenu;
+    private Long parentMenuId;
     @ManyToMany(mappedBy = "menus")
+
     private Set<Role> roles;
     @Version
     @Column
     private int version;
 
+    public Long getParentMenuId() {
+        return parentMenuId;
+    }
+
+    public void setParentMenuId(Long parentMenuId) {
+        this.parentMenuId = parentMenuId;
+    }
+
     public int getVersion() {
         return version;
     }
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }
@@ -61,14 +77,16 @@ public class Menu {
         this.version = version;
     }
 
-    public Long getParentMenu() {
+    @JsonIgnore
+    public Menu getParentMenu() {
         return parentMenu;
     }
 
-    public void setParentMenu(Long parentMenu) {
+    public void setParentMenu(Menu parentMenu) {
         this.parentMenu = parentMenu;
     }
 
+    @JsonIgnore
     public Set<Menu> getSubMenus() {
         return subMenus;
     }

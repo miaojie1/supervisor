@@ -1,6 +1,8 @@
 package com.xinguan.usermanage.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +46,7 @@ public class Attachment {
     @ManyToMany(mappedBy = "attachments")
     private List<PostingSystem> postingSystemList;
 
+    @JsonIgnore
     public List<PostingSystem> getPostingSystemList() {
         return postingSystemList;
     }

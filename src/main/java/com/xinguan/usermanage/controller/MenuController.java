@@ -46,10 +46,9 @@ public class MenuController extends BaseController {
         Map<String, Object> param = CommonUtil.transforParamToMap(paramJson);
         Page<Menu> page = menuService.listMenuByPage(pageSize, pageNo, param);
         page.getContent().forEach(content -> {
-            content.getSubMenus().forEach(subMenu -> {
-                subMenu.setParentMenu(content.getId());
-            });
-            content.setSubMenus(null);
+            if (content.getParentMenu() != null) {
+                content.setParentMenuId(content.getParentMenu().getId());
+            }
         });
         return new PageInfo<>(page, param);
     }
@@ -72,11 +71,12 @@ public class MenuController extends BaseController {
     public ResultInfo addOrEdit(@ApiParam(name = "menu", required = true, value = "待保存的对象") @RequestBody Menu menu) {
         try {
             Menu result = menuService.addOrEditMenu(menu);
-            if (menu.getParentMenu() != null) {
-                Menu parentMenu = menuService.getMenuById(menu.getParentMenu());
+            if (null != menu.getParentMenuId()) {
+                Menu parentMenu = menuService.getMenuById(menu.getParentMenuId());
                 if (parentMenu != null) {
                     parentMenu.getSubMenus().add(result);
-
+                    menu.setParentMenu(parentMenu);
+                    menuService.addOrEditMenu(menu);
                     menuService.addOrEditMenu(parentMenu);
                 }
             }
@@ -134,7 +134,6 @@ public class MenuController extends BaseController {
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.setName("公告管理");
-        menu.setParentMenu(1L);
         menu.setCreateDate(new Date());
         menu.setModificationDate(new Date());
         menu.setStatus(true);

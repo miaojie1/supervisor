@@ -30,7 +30,7 @@ public class EmployeeStatus {
     @Column
     private int version;
 
-    @OneToMany(mappedBy = "employeeStatus", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "employeeStatus")
     private List<Employee> employeeList;
 
     public List<Employee> getEmployeeList() {

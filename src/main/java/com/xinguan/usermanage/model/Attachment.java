@@ -41,7 +41,7 @@ public class Attachment {
     @Column
     private int version;
 
-    @ManyToMany(mappedBy = "attachments", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "attachments")
     private List<PostingSystem> postingSystemList;
 
     public List<PostingSystem> getPostingSystemList() {

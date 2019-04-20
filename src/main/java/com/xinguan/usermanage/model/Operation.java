@@ -29,7 +29,7 @@ public class Operation {
     @Version
     @Column
     private int version;
-    @ManyToMany(mappedBy = "operations", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "operations")
     private Set<Role> roles;
 
     public Set<Role> getRoles() {

@@ -100,9 +100,9 @@ public class MenuController extends BaseController {
             resultInfo.setStatus(true);
             resultInfo.setMessage("删除成功");
         } catch (Exception e) {
-            LOGGER.error("删除Menu失败：id:" + menuId + ",errorMessage:" + e.getMessage());
+            LOGGER.error("删除Menu失败：id:" + menuId + ",errorMessage:" + e);
             resultInfo.setStatus(false);
-            resultInfo.setMessage("删除失败");
+            resultInfo.setMessage("删除失败，请检查是否有角色拥有此菜单");
         }
         return resultInfo;
     }

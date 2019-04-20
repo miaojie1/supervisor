@@ -29,17 +29,17 @@ public class Department {
     /**
      * 部门主管
      */
-    @ManyToOne(targetEntity = Employee.class, cascade = CascadeType.MERGE)
+    @ManyToOne(targetEntity = Employee.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Employee chiefEmployee;
     /**
      * 部门职员
      */
-    @OneToMany(mappedBy = "department", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "department", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Employee> memberShip;
     /**
      * 上级部门
      */
-    @OneToOne(targetEntity = Department.class, cascade = CascadeType.MERGE)
+    @OneToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Department superiorDepartment;
     /**
      * 创建日期

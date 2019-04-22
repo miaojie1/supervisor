@@ -36,17 +36,14 @@ public class Menu {
     @Column
     private String remark;
     @OneToMany(mappedBy = "parentMenu")
-
     private Set<Menu> subMenus;
     @Column
     private Boolean rootMenu;
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-
     private Menu parentMenu;
     @Transient
     private Long parentMenuId;
     @ManyToMany(mappedBy = "menus")
-
     private Set<Role> roles;
     @Version
     @Column

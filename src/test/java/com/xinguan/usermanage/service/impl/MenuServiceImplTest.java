@@ -1,6 +1,5 @@
 package com.xinguan.usermanage.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.xinguan.service.BaseServiceTest;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
@@ -25,7 +24,7 @@ public class MenuServiceImplTest extends BaseServiceTest {
         Employee employee = employeeService.findEmployeeByUsername(employeename);
         Set<Menu> menus = menuService.listMenuByEmployee(employee);
         if (menus != null) {
-            logger.info(JSON.toJSON(menus).toString());
+            logger.info(String.valueOf(menus.size()));
 
         }
     }

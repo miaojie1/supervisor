@@ -1,6 +1,7 @@
 package com.xinguan.service;
 
 import com.xinguan.Application;
+import com.xinguan.usermanage.service.DepartmentService;
 import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.usermanage.service.MenuService;
 import org.junit.runner.RunWith;
@@ -22,5 +23,7 @@ public class BaseServiceTest extends AbstractTestNGSpringContextTests {
     protected EmployeeService employeeService;
     @Autowired
     protected MenuService menuService;
+    @Autowired
+    protected DepartmentService departmentService;
 
 }

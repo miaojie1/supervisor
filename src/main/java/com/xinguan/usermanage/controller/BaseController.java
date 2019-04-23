@@ -1,5 +1,6 @@
 package com.xinguan.usermanage.controller;
 
+import com.xinguan.usermanage.service.DepartmentService;
 import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.usermanage.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public abstract class BaseController {
     protected MenuService menuService;
     @Autowired
     protected EmployeeService employeeService;
+    @Autowired
+    protected DepartmentService departmentService;
 
     protected Map<String, Object> transforParamToMap(String param) {
 

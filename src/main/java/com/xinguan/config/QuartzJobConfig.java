@@ -40,7 +40,7 @@ public class QuartzJobConfig {
                                                                MethodInvokingJobDetailFactoryBean jobDetailFactoryBean) {
         CronTriggerFactoryBean cronTriggerFactoryBean = new CronTriggerFactoryBean();
         cronTriggerFactoryBean.setJobDetail(jobDetailFactoryBean.getObject());
-        cronTriggerFactoryBean.setCronExpression("0/10 * * * * ?");
+        cronTriggerFactoryBean.setCronExpression("0 * */1 * * ?");
         cronTriggerFactoryBean.setName("System Data BackUp Job Trigger");
         return cronTriggerFactoryBean;
     }

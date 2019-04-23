@@ -41,7 +41,7 @@ public class PageInfo<T> {
         content = page.getContent();
         sort = page.getSort();
         pageSize = page.getNumberOfElements();
-        pageNo = page.getNumber() + 1;
+        pageNo = page.getNumber();
         page = null;
     }
 

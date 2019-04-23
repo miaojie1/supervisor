@@ -1,17 +1,13 @@
 package com.xinguan.usermanage.service.impl;
 
+import com.xinguan.core.service.BaseService;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.usermanage.model.Role;
-import com.xinguan.usermanage.repository.MenuRepository;
-import com.xinguan.usermanage.repository.RoleRepository;
-import com.xinguan.usermanage.service.BaseService;
 import com.xinguan.usermanage.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,17 +28,6 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuServiceImpl.class);
-
-    private MenuRepository menuRepository;
-    private RoleRepository roleRepository;
-
-
-
-    @Autowired
-    public MenuServiceImpl(MenuRepository menuRepository, RoleRepository roleRepository) {
-        this.menuRepository = menuRepository;
-        this.roleRepository = roleRepository;
-    }
 
     /**
      * 获取当前登录用户的菜单
@@ -68,18 +53,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     public Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params) {
-        pageNo = pageNo <= 0 ? 1 : pageNo;
         Menu menu = new Menu();
         if (params != null) {
             transforObject(menu, params);
         }
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
-                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                .withIgnoreCase(true)
-                .withNullHandler(ExampleMatcher.NullHandler.IGNORE)
-                .withIgnorePaths("version");
-        Example<Menu> example = Example.of(menu, exampleMatcher);
-        return menuRepository.findAll(example, PageRequest.of(pageNo - 1, pageSize));
+        Example<Menu> example = getSimpleExample(menu);
+        return menuRepository.findAll(example, PageRequest.of(pageNo, pageSize));
     }
 
     @Transactional

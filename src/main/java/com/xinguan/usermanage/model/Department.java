@@ -76,6 +76,7 @@ public class Department {
         this.version = version;
     }
 
+    @JsonIgnore
     public Employee getChiefEmployee() {
         return chiefEmployee;
     }

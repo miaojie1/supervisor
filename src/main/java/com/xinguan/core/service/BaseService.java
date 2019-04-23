@@ -1,7 +1,14 @@
-package com.xinguan.usermanage.service;
+package com.xinguan.core.service;
 
+import com.xinguan.usermanage.repository.DepartmentRepository;
+import com.xinguan.usermanage.repository.EmployeeRepository;
+import com.xinguan.usermanage.repository.MenuRepository;
+import com.xinguan.usermanage.repository.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -15,7 +22,43 @@ import java.util.Map;
 @Component
 public abstract class BaseService<T> {
 
+    @Autowired
+    protected EmployeeRepository employeeRepository;
+    @Autowired
+    protected MenuRepository menuRepository;
+    @Autowired
+    protected RoleRepository roleRepository;
+    @Autowired
+    protected DepartmentRepository departmentRepository;
+
+
+    public BaseService() {
+    }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseService.class);
+
+
+    /**
+     * 获取简单匹配器
+     * 1.字符串类型的属性支持模糊查询
+     * 2.忽略大小写
+     * 3.空值忽略
+     * 4.version属性忽略
+     *
+     * @return
+     */
+    protected ExampleMatcher getSimpleExampleMatcher() {
+        return ExampleMatcher.matching()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase(true)
+                .withNullHandler(ExampleMatcher.NullHandler.IGNORE)
+                .withIgnorePaths("version");
+    }
+
+    protected Example<T> getSimpleExample(T t) {
+        ExampleMatcher exampleMatcher = getSimpleExampleMatcher();
+        return Example.of(t, exampleMatcher);
+    }
 
     protected T transforObject(T o, Map<String, Object> params) {
         Class<?> tClass = o.getClass();

@@ -3,6 +3,7 @@ package com.xinguan.usermanage.controller;
 import com.xinguan.usermanage.service.DepartmentService;
 import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.usermanage.service.MenuService;
+import com.xinguan.usermanage.service.PostingSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -20,6 +21,8 @@ public abstract class BaseController {
     protected EmployeeService employeeService;
     @Autowired
     protected DepartmentService departmentService;
+    @Autowired
+    protected PostingSystemService postingSystemService;
 
     protected Map<String, Object> transforParamToMap(String param) {
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -38,6 +39,7 @@ public class BackUpDataJob {
         this.environment = environment;
     }
 
+    @Scheduled(cron = "0/10 * * * * ?")
     public void execute() {
         LOGGER.info("backUp system data job start");
         setBackUpFilePath();

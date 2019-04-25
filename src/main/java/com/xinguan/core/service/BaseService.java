@@ -1,9 +1,6 @@
 package com.xinguan.core.service;
 
-import com.xinguan.usermanage.repository.DepartmentRepository;
-import com.xinguan.usermanage.repository.EmployeeRepository;
-import com.xinguan.usermanage.repository.MenuRepository;
-import com.xinguan.usermanage.repository.RoleRepository;
+import com.xinguan.usermanage.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,8 @@ public abstract class BaseService<T> {
     protected RoleRepository roleRepository;
     @Autowired
     protected DepartmentRepository departmentRepository;
+    @Autowired
+    protected PostingSystemRepository postingSystemRepository;
 
 
     public BaseService() {

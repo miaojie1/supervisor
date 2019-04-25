@@ -68,7 +68,7 @@ public class DepartmentServiceImpl extends BaseService<Department> implements De
 
     @Override
     @Transactional
-    public Department addOrEditDepartment(Department department) {
+    public Department saveOrUpdate(Department department) {
         Example<Department> departmentExample = getSimpleExample(department);
         if (departmentRepository.exists(departmentExample)) {
             department.setModificationDate(new Date());

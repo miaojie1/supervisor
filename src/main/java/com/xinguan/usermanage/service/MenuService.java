@@ -12,7 +12,7 @@ public interface MenuService {
 
     Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params);
 
-    Menu addOrEditMenu(Menu menu);
+    Menu saveOrUpdate(Menu menu);
 
     void removeMenu(Long id);
 

@@ -63,7 +63,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Transactional
     @Override
-    public Menu addOrEditMenu(Menu menu) {
+    public Menu saveOrUpdate(Menu menu) {
         menu.setModificationDate(new Date());
         return menuRepository.saveAndFlush(menu);
     }

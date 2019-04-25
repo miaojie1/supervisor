@@ -70,14 +70,14 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "资源新增或修改POST方法")
     public ResultInfo addOrEdit(@ApiParam(name = "menu", required = true, value = "待保存的对象") @RequestBody Menu menu) {
         try {
-            Menu result = menuService.addOrEditMenu(menu);
+            Menu result = menuService.saveOrUpdate(menu);
             if (null != menu.getParentMenuId()) {
                 Menu parentMenu = menuService.getMenuById(menu.getParentMenuId());
                 if (parentMenu != null) {
                     parentMenu.getSubMenus().add(result);
                     menu.setParentMenu(parentMenu);
-                    menuService.addOrEditMenu(menu);
-                    menuService.addOrEditMenu(parentMenu);
+                    menuService.saveOrUpdate(menu);
+                    menuService.saveOrUpdate(parentMenu);
                 }
             }
             if (LOGGER.isDebugEnabled()) {

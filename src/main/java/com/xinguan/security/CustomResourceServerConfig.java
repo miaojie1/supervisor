@@ -29,7 +29,7 @@ public class CustomResourceServerConfig extends ResourceServerConfigurerAdapter 
 //                }).permitAll()
 
 
-                .antMatchers("/webjars/**","/swagger-ui.html","/swagger-ui.html#!/**","/swagger-resources/**","/v2/**","/oauth/token","/employee/saveEmployeeTemp").permitAll()
+                .antMatchers("/webjars/**", "/swagger-ui.html", "/swagger-ui.html#!/**", "/swagger-resources/**", "/v2/**", "/oauth/token", "/employee/saveEmployeeTemp", "/", "/actuator/**", "/actuator").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

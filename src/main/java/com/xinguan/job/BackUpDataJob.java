@@ -39,7 +39,7 @@ public class BackUpDataJob {
         this.environment = environment;
     }
 
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 * */1 * * ?")
     public void execute() {
         LOGGER.info("backUp system data job start");
         setBackUpFilePath();

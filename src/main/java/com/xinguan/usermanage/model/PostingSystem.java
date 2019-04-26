@@ -25,6 +25,11 @@ public class PostingSystem {
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "postingSystem_attachment")
     private List<Attachment> attachments;
+    /**
+     * 公告发布人
+     */
+    @OneToOne
+    private Employee announcer;
     @Column
     private Date effectDate;
     @Column
@@ -43,6 +48,14 @@ public class PostingSystem {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public void setAnnouncer(Employee announcer){
+        this.announcer=announcer;
+    }
+
+    public Employee getAnnouncer(){
+        return announcer;
     }
 
     public Date getEffectDate() {

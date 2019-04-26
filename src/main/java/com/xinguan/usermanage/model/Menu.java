@@ -85,7 +85,6 @@ public class Menu {
         this.parentMenu = parentMenu;
     }
 
-    @JsonIgnore
     public Set<Menu> getSubMenus() {
         return subMenus;
     }

@@ -49,6 +49,7 @@ public class MenuController extends BaseController {
             if (content.getParentMenu() != null) {
                 content.setParentMenuId(content.getParentMenu().getId());
             }
+            content.setSubMenus(null);
         });
         return new PageInfo<>(page, param);
     }

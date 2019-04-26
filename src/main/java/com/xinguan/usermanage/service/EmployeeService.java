@@ -1,6 +1,9 @@
 package com.xinguan.usermanage.service;
 
+import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
+
+import java.util.List;
 
 public interface EmployeeService {
 
@@ -21,4 +24,6 @@ public interface EmployeeService {
     Employee getCurrentUser();
 
     Employee saveEmployee(final Employee employee);
+
+    List<Employee> listEmployeeByDepartment(Department department);
 }

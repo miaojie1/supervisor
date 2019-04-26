@@ -1,12 +1,15 @@
 package com.xinguan.usermanage.service.impl;
 
 import com.xinguan.core.service.BaseService;
+import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.service.EmployeeService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author zhangzhan
@@ -40,6 +43,11 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
     @Override
     public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);
+    }
+
+    @Override
+    public List<Employee> listEmployeeByDepartment(Department department) {
+        return employeeRepository.findAllByDepartment(department);
     }
 
 }

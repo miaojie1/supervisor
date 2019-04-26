@@ -2,10 +2,12 @@ package com.xinguan;
 
 import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.apache.catalina.connector.Connector;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,7 @@ import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -38,7 +41,8 @@ public class Application extends SpringBootServletInitializer {
     private Resource initSql;
     @Value("${spring.jpa.properties.hibernate.hbm2ddl.auto}")
     private String initialize;
-
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -74,6 +78,11 @@ public class Application extends SpringBootServletInitializer {
         return dataSourceInitializer;
     }
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return restTemplateBuilder.build();
+    }
+
     private CorsConfiguration configuration() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");
@@ -89,11 +98,10 @@ public class Application extends SpringBootServletInitializer {
             final ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
             databasePopulator.addScript(initSql);
             return databasePopulator;
-        }else{
+        } else {
             return null;
         }
     }
-
 
 
 }

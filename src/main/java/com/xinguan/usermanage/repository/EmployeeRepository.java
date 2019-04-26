@@ -1,5 +1,6 @@
 package com.xinguan.usermanage.repository;
 
+import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllByUsernameStartingWith(String startStr);
 
     Employee findByUsername(String username);
+
+    List<Employee> findAllByDepartment(Department department);
 
 }

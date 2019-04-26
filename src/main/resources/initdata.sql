@@ -1,11 +1,11 @@
 insert into employee(id, name, username, password, create_date, modification_date, version)
 values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1);
 
-insert into department(id, create_date, description, modification_date, name, version, chief_employee_id,
+insert into department(id, create_date, description, modification_date, name, version,
                        superior_department_id)
-values (1, current_date, 'department', null, '总裁办', 1, 1, null),
-       (2, current_date, 'department1', null, '人力资源', 1, null, 1),
-       (3, current_date, 'department2', null, '质管部', 1, null, 1);
+values (1, current_date, 'department', null, '总裁办', 1, null),
+       (2, current_date, 'department1', null, '人力资源', 1, 1),
+       (3, current_date, 'department2', null, '质管部', 1, 1);
 
 update employee
 set department_id=1
@@ -54,7 +54,10 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (7, 'postingAddBtn', '/posting/addOrEditPosting', current_date, current_date, 1),
        (8, 'postingAddBtnOk', '/posting/savePosting', current_date, current_date, 1),
        (9, 'postingDelBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1),
-       (10, 'postingBatchDel', '/posting/batch/delete', current_date, current_date, 1);
+       (10, 'postingBatchDel', '/posting/batch/delete', current_date, current_date, 1),
+       (11, 'editBtn', '/department/edit', current_date, current_date, 1),
+       (12, 'saveBtn', '/department/saveOrUpdate', current_date, current_date, 1),
+       (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -66,7 +69,10 @@ values (1, 1),
        (1, 7),
        (1, 8),
        (1, 9),
-       (1, 10);
+       (1, 10),
+       (1, 11),
+       (1, 12),
+       (1, 13);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -77,10 +83,13 @@ values (2, 1),
        (4, 6),
        (6, 7),
        (6, 8),
-       (6, 10);
+       (6, 10),
+       (5, 11),
+       (5, 12),
+       (5, 13);
 
 
 update hibernate_sequence
-set next_val=10
+set next_val=100
 where 1 = 1;
 

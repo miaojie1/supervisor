@@ -2,6 +2,7 @@ package com.xinguan.usermanage.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
  * @date 2019-02-16 09:21
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EmployeeStatus {
     @Id
     @GeneratedValue

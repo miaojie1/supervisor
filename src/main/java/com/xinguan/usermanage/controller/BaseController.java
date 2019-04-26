@@ -6,6 +6,7 @@ import com.xinguan.usermanage.service.MenuService;
 import com.xinguan.usermanage.service.PostingSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
@@ -23,6 +24,9 @@ public abstract class BaseController {
     protected DepartmentService departmentService;
     @Autowired
     protected PostingSystemService postingSystemService;
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     protected Map<String, Object> transforParamToMap(String param) {
 

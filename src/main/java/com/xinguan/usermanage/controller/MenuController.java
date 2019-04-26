@@ -57,7 +57,7 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "资源新增或修改GET方法")
     public Menu addOrEditMenu(@ApiParam(name = "menuId", value = "menu id,如果是修改，此值不能为空") String menuId) {
         Menu menu;
-        if (StringUtils.isEmpty(menuId) || "{menuId}".equals(menuId)) {
+        if (StringUtils.isEmpty(menuId)) {
             menu = new Menu();
             menu.setCreateDate(new Date());
         } else {

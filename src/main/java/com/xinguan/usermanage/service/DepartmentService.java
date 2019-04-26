@@ -7,10 +7,10 @@ import org.springframework.data.domain.Page;
 public interface DepartmentService {
     Page<Department> listDepartmentByPage(int pageSize, int pageNo, String departmentName, Employee employee);
 
-    Department saveOrUpdate(Department department);
+    Department saveOrUpdate(Department department, Long superiorDepartmentId);
 
     Department getDepartmentById(Long id);
 
-    void removeDepartment(Long id);
+    void removeDepartmentBatch(String ids);
 
 }

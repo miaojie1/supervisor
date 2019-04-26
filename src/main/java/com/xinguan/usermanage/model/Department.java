@@ -1,10 +1,9 @@
 package com.xinguan.usermanage.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 部门
@@ -13,6 +12,7 @@ import java.util.List;
  * @date 2019-02-16 08:20
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Department {
 
     @Id
@@ -28,20 +28,11 @@ public class Department {
      */
     @Column
     private String description;
-    /**
-     * 部门主管
-     */
-    @ManyToOne(targetEntity = Employee.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Employee chiefEmployee;
-    /**
-     * 部门职员
-     */
-    @OneToMany(mappedBy = "department", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Employee> memberShip;
+
     /**
      * 上级部门
      */
-    @OneToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
     private Department superiorDepartment;
     /**
      * 创建日期
@@ -58,31 +49,12 @@ public class Department {
     @Column
     private int version;
 
-
-    @JsonIgnore
-    public List<Employee> getMemberShip() {
-        return memberShip;
-    }
-
-    public void setMemberShip(List<Employee> memberShip) {
-        this.memberShip = memberShip;
-    }
-
     public int getVersion() {
         return version;
     }
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    @JsonIgnore
-    public Employee getChiefEmployee() {
-        return chiefEmployee;
-    }
-
-    public void setChiefEmployee(Employee chiefEmployee) {
-        this.chiefEmployee = chiefEmployee;
     }
 
     public Department getSuperiorDepartment() {

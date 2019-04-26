@@ -2,6 +2,7 @@ package com.xinguan.usermanage.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Set;
  * @date 2019-03-23 14:02
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Operation {
 
     @Id

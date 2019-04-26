@@ -1,5 +1,7 @@
 package com.xinguan.usermanage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import java.util.Date;
  * @author zhangzhan
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BackUpData {
     @Id
     @GeneratedValue

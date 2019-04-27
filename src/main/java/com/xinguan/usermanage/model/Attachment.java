@@ -35,11 +35,6 @@ public class Attachment {
      */
     @Column
     private Date uploadDate;
-    /**
-     * 创建日期
-     */
-    @Column
-    private Date createData;
 
     @Version
     @Column
@@ -97,11 +92,4 @@ public class Attachment {
         this.uploadDate = uploadDate;
     }
 
-    public Date getCreateData() {
-        return createData;
-    }
-
-    public void setCreateData(Date createData) {
-        this.createData = createData;
-    }
 }

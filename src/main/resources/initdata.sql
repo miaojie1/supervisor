@@ -11,10 +11,10 @@ update employee
 set department_id=1
 where id = 1;
 
-insert into posting_system(id, content, create_date, effect_date, expire_date, modification_date, name, version)
-values (1, '公告内容1',current_date, null, null, current_date, '公告1', 1),
-       (2, '公告内容2',current_date, null, null, current_date, '公告2', 1),
-       (3, '公告内容3',current_date, null, null, current_date, '公告3', 1);
+insert into posting_system(id, content, create_date, effect_date, expire_date, modification_date, name, version,announcer_id)
+values (1, '公告内容1',current_date, null, null, current_date, '公告1', 1,1),
+       (2, '公告内容2',current_date, null, null, current_date, '公告2', 1,1),
+       (3, '公告内容3',current_date, null, null, current_date, '公告3', 1,1);
 
 insert into role(id, create_date, description, modification_date, name, superior_role_id, version)
 values (1, current_date, '管理员', current_date, 'admin', null, 1);

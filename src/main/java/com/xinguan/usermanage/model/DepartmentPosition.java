@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class EmployeePosition {
+public class DepartmentPosition {
     @Id
     @GeneratedValue
     private Long id;
@@ -34,8 +34,20 @@ public class EmployeePosition {
     @Column
     private int version;
 
-    @OneToMany(mappedBy = "employeePosition")
+    @OneToMany(mappedBy = "departmentPosition")
     private List<Employee> employeeList;
+
+    @ManyToOne
+    private Department department;
+
+    @JsonIgnore
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     @JsonIgnore
     public List<Employee> getEmployeeList() {

@@ -86,8 +86,8 @@ public class Employee {
     /**
      * 员工职位
      */
-    @ManyToOne(targetEntity = EmployeePosition.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private EmployeePosition employeePosition;
+    @ManyToOne(targetEntity = DepartmentPosition.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private DepartmentPosition departmentPosition;
     /**
      * 创建日期
      */
@@ -188,12 +188,13 @@ public class Employee {
         this.employeeStatus = employeeStatus;
     }
 
-    public EmployeePosition getEmployeePosition() {
-        return employeePosition;
+
+    public DepartmentPosition getDepartmentPosition() {
+        return departmentPosition;
     }
 
-    public void setEmployeePosition(EmployeePosition employeePosition) {
-        this.employeePosition = employeePosition;
+    public void setDepartmentPosition(DepartmentPosition departmentPosition) {
+        this.departmentPosition = departmentPosition;
     }
 
     public Department getDepartment() {

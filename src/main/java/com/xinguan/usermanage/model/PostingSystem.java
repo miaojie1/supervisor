@@ -30,8 +30,14 @@ public class PostingSystem {
      */
     @OneToOne
     private Employee announcer;
+    /**
+     * 生效日期
+     */
     @Column
     private Date effectDate;
+    /**
+     * 失效日期
+     */
     @Column
     private Date expireDate;
     @Column

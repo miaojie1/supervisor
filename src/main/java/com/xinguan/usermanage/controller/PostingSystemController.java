@@ -3,6 +3,7 @@ package com.xinguan.usermanage.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
 import com.xinguan.usermanage.model.PostingSystem;
+import com.xinguan.utils.CommonUtil;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import io.swagger.annotations.Api;
@@ -26,6 +27,16 @@ import java.util.stream.Collectors;
 public class PostingSystemController extends BaseController{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PostingSystemController.class);
+
+    @ApiOperation(value = "首页公告列表", notes = "返回有效期内的公告。")
+    @PostMapping("/listExpPostingPage/pageNo/{pageNo}/pageSize/{pageSize}")
+    public PageInfo<PostingSystem> listExpPostingPage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
+                                                      @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
+                                                      @ApiParam(name = "paramJson", value = "查询条件用json拼接，格式：{\"key1\":\"value1\",\"key2\":value2}") String paramJson) {
+        Map<String, Object> param = CommonUtil.transforParamToMap(paramJson);
+        Page<PostingSystem> postingSystems = postingSystemService.listExpPostingByPage(pageSize, pageNo);
+        return new PageInfo<>(postingSystems, param);
+    }
 
     @ApiOperation(value = "获取公告列表", notes = "返回公告列表。支持通过公告名称模糊查询。")
     @PostMapping("/listPostingPage/pageNo/{pageNo}/pageSize/{pageSize}")

@@ -28,6 +28,15 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
     }
 
     @Override
+    public Page<PostingSystem> listExpPostingByPage(int pageSize, int pageNo) {
+        return postingSystemRepository.findAll((Specification<PostingSystem>) (root, criteriaQuery, criteriaBuilder) -> {
+            Date nowDate = new Date();
+            criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThan(root.<Date> get("expireDate"),nowDate),criteriaBuilder.lessThan(root.<Date> get("effectDate"),nowDate)));
+            return criteriaQuery.getRestriction();
+        }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
+    }
+
+    @Override
     public Page<PostingSystem> listPostingByPage(int pageSize, int pageNo, String postingName) {
         return postingSystemRepository.findAll((Specification<PostingSystem>) (root, criteriaQuery, criteriaBuilder) -> {
             Predicate namePredicate = null;

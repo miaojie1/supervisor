@@ -50,7 +50,4 @@ public class DepartmentServiceImplTest extends BaseServiceTest {
         Assert.assertEquals(getDepartment.getName(), "test");
     }
 
-    @Test(dependsOnMethods = "testRemoveDepartment")
-    public void testRemoveDepartmentBatch() {
-    }
 }

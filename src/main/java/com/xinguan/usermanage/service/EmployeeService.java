@@ -2,6 +2,10 @@ package com.xinguan.usermanage.service;
 
 import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
+import org.springframework.data.domain.Page;
+
+import java.util.Map;
+import java.util.Set;
 
 import java.util.List;
 
@@ -26,4 +30,14 @@ public interface EmployeeService {
     Employee saveEmployee(final Employee employee);
 
     List<Employee> listEmployeeByDepartment(Department department);
+
+    Page<Employee> listEmployeeByPage(int pageSize, int pageNo, Map<String, Object> params);
+
+    Employee addOrEditEmployee(Employee employee);
+
+    void removeEmployee(Long id);
+
+    void batchRemoveEmployee(Set<Long> ids);
+
+    Employee getEmployeeById(Long id);
 }

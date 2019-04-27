@@ -25,7 +25,7 @@ values (1, 1);
 replace into menu(id, create_date, modification_date, name, url, sort, remark, status, root_menu, version,
                   parent_menu_id)
 values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, null),
-       (2, current_date, null, '用户管理', '/user/listUser', 1, '', true, false, 1, 1),
+       (2, current_date, null, '用户管理', '/employee/listEmployeePage/pageSize/{pageSize}/pageNo/{pageNo}', 1, '', true, false, 1, 1),
        (3, current_date, null, '用户菜单', '/menu/listMenu', 1, '', true, false, 1, 1),
        (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1,
         1),
@@ -62,7 +62,11 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (10, 'postingBatchDel', '/posting/batch/delete', current_date, current_date, 1),
        (11, 'editBtn', '/department/edit', current_date, current_date, 1),
        (12, 'saveBtn', '/department/saveOrUpdate', current_date, current_date, 1),
-       (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1);
+       (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1),
+       (14, 'employeeAddBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
+       (15, 'employeeAddBtnOk', '/employee/saveEmployee', current_date, current_date, 1),
+       (16, 'employeeDelBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
+       (17, 'employeeBatchDel', '/employee/batch/delete', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -77,7 +81,11 @@ values (1, 1),
        (1, 10),
        (1, 11),
        (1, 12),
-       (1, 13);
+       (1, 13),
+       (1, 14),
+       (1, 15),
+       (1, 16),
+       (1, 17);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -91,7 +99,11 @@ values (2, 1),
        (6, 10),
        (5, 11),
        (5, 12),
-       (5, 13);
+       (5, 13),
+       (2, 14),
+       (2, 15),
+       (2, 16),
+       (2, 17);
 
 
 update hibernate_sequence

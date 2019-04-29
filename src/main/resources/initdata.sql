@@ -49,24 +49,24 @@ values (1, 1),
        (1, 7);
 
 
-insert into operation(id, button_id, button_url, create_time, modification_time, version)
-values (1, 'addBtn', '123', current_date, current_date, 1),
-       (2, 'editBtn', '123', current_date, current_date, 1),
-       (3, 'addBtn', '/menu/addOrEditMenu', current_date, current_date, 1),
-       (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
-       (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1),
-       (6, 'batchDel', '/menu/batch/delete', current_date, current_date, 1),
-       (7, 'postingAddBtn', '/posting/addOrEditPosting', current_date, current_date, 1),
-       (8, 'postingAddBtnOk', '/posting/savePosting', current_date, current_date, 1),
-       (9, 'postingDelBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1),
-       (10, 'postingBatchDel', '/posting/batch/delete', current_date, current_date, 1),
-       (11, 'editBtn', '/department/edit', current_date, current_date, 1),
-       (12, 'saveBtn', '/department/saveOrUpdate', current_date, current_date, 1),
-       (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1),
-       (14, 'employeeAddBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
-       (15, 'employeeAddBtnOk', '/employee/saveEmployee', current_date, current_date, 1),
-       (16, 'employeeDelBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
-       (17, 'employeeBatchDel', '/employee/batch/delete', current_date, current_date, 1);
+insert into operation(id, button_id, button_url, create_time, modification_time, version, name)
+values (1, 'addBtn', '123', current_date, current_date, 1, '新增'),
+       (2, 'editBtn', '123', current_date, current_date, 1, '编辑'),
+       (3, 'addBtn', '/menu/addOrEditMenu', current_date, current_date, 1, '新增'),
+       (4, 'commitBtnOk', '/menu/saveMenu', current_date, current_date, 1, '提交'),
+       (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1, '删除'),
+       (6, 'delBatchBtn', '/menu/batch/delete', current_date, current_date, 1, '批量删除'),
+       (7, 'addPostingBtn', '/posting/addOrEditPosting', current_date, current_date, 1, '新增'),
+       (8, 'commitPostingBtnOk', '/posting/savePosting', current_date, current_date, 1, '提交'),
+       (9, 'delPostingBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1, '删除'),
+       (10, 'delBatchPosting', '/posting/batch/delete', current_date, current_date, 1, '批量删除'),
+       (11, 'editBtn', '/department/edit', current_date, current_date, 1, '编辑'),
+       (12, 'saveBtn', '/department/saveOrUpdate', current_date, current_date, 1, '保存'),
+       (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1, '删除'),
+       (14, 'addEmployeeBtn', '/employee/addOrEditEmployee', current_date, current_date, 1, '新增'),
+       (15, 'commitEmployeeBtnOk', '/employee/saveEmployee', current_date, current_date, 1, '提交'),
+       (16, 'delEmployeeBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1, '删除'),
+       (17, 'delBatchEmployee', '/employee/batch/delete', current_date, current_date, 1, '批量删除');
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),

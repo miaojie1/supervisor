@@ -2,6 +2,7 @@ package com.xinguan.usermanage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
+import com.xinguan.usermanage.model.Attachment;
 import com.xinguan.usermanage.model.PostingSystem;
 import com.xinguan.utils.CommonUtil;
 import com.xinguan.utils.PageInfo;
@@ -15,8 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,9 +66,17 @@ public class PostingSystemController extends BaseController{
 
     @PostMapping(value = "/savePosting")
     @ApiOperation(value = "公告新增或修改POST方法")
-    public ResultInfo addOrEdit(@ApiParam(name = "posting", required = true, value = "待保存的对象") @RequestBody PostingSystem postingSystem) {
+    public ResultInfo addOrEdit(@ApiParam(name = "posting", required = true, value = "待保存的对象") @RequestPart("postingSystem") PostingSystem postingSystem,
+                                @RequestPart("uploadFile") MultipartFile[] multipartFile) {
         try{
-            PostingSystem result = postingSystemService.addOrEditPosting(postingSystem);
+            List<Attachment> attachments =postingSystem.getAttachments();
+            for (MultipartFile file : multipartFile){
+                if (file.isEmpty())
+                    continue;
+                attachments.add(attachmentService.saveOrUpdate(attachmentService.uploadFile(file)));
+            }
+            postingSystem.setAttachments(attachments);
+            PostingSystem result = postingSystemService.addOrEditPosting(postingSystem,employeeService.getCurrentUser());
             if (LOGGER.isDebugEnabled())
                 LOGGER.debug("save menu data:" + JSON.toJSONString(result));
             return new ResultInfo(true, "保存成功");
@@ -107,5 +118,12 @@ public class PostingSystemController extends BaseController{
             resultInfo.setMessage("删除失败");
         }
         return resultInfo;
+    }
+
+    @GetMapping(value = "/announcementDetail")
+    @ApiOperation(value = "公告详情页")
+    public PostingSystem getPostingById(@ApiParam(name = "postingId", value = "查看详情的posting id，此值不能为空") String postingId) {
+        PostingSystem postingSystem = postingSystemService.getPostingSystemById(Long.parseLong(postingId));
+        return postingSystem;
     }
 }

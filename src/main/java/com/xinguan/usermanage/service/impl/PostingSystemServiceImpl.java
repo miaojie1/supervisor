@@ -2,6 +2,7 @@ package com.xinguan.usermanage.service.impl;
 
 
 import com.xinguan.core.service.BaseService;
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.PostingSystem;
 import com.xinguan.usermanage.service.PostingSystemService;
 import org.apache.commons.lang3.StringUtils;
@@ -51,12 +52,14 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
 
     @Transactional
     @Override
-    public PostingSystem addOrEditPosting(PostingSystem postingSystem){
+    public PostingSystem addOrEditPosting(PostingSystem postingSystem, Employee announcer){
         Example<PostingSystem> postingSystemExample = getSimpleExample(postingSystem);
         if (postingSystemRepository.exists(postingSystemExample))
             postingSystem.setModificationDate(new Date());
-        else
+        else {
             postingSystem.setCreateDate(new Date());
+            postingSystem.setAnnouncer(announcer);
+        }
         return postingSystemRepository.saveAndFlush(postingSystem);
     }
 

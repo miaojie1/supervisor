@@ -41,9 +41,6 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
         //4,得到新文件名
         String fileName = newFileNamePrefix + originalFilename.substring(originalFilename.lastIndexOf("."));
         File targetFile = new File(targetFilePath + File.separator + fileName);
-        if (!targetFile.exists()){
-            targetFile.mkdirs();
-        }
         FileOutputStream fileOutputStream = null;
         Attachment attachment =new Attachment();
         attachment.setName(fileName);

@@ -65,8 +65,10 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1),
        (14, 'employeeAddBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
        (15, 'employeeAddBtnOk', '/employee/saveEmployee', current_date, current_date, 1),
-       (16, 'employeeDelBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
-       (17, 'employeeBatchDel', '/employee/batch/delete', current_date, current_date, 1);
+       (16, 'employeeEditBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
+       (17, 'employeeDelBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
+       (18, 'employeeBatchDel', '/employee/batch/delete', current_date, current_date, 1);
+
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -85,7 +87,8 @@ values (1, 1),
        (1, 14),
        (1, 15),
        (1, 16),
-       (1, 17);
+       (1, 17),
+       (1, 18);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -103,7 +106,8 @@ values (2, 1),
        (2, 14),
        (2, 15),
        (2, 16),
-       (2, 17);
+       (2, 17),
+       (2, 18);
 
 
 update hibernate_sequence

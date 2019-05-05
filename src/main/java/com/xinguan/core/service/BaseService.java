@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -31,6 +32,10 @@ public abstract class BaseService<T> {
     protected PostingSystemRepository postingSystemRepository;
     @Autowired
     protected AttachmentRepository attachmentRepository;
+    @Autowired
+    protected  EmployeeStatusRepository employeeStatusRepository;
+    @Autowired
+    protected DepartmentPositionRepository departmentPositionRepository;
 
 
     public BaseService() {

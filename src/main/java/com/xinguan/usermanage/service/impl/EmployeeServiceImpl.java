@@ -2,7 +2,9 @@ package com.xinguan.usermanage.service.impl;
 
 import com.xinguan.core.service.BaseService;
 import com.xinguan.usermanage.model.Department;
+import com.xinguan.usermanage.model.DepartmentPosition;
 import com.xinguan.usermanage.model.Employee;
+import com.xinguan.usermanage.model.EmployeeStatus;
 import com.xinguan.usermanage.service.EmployeeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Example;
@@ -80,8 +82,26 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
 
     @Transactional
     @Override
-    public Employee addOrEditEmployee(Employee employee) {
+    public Employee addOrEditEmployee(Employee employee,Long departmentId,Long departmentPositionId,Long employeeStatusId) {
         employee.setModificationDate(new Date());
+        if (departmentId!=null) {
+            Department department = departmentRepository.getOne(departmentId);
+            if(department!=null){
+                employee.setDepartment(department);
+            }
+        }
+        if(departmentPositionId != null){
+            DepartmentPosition departmentPosition = departmentPositionRepository.getOne(departmentPositionId);
+            if(departmentPosition != null){
+                employee.setDepartmentPosition(departmentPosition);
+            }
+        }
+        if(employeeStatusId != null){
+            EmployeeStatus employeeStatus = employeeStatusRepository.getOne(employeeStatusId);
+            if(employeeStatus!=null){
+                employee.setEmployeeStatus(employeeStatus);
+            }
+        }
         return employeeRepository.saveAndFlush(employee);
     }
 

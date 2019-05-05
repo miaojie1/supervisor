@@ -78,9 +78,12 @@ public class EmployeeController extends BaseController {
 
     @PostMapping(value = "/saveEmployee")
     @ApiOperation(value = "用户新增或修改POST方法")
-    public ResultInfo addOrEdit(@ApiParam(name = "employee", required = true, value = "待保存的对象") @RequestBody Employee employee) {
+    public ResultInfo addOrEdit(@ApiParam(name = "employee", required = true, value = "待保存的对象") @RequestBody Employee employee,
+                                @ApiParam(name = "departMentId",required = true, value="部门的ID") @RequestBody Long departmentId,
+                                @ApiParam(name = "departmentPositionId", required = true, value = "员工职位ID") @RequestBody Long departmentPositionId,
+                                @ApiParam(name = "employeeStatusId", required = true, value = "员工状态ID") @RequestBody Long employeeStatusId) {
         try {
-            Employee result = employeeService.addOrEditEmployee(employee);
+            Employee result = employeeService.addOrEditEmployee(employee,departmentId,departmentPositionId,employeeStatusId);
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("save employee data:" + JSON.toJSONString(result));
             }

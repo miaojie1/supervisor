@@ -35,7 +35,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
         true, false, 1, 1),
         (7, current_date, null, '首页公告', '/posting/listExpPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
         true, false, 1, null),
-        (8, current_date, null, '资源管理', '/resourceManage', 1, null,
+        (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
           true, false, 1, 1);
 
 

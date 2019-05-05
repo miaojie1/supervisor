@@ -1,9 +1,6 @@
 package com.xinguan.usermanage.controller;
 
-import com.xinguan.usermanage.service.DepartmentService;
-import com.xinguan.usermanage.service.EmployeeService;
-import com.xinguan.usermanage.service.MenuService;
-import com.xinguan.usermanage.service.PostingSystemService;
+import com.xinguan.usermanage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +22,10 @@ public abstract class BaseController {
     @Autowired
     protected PostingSystemService postingSystemService;
     @Autowired
+    protected AttachmentService attachmentService;
+    @Autowired
     private RestTemplate restTemplate;
+
 
 
     protected Map<String, Object> transforParamToMap(String param) {

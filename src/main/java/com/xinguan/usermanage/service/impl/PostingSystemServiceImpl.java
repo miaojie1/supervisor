@@ -2,9 +2,12 @@ package com.xinguan.usermanage.service.impl;
 
 
 import com.xinguan.core.service.BaseService;
+import com.xinguan.usermanage.model.Attachment;
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.PostingSystem;
 import com.xinguan.usermanage.service.PostingSystemService;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Sets;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +19,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,12 +55,19 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
 
     @Transactional
     @Override
-    public PostingSystem addOrEditPosting(PostingSystem postingSystem){
+    public PostingSystem saveOrUpdate(PostingSystem postingSystem, Employee announcer,Long attachmentId){
         Example<PostingSystem> postingSystemExample = getSimpleExample(postingSystem);
         if (postingSystemRepository.exists(postingSystemExample))
             postingSystem.setModificationDate(new Date());
-        else
+        else {
             postingSystem.setCreateDate(new Date());
+            postingSystem.setAnnouncer(announcer);
+        }
+        if (attachmentId!=null) {
+            List<Attachment> attachments = postingSystem.getAttachments();
+            attachments.add(attachmentRepository.getOne(attachmentId));
+            postingSystem.setAttachments(attachments);
+        }
         return postingSystemRepository.saveAndFlush(postingSystem);
     }
 
@@ -69,8 +80,19 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
 
     @Transactional
     @Override
-    public void batchRemovePosting(Set<Long> ids) {
-        Set<PostingSystem> postingSystems = ids.stream().map(id -> getPostingSystemById(id)).collect(Collectors.toSet());
-        postingSystemRepository.deleteInBatch(postingSystems);
+    public void removePostingBatch(String ids) {
+        if (StringUtils.isNotBlank(ids)) {
+            Set<Long> longIdList = Sets.newTreeSet(ids.split(",")).stream().map(Long::parseLong).collect(Collectors.toSet());
+            longIdList.forEach(id -> {
+                PostingSystem postingSystem = postingSystemRepository.getOne(id);
+                List<Attachment> attachments = postingSystem.getAttachments();
+                attachments.forEach(attachment -> {
+                    attachment.setPostingSystemList(null);
+                    attachmentRepository.saveAndFlush(attachment);
+                });
+                postingSystemRepository.saveAndFlush(postingSystem);
+                postingSystemRepository.deleteById(id);
+            });
+        }
     }
 }

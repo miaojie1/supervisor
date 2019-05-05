@@ -29,6 +29,8 @@ public abstract class BaseService<T> {
     protected DepartmentRepository departmentRepository;
     @Autowired
     protected PostingSystemRepository postingSystemRepository;
+    @Autowired
+    protected AttachmentRepository attachmentRepository;
 
 
     public BaseService() {

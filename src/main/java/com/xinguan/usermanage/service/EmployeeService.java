@@ -31,7 +31,7 @@ public interface EmployeeService {
 
     List<Employee> listEmployeeByDepartment(Department department);
 
-    Page<Employee> listEmployeeByPage(int pageSize, int pageNo, Map<String, Object> params);
+    Page<Employee> listEmployeeByPage(int pageSize, int pageNo, String username);
 
     Employee addOrEditEmployee(Employee employee);
 

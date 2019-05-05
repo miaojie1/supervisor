@@ -64,12 +64,15 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
     }
 
     @Override
-    public Page<Employee> listEmployeeByPage(int pageSize, int pageNo, Map<String, Object> params) {
+    public Page<Employee> listEmployeeByPage(int pageSize, int pageNo, String username) {
         Employee employee = new Employee();
-        if (params != null) {
-            transforObject(employee, params);
+        Example<Employee> example;
+        if (username != null) {
+            //transforObject(employee, params);
+            employee.setUsername(username);
+            //example = Example.of(employee);
         }
-        Example<Employee> example = getSimpleExample(employee);
+        example = getSimpleExample(employee);
         return employeeRepository.findAll(example, PageRequest.of(pageNo, pageSize));
 
     }

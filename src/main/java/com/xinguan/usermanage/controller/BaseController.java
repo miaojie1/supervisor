@@ -25,6 +25,9 @@ public abstract class BaseController {
     protected AttachmentService attachmentService;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    protected RoleService roleService;
+
 
 
 

@@ -1,5 +1,6 @@
 package com.xinguan.usermanage.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.xinguan.usermanage.model.Department;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
@@ -50,11 +51,10 @@ public class DepartmentController extends BaseController {
 
     @ApiOperation(value = "保存或更新部门Post")
     @PostMapping("/saveOrUpdate")
-    public ResultInfo saveOrUpdate(@ApiParam(name = "department", required = true, value = "待保存或更新的部门") @RequestBody Department department,
-                                   @ApiParam(name = "superiorDepartmentId", value = "上级部门ID") Long superiorDepartmentId) {
+    public ResultInfo saveOrUpdate(@ApiParam(name = "department", required = true, value = "待保存或更新的部门") @RequestBody Department department) {
         ResultInfo resultInfo = new ResultInfo();
         try {
-            Department result = departmentService.saveOrUpdate(department, superiorDepartmentId);
+            Department result = departmentService.saveOrUpdate(department);
             resultInfo.setStatus(true);
             resultInfo.setMessage("保存成功");
             resultInfo.setObject(result);
@@ -86,5 +86,17 @@ public class DepartmentController extends BaseController {
         return resultInfo;
     }
 
+    public static void main(String[] args) {
+        Department department = new Department();
+        department.setName("test department");
+        department.setDescription("test department");
+        Department superDepart = new Department();
+        superDepart.setId(1L);
+        superDepart.setName("总裁办");
+        superDepart.setDescription("department");
+        superDepart.setVersion(1);
+        department.setSuperiorDepartment(superDepart);
+        System.out.println(JSON.toJSONString(department));
+    }
 
 }

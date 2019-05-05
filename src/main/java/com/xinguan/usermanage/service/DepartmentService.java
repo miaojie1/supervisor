@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 public interface DepartmentService {
     Page<Department> listDepartmentByPage(int pageSize, int pageNo, String departmentName, Employee employee);
 
-    Department saveOrUpdate(Department department, Long superiorDepartmentId);
+    Department saveOrUpdate(Department department);
 
     Department getDepartmentById(Long id);
 

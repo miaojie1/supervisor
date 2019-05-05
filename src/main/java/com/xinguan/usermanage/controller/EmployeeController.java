@@ -56,14 +56,10 @@ public class EmployeeController extends BaseController {
     @PostMapping("/listEmployeePage/pageSize/{pageSize}/pageNo/{pageNo}")
     public PageInfo<Employee> listDepartmentPage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
                                                  @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
-                                                 @ApiParam(name = "paramJson", value = "用户名称，支持模糊查询") String paramJson) {
-        Map<String, Object> param = CommonUtil.transforParamToMap(paramJson);
-        Page<Employee> page = employeeService.listEmployeeByPage(pageSize, pageNo, param);
-        page.getContent().forEach(content -> {
-//            if (content.getParentMenu() != null) {
-//                content.setParentMenuId(content.getParentMenu().getId());
-//            }
-        });
+                                                 @ApiParam(name = "username", value = "用户名称，支持模糊查询") String username) {
+        //Map<String, Object> param = CommonUtil.transforParamToMap(paramJson);
+        Page<Employee> page = employeeService.listEmployeeByPage(pageSize, pageNo, username);
+        Map<String, Object> param = Maps.newHashMap("username", username);
         return new PageInfo<>(page, param);
     }
 
@@ -82,9 +78,12 @@ public class EmployeeController extends BaseController {
 
     @PostMapping(value = "/saveEmployee")
     @ApiOperation(value = "用户新增或修改POST方法")
-    public ResultInfo addOrEdit(@ApiParam(name = "employee", required = true, value = "待保存的对象") @RequestBody Employee employee) {
+    public ResultInfo addOrEdit(@ApiParam(name = "employee", required = true, value = "待保存的对象") @RequestBody Employee employee,
+                                @ApiParam(name = "departMentId",required = true, value="部门的ID") @RequestBody Long departmentId,
+                                @ApiParam(name = "departmentPositionId", required = true, value = "员工职位ID") @RequestBody Long departmentPositionId,
+                                @ApiParam(name = "employeeStatusId", required = true, value = "员工状态ID") @RequestBody Long employeeStatusId) {
         try {
-            Employee result = employeeService.addOrEditEmployee(employee);
+            Employee result = employeeService.addOrEditEmployee(employee,departmentId,departmentPositionId,employeeStatusId);
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("save employee data:" + JSON.toJSONString(result));
             }

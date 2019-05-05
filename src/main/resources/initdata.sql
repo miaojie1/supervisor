@@ -34,7 +34,9 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
         (6, current_date, null, '公告管理', '/posting/listPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
         true, false, 1, 1),
         (7, current_date, null, '首页公告', '/posting/listExpPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
-        true, false, 1, null);
+        true, false, 1, null),
+        (8, current_date, null, '资源管理', '/resourceManage', 1, null,
+          true, false, 1, 1);
 
 
 
@@ -46,7 +48,8 @@ values (1, 1),
        (1, 4),
        (1, 5),
        (1, 6),
-       (1, 7);
+       (1, 7),
+       (1, 8);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -56,18 +59,23 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
        (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1),
        (6, 'batchDel', '/menu/batch/delete', current_date, current_date, 1),
-       (7, 'postingAddBtn', '/posting/addOrEditPosting', current_date, current_date, 1),
-       (8, 'postingAddBtnOk', '/posting/savePosting', current_date, current_date, 1),
-       (9, 'postingDelBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1),
-       (10, 'postingBatchDel', '/posting/batch/delete', current_date, current_date, 1),
+       (7, 'addBtn', '/posting/addOrEditPosting', current_date, current_date, 1),
+       (8, 'addBtnOk', '/posting/savePosting', current_date, current_date, 1),
+       (9, 'delBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1),
+       (10, 'batchDel', '/posting/batch/delete', current_date, current_date, 1),
        (11, 'editBtn', '/department/edit', current_date, current_date, 1),
        (12, 'saveBtn', '/department/saveOrUpdate', current_date, current_date, 1),
        (13, 'delBtn', '/department/delDepartmentBatch', current_date, current_date, 1),
-       (14, 'employeeAddBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
-       (15, 'employeeAddBtnOk', '/employee/saveEmployee', current_date, current_date, 1),
-       (16, 'employeeEditBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
-       (17, 'employeeDelBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
-       (18, 'employeeBatchDel', '/employee/batch/delete', current_date, current_date, 1);
+       (14, 'addBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
+       (15, 'addBtnOk', '/employee/saveEmployee', current_date, current_date, 1),
+       (16, 'editBtn', '/employee/addOrEditEmployee', current_date, current_date, 1),
+       (17, 'delBtn', '/employee/delete/employeeId/{employeeId}', current_date, current_date, 1),
+       (18, 'batchDel', '/employee/batch/delete', current_date, current_date, 1),
+       (19, 'addBtn', '/resource/addOrEditEmployee', current_date, current_date, 1),
+       (20, 'editBtn', '/resource/delete/employeeId/{employeeId}', current_date, current_date, 1),
+       (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1),
+       (22, 'page', '/departmentPosition/listDepartmentPositionPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
+       (23, 'page', '/employeeStatus/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -88,7 +96,12 @@ values (1, 1),
        (1, 15),
        (1, 16),
        (1, 17),
-       (1, 18);
+       (1, 18),
+       (1, 19),
+       (1, 20),
+       (1, 21),
+       (1, 22),
+       (1, 23);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -107,7 +120,10 @@ values (2, 1),
        (2, 15),
        (2, 16),
        (2, 17),
-       (2, 18);
+       (2, 18),
+       (8, 19),
+       (8, 20),
+       (8, 21);
 
 
 update hibernate_sequence

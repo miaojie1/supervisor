@@ -38,6 +38,12 @@ public class MenuController extends BaseController {
         return menuService.listMenuByEmployee(employee);
     }
 
+    @PostMapping(value = "/listAllMenus")
+    @ApiOperation("获取所有的资源列表不分页")
+    public List<Menu> listAllMenus() {
+        return menuService.listAllMenus();
+    }
+
     @PostMapping(value = "/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取资源列表")
     public PageInfo<Menu> listMenuPage(@ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,

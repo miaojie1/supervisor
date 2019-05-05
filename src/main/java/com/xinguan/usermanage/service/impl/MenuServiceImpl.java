@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +46,11 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         });
         return menus.stream().filter(e -> e.getRootMenu() != null && e.getRootMenu()).collect(Collectors.toSet());
 
+    }
+
+    @Override
+    public List<Menu> listAllMenus() {
+        return menuRepository.findAll();
     }
 
     @Override

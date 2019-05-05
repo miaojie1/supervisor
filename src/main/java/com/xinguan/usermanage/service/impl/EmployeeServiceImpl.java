@@ -67,9 +67,10 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
     public Page<Employee> listEmployeeByPage(int pageSize, int pageNo, String username) {
         Employee employee = new Employee();
         Example<Employee> example;
+
         if (username != null) {
             //transforObject(employee, params);
-            employee.setUsername(username);
+            employee.setUsername("%" + username + "%");
             //example = Example.of(employee);
         }
         example = getSimpleExample(employee);

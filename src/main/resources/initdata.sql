@@ -73,7 +73,9 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (18, 'batchDel', '/employee/batch/delete', current_date, current_date, 1),
        (19, 'addBtn', '/resource/addOrEditEmployee', current_date, current_date, 1),
        (20, 'editBtn', '/resource/delete/employeeId/{employeeId}', current_date, current_date, 1),
-       (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1);
+       (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1),
+       (22, 'page', '/departmentPosition/listDepartmentPositionPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
+       (23, 'page', '/employeeStatus/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -97,7 +99,9 @@ values (1, 1),
        (1, 18),
        (1, 19),
        (1, 20),
-       (1, 21);
+       (1, 21),
+       (1, 22),
+       (1, 23);
 
 
 insert into menu_operation(menu_id, operation_id)

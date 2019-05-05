@@ -33,7 +33,7 @@ public class Department {
     /**
      * 上级部门
      */
-    @OneToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @OneToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Department superiorDepartment;
     /**
      * 创建日期

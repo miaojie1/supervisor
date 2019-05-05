@@ -24,6 +24,10 @@ public abstract class BaseController {
     @Autowired
     protected AttachmentService attachmentService;
     @Autowired
+    protected EmployeeStatusService employeeStatusService;
+    @Autowired
+    protected DepartmentPositionService departmentPositionService;
+    @Autowired
     private RestTemplate restTemplate;
     @Autowired
     protected RoleService roleService;

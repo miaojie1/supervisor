@@ -75,19 +75,7 @@ public class DepartmentServiceImpl extends BaseService<Department> implements De
 
     @Override
     @Transactional
-    public Department saveOrUpdate(Department department, Long superiorDepartmentId) {
-
-        //上级部门
-        if (superiorDepartmentId != null) {
-            Department superDepartment = departmentRepository.getOne(superiorDepartmentId);
-
-            if (superDepartment != null) {
-                department.setSuperiorDepartment(superDepartment);
-            } else {
-                LOGGER.warn("not found department,superiorDepartmentId:[" + superiorDepartmentId + "]");
-            }
-        }
-
+    public Department saveOrUpdate(Department department) {
         Example<Department> departmentExample = getSimpleExample(department);
         if (departmentRepository.exists(departmentExample)) {
             department.setModificationDate(new Date());

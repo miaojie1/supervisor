@@ -39,7 +39,7 @@ public class DepartmentServiceImplTest extends BaseServiceTest {
 
     @Test(dependsOnMethods = "testListDepartmentByPage")
     public void testSaveOrUpdate() {
-        department = departmentService.saveOrUpdate(department, 1L);
+        department = departmentService.saveOrUpdate(department);
         Assert.assertNotNull(department);
         departmentId = department.getId();
     }

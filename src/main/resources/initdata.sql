@@ -78,7 +78,8 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (23, 'page', '/employeeStatus/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
        (24, 'addBtn', '/role/addRole', current_date, current_date, 1),
        (25, 'editBtn', '/role/editRole', current_date, current_date, 1),
-       (26, 'delBtn', '/role/addRole', current_date, current_date, 1);
+       (26, 'delBtn', '/role/delete/roleId/{roleId}', current_date, current_date, 1),
+       (27, 'addBtnOk', '/role/saveRole', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -107,7 +108,8 @@ values (1, 1),
        (1, 23),
        (1, 24),
        (1, 25),
-       (1, 26);
+       (1, 26),
+       (1, 27);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -129,7 +131,9 @@ values (2, 1),
        (2, 18),
        (8, 24),
        (8, 25),
-       (8, 26);
+       (8, 26),
+       (8, 27);
+
 
 
 update hibernate_sequence

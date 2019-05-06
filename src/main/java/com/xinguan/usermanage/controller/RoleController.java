@@ -31,7 +31,7 @@ public class RoleController extends BaseController{
     @PostMapping("/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}")
     public PageInfo<Role> listRolePage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
                                                    @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
-                                                   @ApiParam(name = "roleName", value = "公告名称，支持模糊查询") String roleName) {
+                                                   @ApiParam(name = "roleName", value = "角色名称，支持模糊查询") String roleName) {
         Page<Role> roles = roleService.listRoleByPage(pageSize, pageNo, roleName);
         Map<String, Object> param = Maps.newHashMap("roleName", roleName);
         return new PageInfo<>(roles, param);
@@ -53,7 +53,7 @@ public class RoleController extends BaseController{
 
 
     @PostMapping("/delete/roleId/{roleId}")
-    @ApiOperation(value = "根据Role ID删除 公告")
+    @ApiOperation(value = "根据Role ID删除 角色")
     public ResultInfo deleteById(@ApiParam(name = "roleId", required = true, value = "需要删除的role ID") @PathVariable String roleId) {
         final ResultInfo resultInfo = new ResultInfo();
         try {
@@ -61,7 +61,7 @@ public class RoleController extends BaseController{
             resultInfo.setStatus(true);
             resultInfo.setMessage("删除成功");
         } catch (Exception e) {
-            LOGGER.error("删除Posting失败：id:" + roleId + ",errorMessage:" + e );
+            LOGGER.error("删除Role失败：id:" + roleId + ",errorMessage:" + e );
             resultInfo.setStatus(false);
             resultInfo.setMessage("删除失败");
         }

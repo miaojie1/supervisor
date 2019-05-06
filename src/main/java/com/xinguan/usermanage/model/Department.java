@@ -53,7 +53,7 @@ public class Department {
     /**
      * 岗位
      */
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private List<DepartmentPosition> departmentPositions;
 
     public List<DepartmentPosition> getDepartmentPositions() {

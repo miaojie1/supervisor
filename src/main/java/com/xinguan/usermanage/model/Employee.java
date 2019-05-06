@@ -27,7 +27,7 @@ public class Employee {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 雇员姓名

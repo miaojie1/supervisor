@@ -17,7 +17,7 @@ import java.util.Set;
 public class Operation {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String buttonId;

@@ -82,25 +82,12 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
 
     @Transactional
     @Override
-    public Employee addOrEditEmployee(Employee employee,Long departmentId,Long departmentPositionId,Long employeeStatusId) {
-        employee.setModificationDate(new Date());
-        if (departmentId!=null) {
-            Department department = departmentRepository.getOne(departmentId);
-            if(department!=null){
-                employee.setDepartment(department);
-            }
-        }
-        if(departmentPositionId != null){
-            DepartmentPosition departmentPosition = departmentPositionRepository.getOne(departmentPositionId);
-            if(departmentPosition != null){
-                employee.setDepartmentPosition(departmentPosition);
-            }
-        }
-        if(employeeStatusId != null){
-            EmployeeStatus employeeStatus = employeeStatusRepository.getOne(employeeStatusId);
-            if(employeeStatus!=null){
-                employee.setEmployeeStatus(employeeStatus);
-            }
+    public Employee saveOrUpdate(Employee employee) {
+        Example<Employee> employeeExample = getSimpleExample(employee);
+        if (employeeRepository.exists(employeeExample)) {
+            employee.setModificationDate(new Date());
+        } else {
+            employee.setCreateDate(new Date());
         }
         return employeeRepository.saveAndFlush(employee);
     }

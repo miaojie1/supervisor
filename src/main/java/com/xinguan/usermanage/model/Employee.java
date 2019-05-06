@@ -81,12 +81,12 @@ public class Employee {
     /**
      * 员工状态
      */
-    @ManyToOne(targetEntity = EmployeeStatus.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(targetEntity = EmployeeStatus.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private EmployeeStatus employeeStatus;
     /**
      * 员工职位
      */
-    @ManyToOne(targetEntity = DepartmentPosition.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(targetEntity = DepartmentPosition.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private DepartmentPosition departmentPosition;
     /**
      * 创建日期
@@ -101,12 +101,12 @@ public class Employee {
     /**
      * 所属部门
      */
-    @ManyToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(targetEntity = Department.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Department department;
     /**
      * 员工角色
      */
-    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "employee_role")
     private Set<Role> roles;
     /**

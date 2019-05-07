@@ -9,6 +9,7 @@ import java.util.Set;
 
 public interface RoleService {
 //    查詢所有角色信息
+    List<Role> listAllRoles();
     Page<Role> listRoleByPage(int pageSize, int pageNo, String roleName);
 //    增加或修改角色信息
     Role addOrEditRole(Role role);

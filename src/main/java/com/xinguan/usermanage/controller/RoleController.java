@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.assertj.core.util.Maps;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,6 +28,13 @@ import java.util.stream.Collectors;
 public class RoleController extends BaseController{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
+
+    @PostMapping(value = "/listAllRoles")
+    @ApiOperation(value = "获取所有角色信息")
+    public List<Role> listRoles() {
+        return roleService.listAllRoles();
+    }
+
     @ApiOperation(value = "获取角色列表", notes = "返回角色列表。支持通过角色名称模糊查询。")
     @PostMapping("/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}")
     public PageInfo<Role> listRolePage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
@@ -46,7 +54,7 @@ public class RoleController extends BaseController{
                 LOGGER.debug("save menu data:" + JSON.toJSONString(result));
             return new ResultInfo(true, "保存成功");
         }catch (Exception e) {
-            LOGGER.error("保存公告失败：" + e);
+            LOGGER.error("保存角色失败：" + e);
             return new ResultInfo(false, "保存失败");
         }
     }

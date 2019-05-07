@@ -29,6 +29,12 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     public Role getRoleById(Long id) {
         return roleRepository.getOne(id);
     }
+
+    @Override
+    public List<Role> listAllRoles() {
+        return roleRepository.findAll();
+    }
+
     //查詢角色信息
     @Override
     public Page<Role> listRoleByPage(int pageSize, int pageNo, String roleName) {

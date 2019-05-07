@@ -21,9 +21,9 @@ set department_id=1
 where id = 1;
 
 insert into posting_system(id, content, create_date, effect_date, expire_date, modification_date, name, version,announcer_id)
-values (1, '公告内容1',current_date, '2019-04-08 22:15:30', '2019-05-30 22:15:44', current_date, '公告1', 1,1),
-       (2, '公告内容2',current_date, '2019-04-01 22:15:49', '2019-05-25 22:15:59', current_date, '公告2', 1,1),
-       (3, '公告内容3',current_date, '2019-04-26 22:16:29', '2019-05-29 22:16:40', current_date, '公告3', 1,1);
+values (1, '公告内容1',current_date, '2019-04-08 22:15:30', '2019-04-30 22:15:44', current_date, '公告1', 1,1),
+       (2, '公告内容2',current_date, '2019-04-01 22:15:49', '2019-04-25 22:15:59', current_date, '公告2', 1,1),
+       (3, '公告内容3',current_date, '2019-04-26 22:16:29', '2019-04-29 22:16:40', current_date, '公告3', 1,1);
 
 insert into role(id, create_date, description, modification_date, name, superior_role_id, version)
 values (1, current_date, '管理员', current_date, 'admin', null, 1);
@@ -85,13 +85,15 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (19, 'addBtn', '/resource/addOrEditEmployee', current_date, current_date, 1),
        (20, 'editBtn', '/resource/delete/employeeId/{employeeId}', current_date, current_date, 1),
        (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1),
-       (22, 'page', '/departmentPosition/listAllDepartmentPositions', current_date, current_date, 1),
-       (23, 'page', '/employeeStatus/listAllEmployeeStatus', current_date, current_date, 1),
+       (22, 'page', '/departmentPosition/listDepartmentPositionPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
+       (23, 'page', '/employeeStatus/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
        (24, 'addBtn', '/role/addRole', current_date, current_date, 1),
        (25, 'editBtn', '/role/editRole', current_date, current_date, 1),
        (26, 'delBtn', '/role/delete/roleId/{roleId}', current_date, current_date, 1),
        (27, 'addBtnOk', '/role/saveRole', current_date, current_date, 1),
-       (28, 'page', '/department/listAllDepartment', current_date, current_date, 1);
+       (28, 'page', '/department/listAllDepartment', current_date, current_date, 1),
+       (29, 'showMenus', '/menu/listAllMenus', current_date, current_date, 1),
+       (30, 'showRoles', '/role/listAllRoles', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -122,7 +124,9 @@ values (1, 1),
        (1, 25),
        (1, 26),
        (1, 27),
-       (1, 28);
+       (1, 28),
+       (1, 29),
+       (1, 30);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -148,7 +152,8 @@ values (2, 1),
        (8, 24),
        (8, 25),
        (8, 26),
-       (8, 27);
+       (8, 27),
+       (8, 29);
 
 
 

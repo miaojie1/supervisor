@@ -6,6 +6,7 @@ import com.xinguan.usermanage.service.AttachmentService;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 public class AttachmentServiceImpl extends BaseService<Attachment> implements AttachmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AttachmentServiceImpl.class);
 
+    @Value("${upload_location}")
+    private String filePath;
+
     @Override
     @Transactional
     public Attachment saveOrUpdate(Attachment attachment) {
@@ -31,7 +35,7 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
 
     @Override
     public Attachment uploadFile(MultipartFile multipartFile){
-        String targetFilePath = "F:\\uploadTest";
+        String targetFilePath = filePath;
         //1，获取原始文件名
         String originalFilename = multipartFile.getOriginalFilename();
         //2,截取源文件的文件名前缀,不带后缀

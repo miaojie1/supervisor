@@ -16,7 +16,7 @@ public class AttachmentController extends BaseController{
 
     @PostMapping(value = "/upload")
     @ApiOperation(value = "附件上传方法")
-    public Long uploadFileTest(@RequestParam("uploadFile") MultipartFile multipartFile) {
+    public Long uploadFileTest(@RequestParam("file") MultipartFile multipartFile) {
         Attachment attachment=attachmentService.saveOrUpdate(attachmentService.uploadFile(multipartFile));
         return attachment.getId();
     }

@@ -32,12 +32,12 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
     }
 
     @Override
-    public Page<PostingSystem> listExpPostingByPage(int pageSize, int pageNo) {
+    public List<PostingSystem> listExpPostingByPage() {
         return postingSystemRepository.findAll((Specification<PostingSystem>) (root, criteriaQuery, criteriaBuilder) -> {
             Date nowDate = new Date();
             criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.greaterThan(root.<Date> get("expireDate"),nowDate),criteriaBuilder.lessThan(root.<Date> get("effectDate"),nowDate)));
             return criteriaQuery.getRestriction();
-        }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
+        });
     }
 
     @Override
@@ -60,6 +60,7 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
         if (postingSystemRepository.exists(postingSystemExample))
             postingSystem.setModificationDate(new Date());
         else {
+            postingSystem.setModificationDate(new Date());
             postingSystem.setCreateDate(new Date());
             postingSystem.setAnnouncer(announcer);
         }

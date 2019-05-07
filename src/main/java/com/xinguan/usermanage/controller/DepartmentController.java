@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,12 @@ import java.util.Map;
 public class DepartmentController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
+
+    @PostMapping(value = "/listAllDepartment")
+    @ApiOperation("获取所有的部门列表不分页")
+    public List<Department> listAllDepartment(){
+        return departmentService.listAllDepartment();
+    }
 
     @ApiOperation(value = "获取部门列表", notes = "返回当前用户所在部门及下属部门，超级管理员不受限制。支持通过部门名称模糊查询。")
     @PostMapping("/listDepartmentPage/pageSize/{pageSize}/pageNo/{pageNo}")

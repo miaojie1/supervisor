@@ -10,8 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepartmentPositionServiceImpl extends BaseService<DepartmentPosition> implements DepartmentPositionService {
+
+    @Override
+    public List<DepartmentPosition> listAllDepartmentPositions() {
+        return departmentPositionRepository.findAll();
+    }
 
     @Override
     public Page<DepartmentPosition> listDepartmentPositionByPage(int pageSize, int pageNo) {

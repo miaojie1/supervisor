@@ -34,6 +34,11 @@ public class DepartmentServiceImpl extends BaseService<Department> implements De
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     @Override
+    public List<Department> listAllDepartment() {
+        return departmentRepository.findAll();
+    }
+
+    @Override
     public Page<Department> listDepartmentByPage(int pageSize, int pageNo, String departmentName, Employee employee) {
         Assert.notNull(employee, "employee must not be null");
         return departmentRepository.findAll((Specification<Department>) (root, criteriaQuery, criteriaBuilder) -> {

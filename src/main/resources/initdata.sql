@@ -7,6 +7,15 @@ values (1, current_date, 'department', null, '总裁办', 1, null),
        (2, current_date, 'department1', null, '人力资源', 1, 1),
        (3, current_date, 'department2', null, '质管部', 1, 1);
 
+insert into department_position(id, create_date, description, modification_date, name, status, version,department_id)
+values (1, current_date, '总经理', null, '总经理', true, 1, null),
+        (2, current_date, '副总经理', null, '副总经理', true, 1, null),
+        (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, null);
+--
+insert into employee_status(id, create_date, description, modification_date, name, status, version)
+values (1, current_date, '在职', null, '在职', true, 1),
+        (2, current_date, '离职', null, '离职', true, 1);
+
 update employee
 set department_id=1
 where id = 1;
@@ -74,12 +83,13 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (19, 'addBtn', '/resource/addOrEditEmployee', current_date, current_date, 1),
        (20, 'editBtn', '/resource/delete/employeeId/{employeeId}', current_date, current_date, 1),
        (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1),
-       (22, 'page', '/departmentPosition/listDepartmentPositionPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
-       (23, 'page', '/employeeStatus/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}', current_date, current_date, 1),
+       (22, 'page', '/departmentPosition/listAllDepartmentPositions', current_date, current_date, 1),
+       (23, 'page', '/employeeStatus/listAllEmployeeStatus', current_date, current_date, 1),
        (24, 'addBtn', '/role/addRole', current_date, current_date, 1),
        (25, 'editBtn', '/role/editRole', current_date, current_date, 1),
        (26, 'delBtn', '/role/delete/roleId/{roleId}', current_date, current_date, 1),
-       (27, 'addBtnOk', '/role/saveRole', current_date, current_date, 1);
+       (27, 'addBtnOk', '/role/saveRole', current_date, current_date, 1),
+       (28, 'page', '/department/listAllDepartment', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -109,7 +119,8 @@ values (1, 1),
        (1, 24),
        (1, 25),
        (1, 26),
-       (1, 27);
+       (1, 27),
+       (1, 28);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -129,6 +140,9 @@ values (2, 1),
        (2, 16),
        (2, 17),
        (2, 18),
+       (2, 22),
+       (2, 23),
+       (2, 28),
        (8, 24),
        (8, 25),
        (8, 26),

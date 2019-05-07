@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @Api("员工在职状态相关接口")
@@ -23,6 +24,12 @@ import java.util.Map;
 @RequestMapping("/employeeStatus")
 public class EmployeeStatusController extends BaseController{
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeStatusController.class);
+
+    @PostMapping(value = "/listAllEmployeeStatus")
+    @ApiOperation("获取所有的在职状态列表不分页")
+    public List<EmployeeStatus> listAllEmployeeStatus(){
+        return employeeStatusService.listAllEmployeeStatus();
+    }
 
     @ApiOperation(value = "获取在职状态列表", notes = "返回当前用户在职状态，超级管理员不受限制。支持通过状态名称模糊查询。")
     @PostMapping("/listEmployeeStatusPage/pageSize/{pageSize}/pageNo/{pageNo}")

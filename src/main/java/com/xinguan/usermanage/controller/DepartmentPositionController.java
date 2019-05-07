@@ -15,13 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @Api("部门职位相关接口")
 @RestController
 @RequestMapping("/departmentPosition")
 public class DepartmentPositionController extends BaseController{
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentPositionController.class);
+
+    @PostMapping(value = "/listAllDepartmentPositions")
+    @ApiOperation("获取所有的职位列表不分页")
+    public List<DepartmentPosition> listAllDepartmentPositions(){
+        return departmentPositionService.listAllDepartmentPositions();
+    }
 
     @ApiOperation(value = "获取部门职位列表", notes = "返回当前用户所在部门职位。支持通过部门名称模糊查询。")
     @PostMapping("/listDepartmentPositionPage/pageSize/{pageSize}/pageNo/{pageNo}")

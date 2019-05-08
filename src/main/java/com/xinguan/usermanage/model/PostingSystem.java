@@ -1,6 +1,8 @@
 package com.xinguan.usermanage.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,13 +35,19 @@ public class PostingSystem {
     /**
      * 生效日期
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @Column
     private Date effectDate;
     /**
      * 失效日期
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @Column
     private Date expireDate;
+
+
     @Column
     private Date createDate;
     @Column

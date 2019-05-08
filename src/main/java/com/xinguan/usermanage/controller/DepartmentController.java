@@ -74,10 +74,9 @@ public class DepartmentController extends BaseController {
         return resultInfo;
     }
 
-
     @ApiOperation(value = "批量删除部门")
     @PostMapping("/delDepartmentBatch")
-    public ResultInfo deleteDepartmentById(@ApiParam(name = "departmentIds", required = true, value = "需要删除的部门ID，多个ID使用英文逗号分隔") String departmentIds) {
+    public ResultInfo deleteDepartmentById(@ApiParam(name = "departmentIds", required = true, value = "需要删除的部门ID，多个ID使用英文逗号分隔") @RequestParam("departmentIds") String departmentIds) {
         ResultInfo resultInfo = new ResultInfo();
         try {
             departmentService.removeDepartmentBatch(departmentIds);

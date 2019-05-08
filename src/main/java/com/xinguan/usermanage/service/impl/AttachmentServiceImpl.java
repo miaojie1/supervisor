@@ -64,6 +64,7 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
         }
         return attachment;
     }
+
     @Transactional
     @Override
     public void removeAttachment(Long id) {

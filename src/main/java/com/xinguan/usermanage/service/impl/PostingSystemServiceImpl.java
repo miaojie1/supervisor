@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -66,7 +67,11 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
         }
         if (attachmentId!=null) {
             List<Attachment> attachments = postingSystem.getAttachments();
-            attachments.add(attachmentRepository.getOne(attachmentId));
+            if (attachments==null) {
+                attachments = new ArrayList<Attachment>();
+            }
+            Attachment attachment = attachmentRepository.findById(attachmentId).get();
+            attachments.add(attachment);
             postingSystem.setAttachments(attachments);
         }
         return postingSystemRepository.saveAndFlush(postingSystem);

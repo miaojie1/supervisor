@@ -16,5 +16,4 @@ public interface DepartmentService {
     Department getDepartmentById(Long id);
 
     void removeDepartmentBatch(String ids);
-
 }

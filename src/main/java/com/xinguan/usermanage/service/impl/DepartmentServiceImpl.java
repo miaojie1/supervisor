@@ -116,6 +116,4 @@ public class DepartmentServiceImpl extends BaseService<Department> implements De
 
     }
 
-
-
 }

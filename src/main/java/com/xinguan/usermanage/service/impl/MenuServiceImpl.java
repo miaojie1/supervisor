@@ -50,7 +50,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     public List<Menu> listAllMenus() {
-        return menuRepository.findAll();
+        return menuRepository.findAllByParentMenuIsNull();
     }
 
     @Override

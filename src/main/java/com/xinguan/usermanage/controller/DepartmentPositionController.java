@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.assertj.core.util.Maps;
+import org.hibernate.mapping.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 
 @Api("部门职位相关接口")
 @RestController
@@ -27,8 +30,9 @@ public class DepartmentPositionController extends BaseController{
 
     @PostMapping(value = "/listAllDepartmentPositions")
     @ApiOperation("获取所有的职位列表不分页")
-    public List<DepartmentPosition> listAllDepartmentPositions(){
-        return departmentPositionService.listAllDepartmentPositions();
+    public List<DepartmentPosition> listAllDepartmentPositions(@ApiParam(name = "departmentIds", value = "部门Id") String departmentIds){
+            return departmentPositionService.listAllDepartmentPositions(departmentIds);
+
     }
 
     @ApiOperation(value = "获取部门职位列表", notes = "返回当前用户所在部门职位。支持通过部门名称模糊查询。")

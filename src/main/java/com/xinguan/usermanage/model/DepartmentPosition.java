@@ -17,6 +17,9 @@ import java.util.List;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DepartmentPosition {
+    public DepartmentPosition(){
+        super();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

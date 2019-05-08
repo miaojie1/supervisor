@@ -8,9 +8,9 @@ values (1, current_date, 'department', null, '总裁办', 1, null),
        (3, current_date, 'department2', null, '质管部', 1, 1);
 
 insert into department_position(id, create_date, description, modification_date, name, status, version,department_id)
-values (1, current_date, '总经理', null, '总经理', true, 1, null),
-        (2, current_date, '副总经理', null, '副总经理', true, 1, null),
-        (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, null),
+values (1, current_date, '总经理', null, '总经理', true, 1, 1),
+        (2, current_date, '副总经理', null, '副总经理', true, 1, 1),
+        (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, 1),
         (4, current_date, '人力资源总监', null, '人力总监', true, 1, 2),
         (5, current_date, '人力资源', null, '人力干部', true, 1, 2),
         (6, current_date, '质管部', null, '质管总监', true, 1, 3),

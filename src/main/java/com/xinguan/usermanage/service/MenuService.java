@@ -13,6 +13,14 @@ public interface MenuService {
 
     List<Menu> listAllMenus();
     Page<Menu> listMenuByPage(int pageSize, int pageNo, Map<String, Object> params);
+
+    /**
+     *
+     * @param pageSize
+     * @param pageNo
+     * @param name 模糊查询
+     * @return
+     */
     Page<Menu> listMenuByPage(int pageSize, int pageNo, String name);
     Menu saveOrUpdate(Menu menu);
 

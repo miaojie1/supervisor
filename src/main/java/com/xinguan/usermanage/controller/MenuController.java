@@ -62,6 +62,19 @@ public class MenuController extends BaseController {
         return new PageInfo<>(page, param);
     }
 
+    @PostMapping(value = "/listMenuTree")
+    @ApiOperation(value = "获取资源列表 tree状 不分页")
+    public List<Menu> listMenuTree() {
+        List<Menu> menus = menuService.listAllMenus();
+        for(int i = 0 ; i < menus.size() ; i++) {
+            if (menus.get(i).getParentMenuId() != null) {
+                menus.get(i).setParentMenuId(menus.get(i).getParentMenuId());
+                menus.get(i).setSubMenus(null);
+            }
+        }
+        return menus;
+    }
+
     @GetMapping(value = "/addOrEditMenu")
     @ApiOperation(value = "资源新增或修改GET方法")
     public Menu addOrEditMenu(@ApiParam(name = "menuId", value = "menu id,如果是修改，此值不能为空") String menuId) {

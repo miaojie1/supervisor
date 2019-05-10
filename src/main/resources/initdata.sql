@@ -107,7 +107,8 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (31, 'page', '/department/listAllDepartment', current_date, current_date, 1),
        (32, 'page', '/attachment/upload', current_date, current_date, 1),
        (33, 'page', '/attachment/deleteAttachment', current_date, current_date, 1),
-       (34, 'page', '/menu/listAllMenus', current_date, current_date, 1);
+       (34, 'page', '/menu/listAllMenus', current_date, current_date, 1),
+       (35, 'getEmployeeById', '/employee/findEmployeeById', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -143,7 +144,8 @@ values (1, 1),
        (1, 31),
        (1, 32),
        (1, 33),
-       (1, 34);
+       (1, 34),
+       (1, 35);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -171,6 +173,7 @@ values (2, 1),
        (2, 23),
        (2, 28),
        (2, 30),
+       (2, 35),
        (8, 24),
        (8, 25),
        (8, 26),

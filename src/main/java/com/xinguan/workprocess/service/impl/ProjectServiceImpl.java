@@ -4,13 +4,20 @@ import com.xinguan.core.service.BaseService;
 import com.xinguan.workprocess.model.Project;
 import com.xinguan.workprocess.service.ProjectService;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Sets;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
+import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectServiceImpl extends BaseService<Project> implements ProjectService {
@@ -25,5 +32,32 @@ public class ProjectServiceImpl extends BaseService<Project> implements ProjectS
             }
             return criteriaQuery.getRestriction();
         }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
+    }
+
+    @Transactional
+    @Override
+    public Project saveOrUpdate(Project project){
+        Example<Project> projectExample = getSimpleExample(project);
+        project.setModificationDate(new Date());
+        if (!projectRepository.exists(projectExample)){
+            project.setCreateDate(new Date());
+        }
+        return projectRepository.saveAndFlush(project);
+    }
+
+    @Transactional
+    @Override
+    public void removeProject(Long id){
+        Assert.notNull(id, "The given Id must not be null!");
+        projectRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void removeProjectBatch(String ids) {
+        if (StringUtils.isNotBlank(ids)) {
+            Set<Long> longIdList = Sets.newTreeSet(ids.split(",")).stream().map(Long::parseLong).collect(Collectors.toSet());
+            longIdList.forEach(id -> projectRepository.deleteById(id));
+        }
     }
 }

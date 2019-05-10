@@ -6,14 +6,12 @@ import com.xinguan.utils.ResultInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,19 +37,6 @@ public class PostingSystemController extends BaseController{
         Page<PostingSystem> postingSystems = postingSystemService.listPostingByPage(pageSize, pageNo, postingName);
         Map<String, Object> param = Maps.newHashMap("postingName", postingName);
         return new PageInfo<>(postingSystems, param);
-    }
-
-    @GetMapping(value = "/editPosting")
-    @ApiOperation(value = "公告新增或修改GET方法")
-    public PostingSystem saveOrUpdate(@ApiParam(name = "postingId", value = "posting id,如果是修改，此值不能为空") String postingId) {
-        PostingSystem postingSystem;
-        if (StringUtils.isEmpty(postingId)) {
-            postingSystem = new PostingSystem();
-            postingSystem.setCreateDate(new Date());
-        } else {
-            postingSystem = postingSystemService.getPostingSystemById(Long.parseLong(postingId));
-        }
-        return postingSystem;
     }
 
     @PostMapping(value = "/savePosting")

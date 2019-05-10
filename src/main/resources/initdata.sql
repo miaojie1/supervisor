@@ -52,7 +52,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
           true, false, 1, 1),
         (9, current_date, null, '公告详情', '/posting/announcementDetail/postingId/{postingId}', 1, null,true, false, 1, null),
        (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
-       (11, current_date, null, '项目管理', '', 1, '', true, false, 1, 10),
+       (11, current_date, null, '项目管理', '/project/listProjectPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (12, current_date, null, '监理部管理', '', 1, '', true, false, 1, 10);
 
 
@@ -80,7 +80,7 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
        (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1),
        (6, 'batchDel', '/menu/batch/delete', current_date, current_date, 1),
-       (7, 'addBtn', '/posting/listExpPostingPage', current_date, current_date, 1),
+       (7, 'editBtn', '/project/saveProject', current_date, current_date, 1),
        (8, 'editBtn', '/posting/savePosting', current_date, current_date, 1),
        (9, 'delBtn', '/posting/delete/postingId/{postingId}', current_date, current_date, 1),
        (10, 'batchDel', '/posting/delPostingBatch', current_date, current_date, 1),
@@ -108,7 +108,10 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (32, 'page', '/attachment/upload', current_date, current_date, 1),
        (33, 'page', '/attachment/deleteAttachment', current_date, current_date, 1),
        (34, 'page', '/menu/listAllMenus', current_date, current_date, 1),
-       (35, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1);
+       (35, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1),
+       (36, 'delBtn', '/project/delete/projectId/{projectId}', current_date, current_date, 1),
+       (37, 'batchDel', '/project/delProjectBatch', current_date, current_date, 1);
+
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -145,7 +148,9 @@ values (1, 1),
        (1, 32),
        (1, 33),
        (1, 34),
-       (1, 35);
+       (1, 35),
+       (1, 36),
+       (1, 37);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -154,7 +159,7 @@ values (2, 1),
        (4, 3),
        (4, 4),
        (4, 6),
-       (6, 7),
+       (11, 7),
        (6, 8),
        (6, 32),
        (6, 33),
@@ -178,7 +183,9 @@ values (2, 1),
        (8, 25),
        (8, 26),
        (8, 27),
-       (8, 29);
+       (8, 29),
+       (11, 36),
+       (11, 37);
 
 
 

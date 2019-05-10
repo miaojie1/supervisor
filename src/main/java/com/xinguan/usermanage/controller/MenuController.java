@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -48,15 +49,16 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "获取资源列表")
     public PageInfo<Menu> listMenuPage(@ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
                                        @ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
-                                       @ApiParam(name = "paramJson", value = "查询条件用json拼接，格式：{\"key1\":\"value1\",\"key2\":value2}") String paramJson) {
-        Map<String, Object> param = CommonUtil.transforParamToMap(paramJson);
-        Page<Menu> page = menuService.listMenuByPage(pageSize, pageNo, param);
+                                       @ApiParam(name = "name", value = "查询条件用json拼接，格式：{\"key1\":\"value1\",\"key2\":value2}") String name) {
+//        Map<String, Object> param = CommonUtil.transforParamToMap(name);
+        Page<Menu> page = menuService.listMenuByPage(pageSize, pageNo, name);
         page.getContent().forEach(content -> {
             if (content.getParentMenu() != null) {
                 content.setParentMenuId(content.getParentMenu().getId());
             }
             content.setSubMenus(null);
         });
+        Map<String, Object> param = Maps.newHashMap("name", name);
         return new PageInfo<>(page, param);
     }
 

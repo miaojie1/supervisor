@@ -50,7 +50,10 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
         true, false, 1, null),
         (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
           true, false, 1, 1),
-        (9, current_date, null, '公告详情', '/posting/announcementDetail/postingId/{postingId}', 1, null,true, false, 1, null);
+        (9, current_date, null, '公告详情', '/posting/announcementDetail/postingId/{postingId}', 1, null,true, false, 1, null),
+       (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
+       (11, current_date, null, '项目管理', '', 1, '', true, false, 1, 10),
+       (12, current_date, null, '监理部管理', '', 1, '', true, false, 1, 10);
 
 
 
@@ -64,7 +67,10 @@ values (1, 1),
        (1, 6),
        (1, 7),
        (1, 8),
-       (1, 9);
+       (1, 9),
+       (1, 10),
+       (1, 11),
+       (1, 12);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)

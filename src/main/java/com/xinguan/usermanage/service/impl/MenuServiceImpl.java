@@ -5,15 +5,19 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.model.Menu;
 import com.xinguan.usermanage.model.Role;
 import com.xinguan.usermanage.service.MenuService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.persistence.criteria.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -63,6 +67,18 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         return menuRepository.findAll(example, PageRequest.of(pageNo, pageSize));
     }
 
+    @Override
+    public Page<Menu> listMenuByPage(int pageSize, int pageNo, String name) {
+        return menuRepository.findAll((Specification<Menu>) (root, criteriaQuery, criteriaBuilder) -> {
+            Predicate namePredicate = null;
+            if (StringUtils.isNotBlank(name)) {
+                //菜单名称模糊查询
+                namePredicate = criteriaBuilder.like(root.get("name").as(String.class), "%" + name + "%");
+                criteriaQuery.where(namePredicate);
+            }
+            return criteriaQuery.getRestriction();
+        }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
+    }
     @Transactional
     @Override
     public Menu saveOrUpdate(Menu menu) {

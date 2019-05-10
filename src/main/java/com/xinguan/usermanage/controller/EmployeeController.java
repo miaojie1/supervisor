@@ -86,6 +86,7 @@ public class EmployeeController extends BaseController {
     @ApiOperation(value = "用户新增或修改POST方法")
     public ResultInfo addOrEdit(@ApiParam(name = "employee", required = true, value = "待保存的对象") @RequestBody Employee employee) {
         try {
+            employee.setPassword(MD5Util.encode(employee.getPassword()));
             Employee result = employeeService.saveOrUpdate(employee);
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("save employee data:" + JSON.toJSONString(result));

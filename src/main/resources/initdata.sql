@@ -25,9 +25,9 @@ set department_id=1
 where id = 1;
 
 insert into posting_system(id, content, create_date, effect_date, expire_date, modification_date, name, version,announcer_id)
-values (1, '公告内容1',current_date, '2019-04-08 22:15:30', '2019-04-30 22:15:44', current_date, '公告1', 1,1),
-       (2, '公告内容2',current_date, '2019-04-01 22:15:49', '2019-04-25 22:15:59', current_date, '公告2', 1,1),
-       (3, '公告内容3',current_date, '2019-04-26 22:16:29', '2019-04-29 22:16:40', current_date, '公告3', 1,1);
+values (1, '公告内容1',current_date, '2019-04-08 22:15:30', '2019-05-30 22:15:44', current_date, '公告1', 1,1),
+       (2, '公告内容2',current_date, '2019-04-01 22:15:49', '2019-05-25 22:15:59', current_date, '公告2', 1,1),
+       (3, '公告内容3',current_date, '2019-04-26 22:16:29', '2019-05-29 22:16:40', current_date, '公告3', 1,1);
 
 insert into role(id, create_date, description, modification_date, name, superior_role_id, version)
 values (1, current_date, '管理员', current_date, 'admin', null, 1);
@@ -108,7 +108,7 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (32, 'page', '/attachment/upload', current_date, current_date, 1),
        (33, 'page', '/attachment/deleteAttachment', current_date, current_date, 1),
        (34, 'page', '/menu/listAllMenus', current_date, current_date, 1),
-       (35, 'getEmployeeById', '/employee/findEmployeeById', current_date, current_date, 1);
+       (35, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),

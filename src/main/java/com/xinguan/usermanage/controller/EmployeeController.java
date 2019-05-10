@@ -63,10 +63,10 @@ public class EmployeeController extends BaseController {
         return new PageInfo<>(page, param);
     }
 
-    @ApiOperation(value = "根据id查询用户")
-    @PostMapping("/findEmployeeById")
-    public Employee findEmployeeById(@ApiParam(name = "employeeId", value="用户Id") Long employeeId){
-        return employeeService.getEmployeeById(employeeId);
+    @ApiOperation(value = "获取当前用户信息")
+    @PostMapping("/getCurrentUser")
+    public Employee getCurrentUser(){
+        return employeeService.getCurrentUser();
     }
 
     @GetMapping(value = "/addOrEditEmployee")

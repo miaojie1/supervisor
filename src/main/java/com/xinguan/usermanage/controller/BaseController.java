@@ -1,7 +1,6 @@
 package com.xinguan.usermanage.controller;
 
 import com.xinguan.usermanage.service.*;
-import com.xinguan.workprocess.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
@@ -32,8 +31,6 @@ public abstract class BaseController {
     private RestTemplate restTemplate;
     @Autowired
     protected RoleService roleService;
-    @Autowired
-    protected ProjectService projectService;
 
 
 

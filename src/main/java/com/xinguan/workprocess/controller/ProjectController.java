@@ -1,6 +1,5 @@
 package com.xinguan.workprocess.controller;
 
-import com.xinguan.usermanage.controller.BaseController;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.workprocess.model.Project;
 import io.swagger.annotations.Api;
@@ -20,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/project")
 @Api(value = "项目管理相关接口 ")
-public class ProjectController extends BaseController {
+public class ProjectController extends WorkProcessBaseController {
     private final static Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
     @ApiOperation(value = "获取项目列表", notes = "返回项目列表。支持通过项目名称模糊查询。")

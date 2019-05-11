@@ -113,8 +113,8 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (37, 'batchDel', '/project/delProjectBatch', current_date, current_date, 1),
        (38, 'saveOrAddSupervisionDepartment', '/projectSupervisionDepartment/saveProjectSupervisionDepartment', current_date, current_date, 1),
        (39, 'delSupervisionDepartment', '/projectSupervisionDepartment/delete/projectSupervisionDpId/{projectSupervisionDpId}', current_date, current_date, 1),
-       (40, 'delSupervisionDepartments', '/projectSupervisionDepartment/delProjectSupervisionDpBatch', current_date, current_date, 1);
-
+       (40, 'delSupervisionDepartments', '/projectSupervisionDepartment/delProjectSupervisionDpBatch', current_date, current_date, 1),
+       (41, 'getEmployeeList', '/employee/listAllEmployees', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -156,7 +156,8 @@ values (1, 1),
        (1, 37),
        (1, 38),
        (1, 39),
-       (1, 40);
+       (1, 40),
+       (1, 41);
 
 
 insert into menu_operation(menu_id, operation_id)

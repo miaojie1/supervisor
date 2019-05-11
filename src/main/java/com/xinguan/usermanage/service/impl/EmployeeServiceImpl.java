@@ -80,6 +80,11 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
 
     }
 
+    @Override
+    public List<Employee> listAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
     @Transactional
     @Override
     public Employee saveOrUpdate(Employee employee) {

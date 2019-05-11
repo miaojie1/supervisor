@@ -1,5 +1,6 @@
 package com.xinguan.workprocess.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xinguan.usermanage.model.Employee;
 
 import javax.persistence.*;
@@ -57,16 +58,17 @@ public class Project {
     @Version
     @Column
     private int version;
-//    @OneToOne(mappedBy = "project")
-//    private ProjectSupervisionDepartment projectSupervisionDepartment;
+    @OneToOne(mappedBy = "project")
+    @JsonIgnore
+    private ProjectSupervisionDepartment projectSupervisionDepartment;
 
-//    public ProjectSupervisionDepartment getProjectSupervisionDepartment() {
-//        return projectSupervisionDepartment;
-//    }
+    public ProjectSupervisionDepartment getProjectSupervisionDepartment() {
+        return projectSupervisionDepartment;
+    }
 
-//    public void setProjectSupervisionDepartment(ProjectSupervisionDepartment projectSupervisionDepartment) {
-//        this.projectSupervisionDepartment = projectSupervisionDepartment;
-//    }
+    public void setProjectSupervisionDepartment(ProjectSupervisionDepartment projectSupervisionDepartment) {
+        this.projectSupervisionDepartment = projectSupervisionDepartment;
+    }
 
     public int getVersion() {
         return version;

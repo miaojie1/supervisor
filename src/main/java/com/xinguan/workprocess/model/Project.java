@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 public class Project {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 项目名称
@@ -57,16 +57,16 @@ public class Project {
     @Version
     @Column
     private int version;
-    @OneToOne(mappedBy = "project")
-    private ProjectSupervisionDepartment projectSupervisionDepartment;
+//    @OneToOne(mappedBy = "project")
+//    private ProjectSupervisionDepartment projectSupervisionDepartment;
 
-    public ProjectSupervisionDepartment getProjectSupervisionDepartment() {
-        return projectSupervisionDepartment;
-    }
+//    public ProjectSupervisionDepartment getProjectSupervisionDepartment() {
+//        return projectSupervisionDepartment;
+//    }
 
-    public void setProjectSupervisionDepartment(ProjectSupervisionDepartment projectSupervisionDepartment) {
-        this.projectSupervisionDepartment = projectSupervisionDepartment;
-    }
+//    public void setProjectSupervisionDepartment(ProjectSupervisionDepartment projectSupervisionDepartment) {
+//        this.projectSupervisionDepartment = projectSupervisionDepartment;
+//    }
 
     public int getVersion() {
         return version;

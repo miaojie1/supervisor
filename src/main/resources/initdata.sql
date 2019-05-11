@@ -115,7 +115,9 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (39, 'delSupervisionDepartment', '/projectSupervisionDepartment/delete/projectSupervisionDpId/{projectSupervisionDpId}', current_date, current_date, 1),
        (40, 'delSupervisionDepartments', '/projectSupervisionDepartment/delProjectSupervisionDpBatch', current_date, current_date, 1),
        (41, 'getEmployeeList', '/employee/listAllEmployees', current_date, current_date, 1),
-       (42, 'getProjectList', '/project/listAllProjects', current_date, current_date, 1);
+       (42, 'getProjectList', '/project/listAllProjects', current_date, current_date, 1),
+       (43, 'page', '/projectStatus/listAllProjectStatus', current_date, current_date, 1);
+
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -159,7 +161,8 @@ values (1, 1),
        (1, 39),
        (1, 40),
        (1, 41),
-       (1, 42);
+       (1, 42),
+       (1 ,43);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -196,7 +199,19 @@ values (2, 1),
        (11, 36),
        (11, 37);
 
+insert into project_status(id, name, remark, version)
+values (1, '状态1', 'remark1', 1),
+        (2, '状态2', 'remark1', 1);
 
+insert into project(id, construction, create_date, development, modification_date, name, no, section, version, manager_id, project_status_id)
+values (1, '施工单位1',current_date, '建设单位1', current_date , '项目1','01','标段1',1,1, 1),
+      (2, '施工单位2',current_date, '建设单位2', current_date , '项目2','02','标段2',1,1, 2);
+
+insert into project_supervision_department(id, create_date, description, modification_date, name, remark, version, major_id, project_id)
+values (1,current_date, '项目监理部门111', current_date , '项目监理部门1','remark1',1,1, 1);
+
+insert into project_supervision_department_membership(project_supervision_department_id,membership_id)
+values (1, 1);
 
 update hibernate_sequence
 set next_val=100

@@ -2,6 +2,7 @@ package com.xinguan.core.service;
 
 import com.xinguan.usermanage.repository.*;
 import com.xinguan.workprocess.repository.ProjectRepository;
+import com.xinguan.workprocess.repository.ProjectStatusRepository;
 import com.xinguan.workprocess.repository.ProjectSupervisionDepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,8 @@ public abstract class BaseService<T> {
     protected ProjectRepository projectRepository;
     @Autowired
     protected ProjectSupervisionDepartmentRepository projectSupervisionDepartmentRepository;
+    @Autowired
+    protected ProjectStatusRepository projectStatusRepository;
 
     public BaseService() {
     }

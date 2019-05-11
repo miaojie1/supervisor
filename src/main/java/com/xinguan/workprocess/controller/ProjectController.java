@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,6 +29,12 @@ public class ProjectController extends WorkProcessBaseController {
         Page<Project> projects = projectService.listProjectByPage(pageSize, pageNo, projectName);
         Map<String, Object> param = Maps.newHashMap("projectName", projectName);
         return new PageInfo<>(projects, param);
+    }
+
+    @PostMapping(value = "/listAllProjects")
+    @ApiOperation(value = "获取所有用户信息")
+    public List<Project> listEmployees() {
+        return projectService.listAllProjects();
     }
 
     @PostMapping(value = "/saveProject")

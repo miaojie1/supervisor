@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,11 @@ public class ProjectServiceImpl extends BaseService<Project> implements ProjectS
             }
             return criteriaQuery.getRestriction();
         }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
+    }
+
+    @Override
+    public List<Project> listAllProjects() {
+        return projectRepository.findAll();
     }
 
     @Transactional

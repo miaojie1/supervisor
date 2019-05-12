@@ -115,7 +115,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (48, 'delBtn', '/fileFolder/delete/fileFolder/{fileFolderId}', current_date, current_date, 1),
        (49, 'batchDelBtn', '/fileFolder/batch/delete', current_date, current_date, 1),
        (50, 'primary', '/knowledge/listAllKnowledge', current_date, current_date, 1),
-       (51, 'findProjectsByProjectSupervisionDepartmentIsNull', '/project/listProjectsSupervisionDpIsNull', current_date, current_date, 1);
+       (51, 'findProjectsByProjectSupervisionDepartmentIsNull', '/project/listProjectsSupervisionDpIsNull', current_date, current_date, 1),
+       (52, 'primary', '/attachment/download', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -169,7 +170,8 @@ values (1, 1),
        (1, 48),
        (1, 49),
        (1, 50),
-       (1, 51);
+       (1, 51),
+       (1, 52);
 
 
 insert into menu_operation(menu_id, operation_id)

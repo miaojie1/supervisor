@@ -102,7 +102,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     public Menu getMenuById(Long id) {
-        return menuRepository.getOne(id);
+        return menuRepository.findById(id).get();
     }
 
 }

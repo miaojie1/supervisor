@@ -39,18 +39,10 @@ replace into menu(id, create_date, modification_date, name, url, sort, remark, s
                   parent_menu_id)
 values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, null),
        (2, current_date, null, '用户管理', '/employee/listEmployeePage/pageSize/{pageSize}/pageNo/{pageNo}', 1, '', true, false, 1, 1),
-       (3, current_date, null, '用户菜单', '/menu/listMenu', 1, '', true, false, 1, 1),
-       (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1,
-        1),
-       (5, current_date, null, '部门管理', '/department/listDepartmentPage/pageSize/{pageSize}/pageNo/{pageNo}', 1, null,
-        true, false, 1, 1),
-        (6, current_date, null, '公告管理', '/posting/listPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
-        true, false, 1, 1),
-        (7, current_date, null, '首页公告', '/posting/listExpPostingPage', 1, null,
-        true, false, 1, null),
-        (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null,
-          true, false, 1, 1),
-        (9, current_date, null, '公告详情', '/posting/announcementDetail/postingId/{postingId}', 1, null,true, false, 1, null),
+       (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 1),
+       (5, current_date, null, '部门管理', '/department/listDepartmentPage/pageSize/{pageSize}/pageNo/{pageNo}', 1, null, true, false, 1, 1),
+       (6, current_date, null, '公告管理', '/posting/listPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null, true, false, 1, 1),
+       (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null, true, false, 1, 1),
        (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
        (11, current_date, null, '项目管理', '/project/listProjectPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10);
@@ -61,21 +53,18 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
 insert into role_menu(roles_id, menus_id)
 values (1, 1),
        (1, 2),
-       (1, 3),
        (1, 4),
        (1, 5),
        (1, 6),
-       (1, 7),
        (1, 8),
-       (1, 9),
        (1, 10),
        (1, 11),
        (1, 12);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
-values (1, 'addBtn', '123', current_date, current_date, 1),
-       (2, 'editBtn', '123', current_date, current_date, 1),
+values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
+       (2, 'primary', '/employee/getCurrentUser', current_date, current_date, 1),
        (3, 'addBtn', '/menu/addOrEditMenu', current_date, current_date, 1),
        (4, 'addBtnOk', '/menu/saveMenu', current_date, current_date, 1),
        (5, 'delBtn', '/menu/delete/menuId/{menuId}', current_date, current_date, 1),
@@ -97,7 +86,7 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (21, 'delBtn', '/resource/batch/delete', current_date, current_date, 1),
        (22, 'page', '/departmentPosition/listAllDepartmentPositions', current_date, current_date, 1),
        (23, 'page', '/employeeStatus/listAllEmployeeStatus', current_date, current_date, 1),
-       (24, 'addBtn', '/role/addRole', current_date, current_date, 1),
+       (24, 'addBtn', '/role/saveRoleMenus', current_date, current_date, 1),
        (25, 'editBtn', '/role/editRole', current_date, current_date, 1),
        (26, 'delBtn', '/role/delete/roleId/{roleId}', current_date, current_date, 1),
        (27, 'addBtnOk', '/role/saveRole', current_date, current_date, 1),
@@ -116,7 +105,9 @@ values (1, 'addBtn', '123', current_date, current_date, 1),
        (40, 'delSupervisionDepartments', '/projectSupervisionDepartment/delProjectSupervisionDpBatch', current_date, current_date, 1),
        (41, 'getEmployeeList', '/employee/listAllEmployees', current_date, current_date, 1),
        (42, 'getProjectList', '/project/listAllProjects', current_date, current_date, 1),
-       (43, 'page', '/projectStatus/listAllProjectStatus', current_date, current_date, 1);
+       (43, 'page', '/projectStatus/listAllProjectStatus', current_date, current_date, 1),
+       (44, 'primary', '/posting/listExpPostingPage', current_date, current_date, 1),
+       (45, 'primary', '/posting/announcementDetail/postingId/{postingId}', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -162,12 +153,13 @@ values (1, 1),
        (1, 40),
        (1, 41),
        (1, 42),
-       (1 ,43);
+       (1 ,43),
+       (1, 44),
+       (1, 45);
 
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
-       (3, 2),
        (4, 3),
        (4, 4),
        (4, 6),
@@ -197,7 +189,9 @@ values (2, 1),
        (8, 27),
        (8, 29),
        (11, 36),
-       (11, 37);
+       (11, 37),
+       (11, 41),
+       (11, 43);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

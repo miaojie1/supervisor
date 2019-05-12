@@ -1,5 +1,7 @@
 package com.xinguan.usermanage.controller;
 
+import com.xinguan.usermanage.repository.OperationRepository;
+import com.xinguan.usermanage.repository.RoleRepository;
 import com.xinguan.usermanage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,10 @@ public abstract class BaseController {
     @Autowired
     protected RoleService roleService;
 
-
+    @Autowired
+    protected RoleRepository roleRepository;
+    @Autowired
+    protected OperationService operationService;
 
     protected Map<String, Object> transforParamToMap(String param) {
 

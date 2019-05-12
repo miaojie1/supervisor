@@ -66,10 +66,15 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "获取资源列表 tree状 不分页")
     public List<Menu> listMenuTree() {
         List<Menu> menus = menuService.listAllMenus();
-        for(int i = 0 ; i < menus.size() ; i++) {
-            if (menus.get(i).getParentMenuId() != null) {
-                menus.get(i).setParentMenuId(menus.get(i).getParentMenuId());
-                menus.get(i).setSubMenus(null);
+        for (int i = 0; i < menus.size(); i++) {
+            if (menus.get(i).getSubMenus()!=null) {
+                // 遍历set集合
+                for (Menu menu : menus.get(i).getSubMenus()) {
+                    if (menu.getParentMenu()!=null){
+                        menu.setParentMenuId(menu.getParentMenu().getId());
+                        menu.setSubMenus(null);
+                    }
+                }
             }
         }
         return menus;

@@ -44,7 +44,8 @@ public abstract class BaseService<T> {
     protected ProjectSupervisionDepartmentRepository projectSupervisionDepartmentRepository;
     @Autowired
     protected ProjectStatusRepository projectStatusRepository;
-
+    @Autowired
+    protected OperationRepository operationRepository;
     public BaseService() {
     }
 

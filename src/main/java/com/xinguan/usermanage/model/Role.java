@@ -29,9 +29,11 @@ public class Role {
     private Date modificationDate;
     @OneToOne(targetEntity = Role.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Role superiorRole;
+
     @ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "role_menu")
     private Set<Menu> menus;
+
     @ManyToMany(targetEntity = Operation.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "role_operation")
     private Set<Operation> operations;

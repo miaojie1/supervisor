@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class ProjectStatus {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;

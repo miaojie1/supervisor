@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class ProjectSupervisionDepartment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;

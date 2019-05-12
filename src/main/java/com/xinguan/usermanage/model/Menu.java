@@ -2,6 +2,7 @@ package com.xinguan.usermanage.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class Menu {
     private Integer sort;
     @Column
     private Boolean status;
+
     @Column
     private String remark;
     @OneToMany(mappedBy = "parentMenu")

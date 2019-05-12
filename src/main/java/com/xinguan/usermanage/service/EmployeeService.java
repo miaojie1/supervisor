@@ -33,6 +33,8 @@ public interface EmployeeService {
 
     Page<Employee> listEmployeeByPage(int pageSize, int pageNo, String username);
 
+    List<Employee> listAllEmployees();
+
     Employee saveOrUpdate(Employee employee);
 
     void removeEmployee(Long id);

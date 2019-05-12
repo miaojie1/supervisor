@@ -1,5 +1,6 @@
 package com.xinguan.workprocess.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xinguan.usermanage.model.Employee;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Entity
 public class Project {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
      * 项目名称
@@ -58,6 +59,7 @@ public class Project {
     @Column
     private int version;
     @OneToOne(mappedBy = "project")
+    @JsonIgnore
     private ProjectSupervisionDepartment projectSupervisionDepartment;
 
     public ProjectSupervisionDepartment getProjectSupervisionDepartment() {

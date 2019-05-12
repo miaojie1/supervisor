@@ -3,6 +3,8 @@ package com.xinguan.usermanage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
+import com.xinguan.usermanage.model.Menu;
+import com.xinguan.usermanage.model.Operation;
 import com.xinguan.usermanage.model.Role;
 
 import com.xinguan.utils.PageInfo;
@@ -10,6 +12,10 @@ import com.xinguan.utils.ResultInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.omg.CORBA.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,9 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.assertj.core.util.Maps;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -56,6 +60,47 @@ public class RoleController extends BaseController{
         }catch (Exception e) {
             LOGGER.error("保存角色失败：" + e);
             return new ResultInfo(false, "保存失败");
+        }
+    }
+
+    @PostMapping(value = "/saveRoleMenus")
+    @ApiOperation(value = "给角色增加菜单权限")
+    public ResultInfo addRoleMenus(@ApiParam(name = "roleMenu", required = true, value = "要保存的菜单权限")
+                                       @RequestBody Set<Menu> menus,
+                                   @ApiParam(name = "roleId", required = true, value = "要设置的权限的角色id")
+                                   @RequestParam(value = "roleId") Long id){
+        try {
+            Role role = roleService.getRoleById(id);
+            Set<Operation> operations = new HashSet<>();
+            // 用于修改 如果已经有权限先设置为空
+            if (role.getMenus() != null) {
+                role.setMenus(null);
+            }
+            if (menus != null) {
+                for (Menu menu: menus){
+                    if (menu.getParentMenuId()!=null){
+                        menu.setParentMenu(menuService.getMenuById(menu.getParentMenuId()));
+                    }
+                    for (Operation operation: menu.getOperation()){
+                        operations.add(operation);
+                    }
+                }
+            }
+            for (Operation operation: operations) {
+                if (operation.getButtonId().equals("primary")){
+                    operations.remove(operation);
+                }
+            }
+            List<Operation> priOper = operationService.findOperationByButtonId("primary");
+            for(Operation operation: priOper){
+                operations.add(operation);
+            }
+            role.setMenus(menus);
+            role.setOperations(operations);
+            roleRepository.save(role);
+            return new ResultInfo(true, "增加资源权限成功", role);
+        } catch (Exception e) {
+            return new ResultInfo(false,"增加资源权限失败");
         }
     }
 

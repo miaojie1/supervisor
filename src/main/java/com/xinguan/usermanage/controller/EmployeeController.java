@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,6 +62,11 @@ public class EmployeeController extends BaseController {
         Page<Employee> page = employeeService.listEmployeeByPage(pageSize, pageNo, username);
         Map<String, Object> param = Maps.newHashMap("username", username);
         return new PageInfo<>(page, param);
+    }
+    @PostMapping(value = "/listAllEmployees")
+    @ApiOperation(value = "获取所有用户信息")
+    public List<Employee> listEmployees() {
+        return employeeService.listAllEmployees();
     }
 
     @ApiOperation(value = "获取当前用户信息")

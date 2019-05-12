@@ -1,9 +1,7 @@
 package com.xinguan.core.service;
 
 import com.xinguan.usermanage.repository.*;
-import com.xinguan.workprocess.repository.ProjectRepository;
-import com.xinguan.workprocess.repository.ProjectStatusRepository;
-import com.xinguan.workprocess.repository.ProjectSupervisionDepartmentRepository;
+import com.xinguan.workprocess.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +44,10 @@ public abstract class BaseService<T> {
     protected ProjectStatusRepository projectStatusRepository;
     @Autowired
     protected OperationRepository operationRepository;
+    @Autowired
+    protected KnowledgeRepository knowledgeRepository;
+    @Autowired
+    protected FileFolderRepository fileFolderRepository;
     public BaseService() {
     }
 

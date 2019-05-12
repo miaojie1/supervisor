@@ -45,7 +45,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null, true, false, 1, 1),
        (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
        (11, current_date, null, '项目管理', '/project/listProjectPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
-       (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10);
+       (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
+       (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10);
 
 
 
@@ -59,7 +60,8 @@ values (1, 1),
        (1, 8),
        (1, 10),
        (1, 11),
-       (1, 12);
+       (1, 12),
+       (1, 13);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -107,7 +109,11 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (42, 'getProjectList', '/project/listAllProjects', current_date, current_date, 1),
        (43, 'page', '/projectStatus/listAllProjectStatus', current_date, current_date, 1),
        (44, 'primary', '/posting/listExpPostingPage', current_date, current_date, 1),
-       (45, 'primary', '/posting/announcementDetail/postingId/{postingId}', current_date, current_date, 1);
+       (45, 'primary', '/posting/announcementDetail/postingId/{postingId}', current_date, current_date, 1),
+       (46, 'editBtn', '/fileFolder/addOrEditFileFolder', current_date, current_date, 1),
+       (47, 'addBtnOk', '/fileFolder/saveFileFolder', current_date, current_date, 1),
+       (48, 'delBtn', '/fileFolder/delete/fileFolder/{fileFolderId}', current_date, current_date, 1),
+       (49, 'batchDelBtn', '/fileFolder/batch/delete', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -155,7 +161,11 @@ values (1, 1),
        (1, 42),
        (1 ,43),
        (1, 44),
-       (1, 45);
+       (1, 45),
+       (1, 46),
+       (1, 47),
+       (1, 48),
+       (1, 49);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -191,7 +201,11 @@ values (2, 1),
        (11, 36),
        (11, 37),
        (11, 41),
-       (11, 43);
+       (11, 43),
+       (13, 46),
+       (13, 47),
+       (13, 48),
+       (13, 49);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

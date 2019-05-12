@@ -113,7 +113,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (46, 'editBtn', '/fileFolder/addOrEditFileFolder', current_date, current_date, 1),
        (47, 'addBtnOk', '/fileFolder/saveFileFolder', current_date, current_date, 1),
        (48, 'delBtn', '/fileFolder/delete/fileFolder/{fileFolderId}', current_date, current_date, 1),
-       (49, 'batchDelBtn', '/fileFolder/batch/delete', current_date, current_date, 1);
+       (49, 'batchDelBtn', '/fileFolder/batch/delete', current_date, current_date, 1),
+       (50, 'primary', '/knowledge/listAllKnowledge', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -165,7 +166,8 @@ values (1, 1),
        (1, 46),
        (1, 47),
        (1, 48),
-       (1, 49);
+       (1, 49),
+       (1, 50);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -205,7 +207,8 @@ values (2, 1),
        (13, 46),
        (13, 47),
        (13, 48),
-       (13, 49);
+       (13, 49),
+       (13, 50);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

@@ -1,9 +1,15 @@
 package com.xinguan;
 
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.apache.catalina.connector.Connector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -43,6 +49,7 @@ public class Application extends SpringBootServletInitializer {
     private String initialize;
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -103,5 +110,23 @@ public class Application extends SpringBootServletInitializer {
         }
     }
 
+
+    @Bean
+    public CommandLineRunner init(final RepositoryService repositoryService,
+                                  final RuntimeService runtimeService,
+                                  final TaskService taskService) {
+
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... strings) throws Exception {
+                LOGGER.info("Number of process definitions : "
+                        + repositoryService.createProcessDefinitionQuery().count());
+                LOGGER.info("Number of tasks : " + taskService.createTaskQuery().count());
+                //runtimeService.startProcessInstanceByKey("conference");
+                //LOGGER.info("Number of tasks after process start: " + taskService.createTaskQuery().count());
+            }
+        };
+
+    }
 
 }

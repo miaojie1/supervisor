@@ -131,8 +131,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (52, 'primary', '/attachment/download', current_date, current_date, 1),
        (53, 'page', '/getDataBackupList', current_date, current_date, 1),
        (54, 'editBtn', '/documentFolder/saveDocumentFolder', current_date, current_date, 1),
-       (55, 'delBtn', '/documentFolder/delete/documentFolder/{documentFolderId}', current_date, current_date, 1),
-       (56, 'primary', '/document/listDocumentByFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date, 1),
+       (55, 'delBtn', '/documentFolder/delete/documentFolderId/{documentFolderId}', current_date, current_date, 1),
+       (56, 'primary', '/document/listDocumentByFolderPage/documentFolderId/{documentFolderId}/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date, 1),
        (57, 'primary', '/document/download', current_date, current_date, 1),
        (58, 'primary', '/pictureFolder/savePictureFolder', current_date, current_date, 1),
        (59, 'primary', '/pictureFolder/delete/pictureFolder/{pictureFolderId}', current_date, current_date, 1),
@@ -258,6 +258,17 @@ values (1,current_date, '项目监理部门111', current_date , '项目监理部
 
 insert into project_supervision_department_membership(project_supervision_department_id,membership_id)
 values (1, 1);
+
+insert into document_category(id, create_date, name, remark, version)
+values (1, current_date, 'txt', '文本文档', 1),
+        (2, current_date, 'xls', '表格', 1);
+
+insert into document_folder(id,create_date, description, name ,version)
+values (1, current_date,'这是文档库1','文档库1',1);
+
+insert into document(id, create_date, document_name, document_url, version, document_category_id, document_folder_id, uploader_id)
+values (1, current_date, 'test11557751731659.txt','f:/uploadTest',1,1,1,1),
+      (2, current_date, 'test11557670867748.txt','f:/uploadTest',1,1,1,1);
 
 update hibernate_sequence
 set next_val=100

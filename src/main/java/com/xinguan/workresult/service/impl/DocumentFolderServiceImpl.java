@@ -46,4 +46,9 @@ public class DocumentFolderServiceImpl extends BaseService<DocumentFolder> imple
         Assert.notNull(id, "The given Id must not be null!");
         documentFolderRepository.deleteById(id);
     }
+
+    @Override
+    public DocumentFolder getDocumentFolderById(Long id){
+        return documentFolderRepository.findById(id).get();
+    }
 }

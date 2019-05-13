@@ -17,11 +17,12 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/document")
 public class DocumentController extends WorkResultBaseController {
-    @PostMapping(value = "/listDocumentByFolderPage/pageNo/{pageNo}/pageSize/{pageSize}")
+    @PostMapping(value = "/listDocumentByFolderPage/documentFolderId/{documentFolderId}/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取指定文档库的文件")
     public PageInfo<Document> listDocumentByFolder(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
                                                    @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
-                                                   @ApiParam(name = "documentFolder", value = "指定文档库")@RequestBody DocumentFolder documentFolder) {
+                                                   @ApiParam(name = "documentFolderId", value = "查看详情的documentFolderId，此值不能为空")@PathVariable String documentFolderId) {
+        DocumentFolder documentFolder = documentFolderService.getDocumentFolderById(Long.parseLong(documentFolderId));
         Page<Document> documents = documentService.listDocumentByFolderPage(pageSize,pageNo,documentFolder);
         return new PageInfo<>(documents,null);
     }

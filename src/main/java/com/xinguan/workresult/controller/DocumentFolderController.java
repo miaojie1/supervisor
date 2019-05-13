@@ -47,7 +47,7 @@ public class DocumentFolderController extends WorkResultBaseController {
 
     }
 
-    @PostMapping("/delete/documentFolder/{documentFolderId}")
+    @PostMapping("/delete/documentFolderId/{documentFolderId}")
     @ApiOperation(value = "根据documentFolder ID删除资源")
     public ResultInfo deleteById(@ApiParam(name = "documentFolderId", required = true, value = "需要删除的documentFolder ID") @PathVariable String documentFolderId) {
         final ResultInfo resultInfo = new ResultInfo();

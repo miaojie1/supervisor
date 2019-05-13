@@ -42,12 +42,14 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (4, current_date, null, '菜单管理', '/menu/listMenuPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 1),
        (5, current_date, null, '部门管理', '/department/listDepartmentPage/pageSize/{pageSize}/pageNo/{pageNo}', 1, null, true, false, 1, 1),
        (6, current_date, null, '公告管理', '/posting/listPostingPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null, true, false, 1, 1),
+       (7, current_date, null, '工作成果', null, 2, null, true, true,1, null),
        (8, current_date, null, '角色管理', '/role/listRolePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, null, true, false, 1, 1),
        (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
        (11, current_date, null, '项目管理', '/project/listProjectPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10),
-       (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10);
+       (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10),
+       (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7);
 
 
 
@@ -58,12 +60,14 @@ values (1, 1),
        (1, 4),
        (1, 5),
        (1, 6),
+       (1, 7),
        (1, 8),
        (1, 10),
        (1, 11),
        (1, 12),
        (1, 13),
-       (1, 14);
+       (1, 14),
+       (1, 15);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -119,8 +123,11 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (50, 'primary', '/knowledge/listAllKnowledge', current_date, current_date, 1),
        (51, 'findProjectsByProjectSupervisionDepartmentIsNull', '/project/listProjectsSupervisionDpIsNull', current_date, current_date, 1),
        (52, 'primary', '/attachment/download', current_date, current_date, 1),
-       (53, 'page', '/getDataBackupList', current_date, current_date, 1);
-
+       (53, 'page', '/getDataBackupList', current_date, current_date, 1),
+       (54, 'editBtn', '/documentFolder/saveDocumentFolder', current_date, current_date, 1),
+       (55, 'delBtn', '/documentFolder/delete/documentFolder/{documentFolderId}', current_date, current_date, 1),
+       (56, 'primary', '/document/listDocumentByFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date, 1),
+       (57, 'primary', '/document/download', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -175,8 +182,11 @@ values (1, 1),
        (1, 50),
        (1, 51),
        (1, 52),
-       (1, 53);
-
+       (1, 53),
+       (1, 54),
+       (1, 55),
+       (1, 56),
+       (1, 57);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -217,7 +227,9 @@ values (2, 1),
        (13, 48),
        (13, 49),
        (13, 50),
-       (14, 53);
+       (14, 53),
+       (15, 54),
+       (15, 55);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

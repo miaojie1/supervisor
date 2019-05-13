@@ -11,9 +11,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Predicate;
+import java.util.List;
 
 @Service
 public class ProjectSupervisionDepartmentServiceImpl extends BaseService<ProjectSupervisionDepartment> implements ProjectSupervisionDepartmentService {
+    @Override
+    public List<ProjectSupervisionDepartment> listAllProSuperDeparts(){
+        return projectSupervisionDepartmentRepository.findAll();
+    }
+
     @Override
     public Page<ProjectSupervisionDepartment> listProjectSupervisionDbByPage(int pageSize, int pageNo, String projectSupervisionDpName) {
         System.out.println("走到这了1");

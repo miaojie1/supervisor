@@ -1,5 +1,6 @@
 insert into employee(id, name, username, password, create_date, modification_date, version)
-values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1);
+values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1),
+       (2, '监理测试', 'test','827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1);
 
 insert into department(id, create_date, description, modification_date, name, version,
                        superior_department_id)
@@ -9,12 +10,12 @@ values (1, current_date, 'department', null, '总裁办', 1, null),
 
 insert into department_position(id, create_date, description, modification_date, name, status, version,department_id)
 values (1, current_date, '总经理', null, '总经理', true, 1, 1),
-        (2, current_date, '副总经理', null, '副总经理', true, 1, 1),
-        (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, 1),
-        (4, current_date, '人力资源总监', null, '人力总监', true, 1, 2),
-        (5, current_date, '人力资源', null, '人力干部', true, 1, 2),
-        (6, current_date, '质管部', null, '质管总监', true, 1, 3),
-        (7, current_date, '质管部', null, '质管干部', true, 1, 3);
+       (2, current_date, '副总经理', null, '副总经理', true, 1, 1),
+       (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, 1),
+       (4, current_date, '人力资源总监', null, '人力总监', true, 1, 2),
+       (5, current_date, '人力资源', null, '人力干部', true, 1, 2),
+       (6, current_date, '质管部', null, '质管总监', true, 1, 3),
+       (7, current_date, '质管部', null, '质管干部', true, 1, 3);
 
 insert into employee_status(id, create_date, description, modification_date, name, status, version)
 values (1, current_date, '在职', null, '在职', true, 1),
@@ -33,7 +34,8 @@ insert into role(id, create_date, description, modification_date, name, superior
 values (1, current_date, '管理员', current_date, 'admin', null, 1);
 
 insert into employee_role(employees_id, roles_id)
-values (1, 1);
+values (1, 1),
+       (2, 1);
 
 replace into menu(id, create_date, modification_date, name, url, sort, remark, status, root_menu, version,
                   parent_menu_id)
@@ -50,7 +52,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10),
        (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10),
        (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
-       (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7);
+       (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
+       (17, current_date, null, '监理日志', '/superLogJob/listSupervisionLogByPage', 1, '', true, false, 1, 7);
 
 
 
@@ -69,7 +72,8 @@ values (1, 1),
        (1, 13),
        (1, 14),
        (1, 15),
-       (1, 16);
+       (1, 16),
+       (1, 17);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -131,7 +135,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (56, 'primary', '/document/listDocumentByFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date, 1),
        (57, 'primary', '/document/download', current_date, current_date, 1),
        (58, 'primary', '/pictureFolder/savePictureFolder', current_date, current_date, 1),
-       (59, 'primary', '/pictureFolder/delete/pictureFolder/{pictureFolderId}', current_date, current_date, 1);
+       (59, 'primary', '/pictureFolder/delete/pictureFolder/{pictureFolderId}', current_date, current_date, 1),
+       (60, 'test', '/superLogJob/addSupLogForTest', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -192,7 +197,8 @@ values (1, 1),
        (1, 56),
        (1, 57),
        (1, 58),
-       (1, 59);
+       (1, 59),
+       (1, 60);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -235,7 +241,8 @@ values (2, 1),
        (13, 50),
        (14, 53),
        (15, 54),
-       (15, 55);
+       (15, 55),
+       (17, 60);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),
@@ -246,7 +253,8 @@ values (1, '施工单位1',current_date, '建设单位1', current_date , '项目
       (2, '施工单位2',current_date, '建设单位2', current_date , '项目2','02','标段2',1,1, 2);
 
 insert into project_supervision_department(id, create_date, description, modification_date, name, remark, version, major_id, project_id)
-values (1,current_date, '项目监理部门111', current_date , '项目监理部门1','remark1',1,1, 1);
+values (1,current_date, '项目监理部门111', current_date , '项目监理部门1','remark1',1,1, 1),
+       (2,current_date, '项目监理部门2', current_date , '项目监理部门2','remark1',1,2, 2);
 
 insert into project_supervision_department_membership(project_supervision_department_id,membership_id)
 values (1, 1);

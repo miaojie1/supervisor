@@ -2,6 +2,9 @@ package com.xinguan.core.service;
 
 import com.xinguan.usermanage.repository.*;
 import com.xinguan.workprocess.repository.*;
+import com.xinguan.workresult.repository.PictureFolderRepository;
+import com.xinguan.workresult.repository.PictureRepository;
+import com.xinguan.workresult.repository.SupervisionLogRepository;
 import com.xinguan.workresult.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +58,8 @@ public abstract class BaseService<T> {
     protected PictureFolderRepository pictureFolderRepository;
     @Autowired
     protected BackUpDataRepository backUpDataRepository;
+    @Autowired
+    protected SupervisionLogRepository supervisionLogRepository;
     @Autowired
     protected DocumentFolderRepository documentFolderRepository;
     @Autowired

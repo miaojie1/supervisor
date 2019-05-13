@@ -2,9 +2,9 @@ package com.xinguan.workresult.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Employee;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity

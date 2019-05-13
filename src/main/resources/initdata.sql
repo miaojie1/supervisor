@@ -49,7 +49,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10),
        (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10),
-       (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7);
+       (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
+       (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7);
 
 
 
@@ -67,7 +68,8 @@ values (1, 1),
        (1, 12),
        (1, 13),
        (1, 14),
-       (1, 15);
+       (1, 15),
+       (1, 16);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -127,7 +129,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (54, 'editBtn', '/documentFolder/saveDocumentFolder', current_date, current_date, 1),
        (55, 'delBtn', '/documentFolder/delete/documentFolder/{documentFolderId}', current_date, current_date, 1),
        (56, 'primary', '/document/listDocumentByFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date, 1),
-       (57, 'primary', '/document/download', current_date, current_date, 1);
+       (57, 'primary', '/document/download', current_date, current_date, 1),
+       (58, 'primary', '/pictureFolder/savePictureFolder', current_date, current_date, 1),
+       (59, 'primary', '/pictureFolder/delete/pictureFolder/{pictureFolderId}', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -186,7 +190,9 @@ values (1, 1),
        (1, 54),
        (1, 55),
        (1, 56),
-       (1, 57);
+       (1, 57),
+       (1, 58),
+       (1, 59);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

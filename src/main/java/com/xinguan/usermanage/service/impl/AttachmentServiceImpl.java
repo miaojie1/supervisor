@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -24,7 +27,7 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
     private static final Logger LOGGER = LoggerFactory.getLogger(AttachmentServiceImpl.class);
 
     @Value("${upload_location}")
-    private String filePath;
+    private String srcPath;
 
     @Override
     @Transactional
@@ -34,8 +37,44 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
     }
 
     @Override
+    public void downloadFile(String filePath, HttpServletResponse response)
+            throws ServletException, IOException{
+        String path = srcPath + "/";
+        File file = new File(path, filePath);
+
+        // 获取文件名
+        String fileName = null;
+        if(filePath.contains("/")) {
+            fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+        } else {
+            fileName = filePath;
+        }
+
+        // 设置以流的形式下载文件，这样可以实现任意格式的文件下载
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", " attachment;filename=" + fileName);
+        response.setContentLength((int) file.length());
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[128];
+            int count = 0;
+            while ((count = fis.read(buffer)) > 0) {
+                response.getOutputStream().write(buffer, 0, count);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+            fis.close();
+        }
+    }
+
+    @Override
     public Attachment uploadFile(MultipartFile multipartFile){
-        String targetFilePath = filePath;
+        String targetFilePath = srcPath;
         //1，获取原始文件名
         String originalFilename = multipartFile.getOriginalFilename();
         //2,截取源文件的文件名前缀,不带后缀

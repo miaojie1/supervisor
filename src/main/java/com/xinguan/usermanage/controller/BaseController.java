@@ -39,6 +39,8 @@ public abstract class BaseController {
     @Autowired
     protected OperationService operationService;
 
+    @Autowired
+    protected BackupDataService backupDataService;
     protected Map<String, Object> transforParamToMap(String param) {
 
         return null;

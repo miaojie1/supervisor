@@ -9,6 +9,7 @@ public interface ProjectService {
 
     Page<Project> listProjectByPage(int pageSize, int pageNo, String projectName);
     List<Project> listAllProjects();
+    List<Project> listProjectsSupervisionDpIsNull();
     Project saveOrUpdate(Project project);
     void removeProject(Long id);
     void removeProjectBatch(String ids);

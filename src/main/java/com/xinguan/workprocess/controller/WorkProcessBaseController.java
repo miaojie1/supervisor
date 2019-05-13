@@ -2,9 +2,7 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.workprocess.model.Project;
 import com.xinguan.workprocess.model.ProjectStatus;
-import com.xinguan.workprocess.service.ProjectService;
-import com.xinguan.workprocess.service.ProjectStatusService;
-import com.xinguan.workprocess.service.ProjectSupervisionDepartmentService;
+import com.xinguan.workprocess.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -16,4 +14,8 @@ public abstract class WorkProcessBaseController {
     protected ProjectStatusService projectStatusService;
     @Autowired
     protected ProjectSupervisionDepartmentService projectSupervisionDepartmentService;
+    @Autowired
+    protected KnowledgeService knowledgeService;
+    @Autowired
+    protected FileFolderService fileFolderService;
 }

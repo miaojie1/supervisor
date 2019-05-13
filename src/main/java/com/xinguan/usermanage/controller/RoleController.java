@@ -81,16 +81,19 @@ public class RoleController extends BaseController{
                     if (menu.getParentMenuId()!=null){
                         menu.setParentMenu(menuService.getMenuById(menu.getParentMenuId()));
                     }
+                    // 获得菜单中的按钮权限
                     for (Operation operation: menu.getOperation()){
                         operations.add(operation);
                     }
                 }
             }
+            // 判断如果有基础的权限，先删掉防止报重复错误
             for (Operation operation: operations) {
                 if (operation.getButtonId().equals("primary")){
                     operations.remove(operation);
                 }
             }
+            // 获得基础的权限
             List<Operation> priOper = operationService.findOperationByButtonId("primary");
             for(Operation operation: priOper){
                 operations.add(operation);

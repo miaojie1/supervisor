@@ -4,14 +4,14 @@ import com.xinguan.usermanage.model.Attachment;
 import com.xinguan.utils.ResultInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.runtime.ErrorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/attachment")
@@ -22,7 +22,7 @@ public class AttachmentController extends BaseController{
 
     @PostMapping(value = "/upload")
     @ApiOperation(value = "附件上传方法")
-    public Long uploadFileTest(@RequestParam("file") MultipartFile multipartFile) {
+    public Long uploadFile(@RequestParam("file") MultipartFile multipartFile) {
         Attachment attachment=attachmentService.saveOrUpdate(attachmentService.uploadFile(multipartFile));
         return attachment.getId();
     }
@@ -41,5 +41,11 @@ public class AttachmentController extends BaseController{
             resultInfo.setMessage("删除失败");
         }
         return resultInfo;
+    }
+
+    @ApiOperation(value = "下载附件")
+    @GetMapping("/download")
+    public void downloadFile(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
+        attachmentService.downloadFile(filePath,response);
     }
 }

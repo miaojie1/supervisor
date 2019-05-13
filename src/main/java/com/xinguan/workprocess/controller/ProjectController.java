@@ -32,9 +32,15 @@ public class ProjectController extends WorkProcessBaseController {
     }
 
     @PostMapping(value = "/listAllProjects")
-    @ApiOperation(value = "获取所有用户信息")
-    public List<Project> listEmployees() {
+    @ApiOperation(value = "获取所有项目信息")
+    public List<Project> listProjects() {
         return projectService.listAllProjects();
+    }
+
+    @PostMapping(value = "/listProjectsSupervisionDpIsNull")
+    @ApiOperation(value = "获取所有项目信息")
+    public List<Project> listProjectsSupervisionDpIsNull() {
+        return projectService.listProjectsSupervisionDpIsNull();
     }
 
     @PostMapping(value = "/saveProject")

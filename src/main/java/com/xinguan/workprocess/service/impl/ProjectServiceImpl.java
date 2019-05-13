@@ -40,6 +40,11 @@ public class ProjectServiceImpl extends BaseService<Project> implements ProjectS
         return projectRepository.findAll();
     }
 
+    @Override
+    public List<Project> listProjectsSupervisionDpIsNull() {
+        return projectRepository.findProjectsByProjectSupervisionDepartmentIsNull();
+    }
+
     @Transactional
     @Override
     public Project saveOrUpdate(Project project){

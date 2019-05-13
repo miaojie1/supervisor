@@ -46,7 +46,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (10, current_date, null, '工作管理', null, 2, null, true, true,1, null),
        (11, current_date, null, '项目管理', '/project/listProjectPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
        (12, current_date, null, '监理部管理', '/projectSupervisionDepartment/listProjectSupervisionDepartmentPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 10),
-       (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10);
+       (13, current_date, null, '知识库管理', '/fileFolder/listAllFileFolder', 1, '', true, false, 1, 10),
+       (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10);
 
 
 
@@ -61,7 +62,8 @@ values (1, 1),
        (1, 10),
        (1, 11),
        (1, 12),
-       (1, 13);
+       (1, 13),
+       (1, 14);
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)
@@ -116,7 +118,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (49, 'batchDelBtn', '/fileFolder/batch/delete', current_date, current_date, 1),
        (50, 'primary', '/knowledge/listAllKnowledge', current_date, current_date, 1),
        (51, 'findProjectsByProjectSupervisionDepartmentIsNull', '/project/listProjectsSupervisionDpIsNull', current_date, current_date, 1),
-       (52, 'primary', '/attachment/download', current_date, current_date, 1);
+       (52, 'primary', '/attachment/download', current_date, current_date, 1),
+       (53, 'page', '/getDataBackupList', current_date, current_date, 1);
 
 
 insert into role_operation(roles_id, operations_id)
@@ -171,7 +174,8 @@ values (1, 1),
        (1, 49),
        (1, 50),
        (1, 51),
-       (1, 52);
+       (1, 52),
+       (1, 53);
 
 
 insert into menu_operation(menu_id, operation_id)
@@ -212,7 +216,8 @@ values (2, 1),
        (13, 47),
        (13, 48),
        (13, 49),
-       (13, 50);
+       (13, 50),
+       (14, 53);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

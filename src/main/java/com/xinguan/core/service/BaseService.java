@@ -48,6 +48,8 @@ public abstract class BaseService<T> {
     protected KnowledgeRepository knowledgeRepository;
     @Autowired
     protected FileFolderRepository fileFolderRepository;
+    @Autowired
+    protected BackUpDataRepository backUpDataRepository;
     public BaseService() {
     }
 

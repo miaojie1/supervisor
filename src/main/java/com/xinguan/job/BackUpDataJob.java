@@ -3,20 +3,25 @@ package com.xinguan.job;
 import com.xinguan.usermanage.model.BackUpData;
 import com.xinguan.usermanage.repository.BackUpDataRepository;
 import com.xinguan.utils.CommonUtil;
+import com.xinguan.utils.ResultInfo;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -57,21 +62,23 @@ public class BackUpDataJob {
             final StringBuilder commandBuilder = new StringBuilder();
             String backUpFilePrefixName = "_backup_data_";
             String dbName = "supervisiondb";
-            String filePath = backUpFilePath + "/" + dbName + backUpFilePrefixName + new Date().getTime() + ".sql";
+            SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");//设置日期格式
+            String filePath = backUpFilePath + "/" + dbName + backUpFilePrefixName + df.format(new Date()) + ".sql";
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
             }
-            commandBuilder.append("mysqldump -u ")
-                    .append(databaseUsername)
-                    .append(" -p")
-                    .append(databasePassword)
-                    .append(" ")
-                    .append(dbName)
-                    .append(" --result-file=")
-                    .append(filePath);
+            StringBuffer sb = new StringBuffer();
+            // 本机mysqldump.exe移到c盘
+            sb.append("c:\\mysqldump");
+            sb.append(" -u"+databaseUsername);
+            sb.append(" -p"+databasePassword);
+            sb.append(" "+dbName+" >");
+            sb.append(filePath);
             LOGGER.info("backup data command:" + commandBuilder.toString());
-            Process process = Runtime.getRuntime().exec(commandBuilder.toString());
+            System.out.println("开始备份："+dbName);
+            Process process = Runtime.getRuntime().exec("cmd /c"+sb.toString());
+            System.out.println("备份成功");
             if (process.isAlive()) {
                 process.waitFor();
             }
@@ -102,16 +109,16 @@ public class BackUpDataJob {
         }
     }
 
-
     /**
      * 根据操作系统类型获取数据文件存放路径
      */
     private void setBackUpFilePath() {
         String osName = System.getProperty("os.name");
-        if (osName.startsWith("win")) {
+        if (osName.startsWith("Win") || osName.startsWith("win")) {
             backUpFilePath = environment.getProperty("system.data.backup.file.path.windows");
         } else {
             backUpFilePath = environment.getProperty("system.data.backup.file.path.linux");
         }
     }
+
 }

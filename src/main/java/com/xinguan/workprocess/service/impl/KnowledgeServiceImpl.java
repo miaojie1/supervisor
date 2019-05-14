@@ -9,6 +9,8 @@ import com.xinguan.workprocess.service.KnowledgeService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,10 +38,33 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
     }
 
     @Override
+    public Page<Knowledge> listKnowledgeByPage(int pageSize, int pageNo, String fileName) {
+        Knowledge knowledge = new Knowledge();
+        Example<Knowledge> example;
+
+        if (fileName != null) {
+            //transforObject(employee, params);
+            knowledge.setFileName("%" + fileName + "%");
+            //example = Example.of(employee);
+        }
+        example = getSimpleExample(knowledge);
+        return knowledgeRepository.findAll(example, PageRequest.of(pageNo, pageSize));
+    }
+
+    @Override
     public List<Knowledge> findKnowledgeByFileFolder(String fileFolderId) {
         Assert.notNull(fileFolderId, "The given Id must not be null!");
         FileFolder fileFolder = fileFolderRepository.getOne(Long.parseLong(fileFolderId));
         return knowledgeRepository.findAllByFileFolder(fileFolder);
+    }
+
+    @Override
+    public List<Knowledge> findByFileNameAndFileFolder(String fileName, String fileFolderId) {
+        FileFolder fileFolder = null;
+        if(fileFolderId!=""){
+            fileFolder = fileFolderRepository.getOne(Long.parseLong(fileFolderId));
+        }
+        return knowledgeRepository.findByFileNameAndFileFolderLike(fileName,fileFolderId);
     }
 
     @Override
@@ -80,8 +105,7 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
 
     @Override
     public Knowledge getKnowledgeByFileName(String fileName) {
-        String name = "%" + fileName + "%";
-        return knowledgeRepository.findKnowledgeByFileName(name);
+        return knowledgeRepository.findByFileNameLike("%" + fileName + "%");
     }
 
     @Value("${upload_location}")

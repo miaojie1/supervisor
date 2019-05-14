@@ -141,7 +141,7 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (62, 'editBtn', '/knowledge/saveKnowledge', current_date, current_date, 1),
        (63, 'delBtn', '/knowledge/delete/knowledge/{knowledgeId}', current_date, current_date, 1),
        (64, 'batchDelBtn', '/knowledge/batch/delete', current_date, current_date, 1),
-       (65, 'primary', '/knowledge/findKnowledgeByFileName', current_date, current_date, 1),
+       (65, 'primary', '/knowledge/findKnowledgeByFileNameAndFolder', current_date, current_date, 1),
        (66, 'downloadBtn', '/knowledge/downloadKnowledge', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)

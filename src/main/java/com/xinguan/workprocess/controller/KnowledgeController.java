@@ -4,6 +4,7 @@ package com.xinguan.workprocess.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Sets;
 import com.xinguan.usermanage.controller.BaseController;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.FileCategory;
 import com.xinguan.workprocess.model.FileFolder;
@@ -12,8 +13,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,10 +47,11 @@ public class KnowledgeController extends WorkProcessBaseController {
         return knowledgeService.findKnowledgeByFileFolder(fileFolderId);
     }
 
-    @PostMapping(value = "/findKnowledgeByFileName")
+    @PostMapping(value = "/findKnowledgeByFileNameAndFolder")
     @ApiOperation("通过文件夹中文件不分页")
-    public Knowledge findKnowledgeByFileName(@ApiParam(name = "fileName", value = "")  String fileName) {
-        return knowledgeService.getKnowledgeByFileName(fileName);
+    public List<Knowledge> findByFileNameAndFolder(@ApiParam(name = "fileName", value = "")  String fileName,
+                                             @ApiParam(name = "fileFolderId", value = "")  String fileFolderId) {
+        return knowledgeService.findByFileNameAndFileFolder(fileName,fileFolderId);
     }
 
     @PostMapping(value = "/uploadKnowledge")

@@ -4,6 +4,7 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workprocess.model.FileCategory;
 import com.xinguan.workprocess.model.FileFolder;
 import com.xinguan.workprocess.model.Knowledge;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,11 @@ public interface KnowledgeService {
 
     List<Knowledge> listAllKnowledge();
 
+    Page<Knowledge> listKnowledgeByPage(int pageSize, int pageNo, String fileName);
+
     List<Knowledge> findKnowledgeByFileFolder(String fileFolderId);
+
+    List<Knowledge> findByFileNameAndFileFolder(String fileName,String fileFolderId);
 
     Knowledge getKnowledgeById(Long id);
 

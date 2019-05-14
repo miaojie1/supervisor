@@ -1,6 +1,7 @@
 package com.xinguan.workprocess.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Employee;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Date;
  * @author zhangzhan
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

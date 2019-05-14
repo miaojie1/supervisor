@@ -53,7 +53,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10),
        (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
-       (17, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7),
+       (17, current_date, null, '监理日志', '/superLogJob/listSupervisionLogByPage', 1, '', true, false, 1, 7),
        (18, current_date, null, '学习考试', '', 1, '', true, false, 1, 7),
        (19, current_date, null, '监理台账', '', 1, '', true, false, 1, 7),
        (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
@@ -65,7 +65,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (26, current_date, null, '巡视', '', 1, '', true, false, 1, 20),
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '', 1, '', true, false, 1, 20),
-       (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20);
+       (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
+       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 20);
 
 
 
@@ -97,7 +98,8 @@ values (1, 1),
        (1, 26),
        (1, 27),
        (1, 28),
-       (1, 29);
+       (1, 29),
+       (1, 30);
 
 
 

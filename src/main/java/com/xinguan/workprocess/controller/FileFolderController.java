@@ -77,7 +77,7 @@ public class FileFolderController extends WorkProcessBaseController {
 
     @PostMapping("/batch/delete")
     @ApiOperation(value = "批量删除FileFolder")
-    public ResultInfo batchDeleteEmployee(@ApiParam(name = "fileFolderIds", required = true, value = "需要删除的fileFolderId，多个fileFolderIds用英文逗号分隔") String fileFolderIds) {
+    public ResultInfo batchDeleteFileFolder(@ApiParam(name = "fileFolderIds", required = true, value = "需要删除的fileFolderId，多个fileFolderIds用英文逗号分隔") String fileFolderIds) {
         final ResultInfo resultInfo = new ResultInfo();
         try {
             String[] ids = fileFolderIds.split(",");

@@ -66,6 +66,8 @@ public abstract class BaseService<T> {
     protected DocumentRepository documentRepository;
     @Autowired
     protected DocumentCategoryRepository documentCategoryRepository;
+    @Autowired
+    protected FileCategoryRepository fileCategoryRepository;
     public BaseService() {
     }
 

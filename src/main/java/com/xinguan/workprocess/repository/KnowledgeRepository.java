@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface KnowledgeRepository extends JpaRepository<Knowledge, Long>, JpaSpecificationExecutor<Knowledge> {
     List<Knowledge> findAllByFileFolder(FileFolder fileFolder);
+
+    Knowledge findKnowledgeByFileName(String fileName);
 }

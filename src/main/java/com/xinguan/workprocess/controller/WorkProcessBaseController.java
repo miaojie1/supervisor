@@ -1,5 +1,7 @@
 package com.xinguan.workprocess.controller;
 
+import com.xinguan.usermanage.service.EmployeeService;
+import com.xinguan.usermanage.service.EmployeeStatusService;
 import com.xinguan.workprocess.model.Project;
 import com.xinguan.workprocess.model.ProjectStatus;
 import com.xinguan.workprocess.service.*;
@@ -18,4 +20,8 @@ public abstract class WorkProcessBaseController {
     protected KnowledgeService knowledgeService;
     @Autowired
     protected FileFolderService fileFolderService;
+    @Autowired
+    protected EmployeeService employeeService;
+    @Autowired
+    protected FileCategoryService fileCategoryService;
 }

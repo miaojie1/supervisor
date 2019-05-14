@@ -53,7 +53,19 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (14, current_date, null, '数据备份', '/dataBackup', 1, '', true, false, 1, 10),
        (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
-       (17, current_date, null, '监理日志', '/superLogJob/listSupervisionLogByPage', 1, '', true, false, 1, 7);
+       (17, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7),
+       (18, current_date, null, '学习考试', '', 1, '', true, false, 1, 7),
+       (19, current_date, null, '监理台账', '', 1, '', true, false, 1, 7),
+       (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
+       (21, current_date, null, '进场验收', '', 1, '', true, false, 1, 20),
+       (22, current_date, null, '监理会议', '', 1, '', true, false, 1, 20),
+       (23, current_date, null, '文件审核', '', 1, '', true, false, 1, 20),
+       (24, current_date, null, '见证取样', '', 1, '', true, false, 1, 20),
+       (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
+       (26, current_date, null, '巡视', '', 1, '', true, false, 1, 20),
+       (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
+       (28, current_date, null, '检查验收', '', 1, '', true, false, 1, 20),
+       (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20);
 
 
 
@@ -73,7 +85,20 @@ values (1, 1),
        (1, 14),
        (1, 15),
        (1, 16),
-       (1, 17);
+       (1, 17),
+       (1, 18),
+       (1, 19),
+       (1, 20),
+       (1, 21),
+       (1, 22),
+       (1, 23),
+       (1, 24),
+       (1, 25),
+       (1, 26),
+       (1, 27),
+       (1, 28),
+       (1, 29);
+
 
 
 insert into operation(id, button_id, button_url, create_time, modification_time, version)

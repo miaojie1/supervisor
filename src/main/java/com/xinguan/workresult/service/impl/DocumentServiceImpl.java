@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
@@ -59,5 +61,12 @@ public class DocumentServiceImpl extends BaseService<Document> implements Docume
             response.getOutputStream().close();
             fis.close();
         }
+    }
+
+    @Transactional
+    @Override
+    public void removeDocument(Long id){
+        Assert.notNull(id, "The given Id must not be null!");
+        documentRepository.deleteById(id);
     }
 }

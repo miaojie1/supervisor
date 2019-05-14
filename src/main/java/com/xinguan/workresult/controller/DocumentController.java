@@ -1,11 +1,14 @@
 package com.xinguan.workresult.controller;
 
 import com.xinguan.utils.PageInfo;
+import com.xinguan.utils.ResultInfo;
 import com.xinguan.workresult.model.Document;
 import com.xinguan.workresult.model.DocumentFolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,8 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/document")
 public class DocumentController extends WorkResultBaseController {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
     @PostMapping(value = "/listDocumentByFolderPage/documentFolderId/{documentFolderId}/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取指定文档库的文件")
     public PageInfo<Document> listDocumentByFolder(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
@@ -29,7 +34,23 @@ public class DocumentController extends WorkResultBaseController {
 
     @ApiOperation(value = "下载文档")
     @GetMapping("/download")
-    public void downloadDocument(@RequestParam("documentPath")String documentPath, HttpServletResponse response) throws ServletException, IOException {
-        documentService.downloadDocument(documentPath,response);
+    public void downloadDocument(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
+        documentService.downloadDocument(filePath,response);
+    }
+
+    @PostMapping("/delete/documentId/{documentId}")
+    @ApiOperation(value = "根据document ID删除资源")
+    public ResultInfo deleteById(@ApiParam(name = "documentId", required = true, value = "需要删除的document ID") @PathVariable String documentId) {
+        final ResultInfo resultInfo = new ResultInfo();
+        try {
+            documentService.removeDocument(Long.parseLong(documentId));
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("删除成功");
+        } catch (Exception e) {
+            LOGGER.error("删除document失败：id:" + documentId + ",errorMessage:" + e);
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("删除失败");
+        }
+        return resultInfo;
     }
 }

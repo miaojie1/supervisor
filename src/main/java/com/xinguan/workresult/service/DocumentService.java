@@ -11,4 +11,5 @@ import java.io.IOException;
 public interface DocumentService {
     Page<Document> listDocumentByFolderPage(int pageSize, int pageNo,DocumentFolder documentFolder);
     void downloadDocument(String documentPath, HttpServletResponse response)throws ServletException, IOException;
+    void removeDocument(Long documentId);
 }

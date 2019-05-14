@@ -21,7 +21,7 @@ public class Knowledge {
     private String fileUrl;
     @Column
     private Date createDate;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private FileFolder fileFolder;
     @Version
     @Column

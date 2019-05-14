@@ -23,6 +23,8 @@ public interface KnowledgeService {
 
     List<Knowledge> findByFileNameAndFileFolder(String fileName,String fileFolderId);
 
+    List<Knowledge> findByFileName(String fileName);
+
     Knowledge getKnowledgeById(Long id);
 
     Knowledge saveOrUpdate(Knowledge knowledge, String fileFolderId, Employee employee);
@@ -30,8 +32,6 @@ public interface KnowledgeService {
     void removeKnowledge(Long id);
 
     void batchRemoveKnowledge(Set<Long> ids);
-
-    Knowledge getKnowledgeByFileName(String fileName);
 
     Knowledge uploadFile(MultipartFile multipartFile);
 

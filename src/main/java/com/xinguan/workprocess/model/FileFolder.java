@@ -1,9 +1,11 @@
 package com.xinguan.workprocess.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhangzhan
@@ -20,6 +22,8 @@ public class FileFolder {
     private String description;
     @Column
     private String remark;
+    @OneToMany(mappedBy = "fileFolder", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Knowledge> knowledges;
     @Column
     private Boolean status;
     @Column

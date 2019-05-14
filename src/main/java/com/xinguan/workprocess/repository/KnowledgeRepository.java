@@ -11,7 +11,7 @@ import java.util.List;
 public interface KnowledgeRepository extends JpaRepository<Knowledge, Long>, JpaSpecificationExecutor<Knowledge> {
     List<Knowledge> findAllByFileFolder(FileFolder fileFolder);
 
-    Knowledge findByFileNameLike(String fileName);
+    List<Knowledge> findByFileNameLike(String fileName);
 
     @Query(value = "select * from knowledge where file_name like %?1% and file_folder_id = ?2",nativeQuery = true)
     List<Knowledge> findByFileNameAndFileFolderLike(String fileName, String fileFolderId);

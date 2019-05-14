@@ -68,6 +68,11 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
     }
 
     @Override
+    public List<Knowledge> findByFileName(String fileName) {
+        return knowledgeRepository.findByFileNameLike("%" + fileName + "%");
+    }
+
+    @Override
     public Knowledge getKnowledgeById(Long id) {
         return knowledgeRepository.getOne(id);
     }
@@ -103,11 +108,6 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
         knowledgeRepository.deleteInBatch(knowledges);
     }
 
-    @Override
-    public Knowledge getKnowledgeByFileName(String fileName) {
-        return knowledgeRepository.findByFileNameLike("%" + fileName + "%");
-    }
-
     @Value("${upload_location}")
     private String filePath;
 
@@ -125,7 +125,7 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
         //4,得到新文件名
         String fileName = newFileNamePrefix + originalFilename.substring(originalFilename.lastIndexOf("."));
         File targetFile = new File(targetFilePath + File.separator + fileName);
-        String fileUrl = targetFilePath + "." + fileName;
+        String fileUrl = targetFilePath + "/" + fileName;
         FileCategory fileCategory = fileCategoryRepository.findAllByName(fileNameUnder);
         FileOutputStream fileOutputStream = null;
         Knowledge knowledge =new Knowledge();

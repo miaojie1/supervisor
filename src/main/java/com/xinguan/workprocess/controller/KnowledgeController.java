@@ -47,7 +47,13 @@ public class KnowledgeController extends WorkProcessBaseController {
         return knowledgeService.findKnowledgeByFileFolder(fileFolderId);
     }
 
-    @PostMapping(value = "/findKnowledgeByFileNameAndFolder")
+    @PostMapping(value = "/findKnowledgeByFileName")
+    @ApiOperation("通过文件夹中文件不分页")
+    public List<Knowledge> findByFileName(@ApiParam(name = "fileName", value = "")  String fileName) {
+        return knowledgeService.findByFileName(fileName);
+    }
+
+        @PostMapping(value = "/findKnowledgeByFileNameAndFolder")
     @ApiOperation("通过文件夹中文件不分页")
     public List<Knowledge> findByFileNameAndFolder(@ApiParam(name = "fileName", value = "")  String fileName,
                                              @ApiParam(name = "fileFolderId", value = "")  String fileFolderId) {
@@ -64,7 +70,7 @@ public class KnowledgeController extends WorkProcessBaseController {
 
     @ApiOperation(value = "下载附件")
     @GetMapping("/downloadKnowledge")
-    public void downloadFile(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
+    public void downloadFile(@RequestParam("filePath") String filePath, HttpServletResponse response) throws ServletException, IOException {
         knowledgeService.downloadFile(filePath,response);
     }
 

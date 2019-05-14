@@ -39,8 +39,9 @@ public class SupervisionLog {
     /**
      * 监理日志记录
      */
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "supervisionLog",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<SupervisionLogRecord> supervisionLogRecords;
+
     public Long getId() {
         return id;
     }
@@ -80,5 +81,4 @@ public class SupervisionLog {
     public void setSupervisionLogRecords(List<SupervisionLogRecord> supervisionLogRecords) {
         this.supervisionLogRecords = supervisionLogRecords;
     }
-
 }

@@ -57,7 +57,6 @@ public class SupervisionLogJob {
      */
     public void createSupervisionLog(){
         List<ProjectSupervisionDepartment> allSuperDeparts = projectSupervisionDepartmentService.listAllProSuperDeparts();
-//        List<ProjectSupervisionDepartment> allSuperDeparts = projectSupervisionDepartmentRepository.findAll();
         Set<Employee> supeEngineers=new HashSet<>();
         for(ProjectSupervisionDepartment department: allSuperDeparts){
             supeEngineers.add(department.getMajor());

@@ -2,37 +2,49 @@ package com.xinguan.workresult.service.impl;
 
 import com.xinguan.core.service.BaseService;
 import com.xinguan.usermanage.model.Employee;
+import com.xinguan.workprocess.model.ProjectSupervisionDepartment;
 import com.xinguan.workresult.model.SupervisionLog;
 import com.xinguan.workresult.service.SupervisionLogService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Predicate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class SupervisionLogServiceImpl extends BaseService<SupervisionLog> implements SupervisionLogService {
 
     @Override
-    public Page<SupervisionLog> listSupervisionLogByEmp(int pageNo, int pageSize, String name){
-        return supervisionLogRepository.findAll((Specification<SupervisionLog>) (root, criteriaQuery, criteriaBuilder) -> {
-            Predicate namePredicate = null;
-            if (StringUtils.isNotBlank(name)) {
-                //路径名称模糊查询
-                namePredicate = criteriaBuilder.like(root.get("file_path").as(String.class), "%" + name + "%");
-                criteriaQuery.where(namePredicate);
-            }
-            return criteriaQuery.getRestriction();
-        }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "id"));
+    public Page<SupervisionLog> listSupervisionLogByEmp(int pageNo, int pageSize, String name) {
+        Employee employee=null;
+        if (name!=""){
+            employee = employeeRepository.findByUsername(name);
+        }
+        SupervisionLog supervisionLog = new SupervisionLog();
+        supervisionLog.setSupervisionEngineer(employee);
+        Example<SupervisionLog> supervisionLogExample = getSimpleExample(supervisionLog);
+        return supervisionLogRepository.findAll(supervisionLogExample,PageRequest.of(pageNo, pageSize));
     }
 
     @Override
-    public Page<SupervisionLog> listSupervisionLogByPage(int pageNo, int pageSize){
-        Pageable pageable = new PageRequest(pageNo,pageSize, Sort.Direction.ASC, "id");
+    public Page<SupervisionLog> listSupervisionLogByPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "id");
         return supervisionLogRepository.findAll(pageable);
+    }
+
+    @Override
+    public void deleteSupLogById(Long id) {
+        supervisionLogRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Employee> listAllSuperEmployees() {
+        Set<Employee> employeeList = new HashSet<>();
+        List<ProjectSupervisionDepartment> supdeps = projectSupervisionDepartmentRepository.findAll();
+        for (ProjectSupervisionDepartment proSupDepart : supdeps) {
+            employeeList.add(proSupDepart.getMajor());
+        }
+        return employeeList;
     }
 }

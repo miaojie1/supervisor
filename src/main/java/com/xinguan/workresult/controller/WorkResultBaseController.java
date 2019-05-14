@@ -1,10 +1,6 @@
 package com.xinguan.workresult.controller;
 
-import com.xinguan.workresult.service.DocumentFolderService;
-import com.xinguan.workresult.service.DocumentService;
-import com.xinguan.workresult.service.PictureFolderService;
-import com.xinguan.workresult.service.PictureService;
-import com.xinguan.workresult.service.SupervisionLogService;
+import com.xinguan.workresult.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -16,7 +12,8 @@ public abstract class WorkResultBaseController {
     protected PictureFolderService pictureFolderService;
     @Autowired
     protected SupervisionLogService supervisionLogService;
-
+    @Autowired
+    protected SuperviLogRecordService superviLogRecordService;
     @Autowired
     protected DocumentFolderService documentFolderService;
     @Autowired

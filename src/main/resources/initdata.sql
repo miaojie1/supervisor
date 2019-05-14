@@ -142,7 +142,13 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (63, 'delBtn', '/knowledge/delete/knowledge/{knowledgeId}', current_date, current_date, 1),
        (64, 'batchDelBtn', '/knowledge/batch/delete', current_date, current_date, 1),
        (65, 'primary', '/knowledge/findKnowledgeByFileNameAndFolder', current_date, current_date, 1),
-       (66, 'downloadBtn', '/knowledge/downloadKnowledge', current_date, current_date, 1);
+       (66, 'downloadBtn', '/knowledge/downloadKnowledge', current_date, current_date, 1),
+       (67, 'primary', '/knowledge/findKnowledgeByFileName', current_date, current_date, 1),
+       (80, 'test', '/superLogJob/addSupLogForTest', current_date, current_date, 1),
+       (81, 'page', '/superLogJob/listAllSupEmployees',current_date,current_date,1),
+       (82, 'delbtn','/superLogJob/deleteSupLogById', current_date, current_date,1),
+       (83, 'page','/superLogJob/listSuperLogRecordByPage', current_date, current_date,1),
+       (84, 'delbtn','/superLogJob/deleteSupLogRecordById', current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -210,7 +216,13 @@ values (1, 1),
        (1, 63),
        (1, 64),
        (1, 65),
-       (1, 66);
+       (1, 66),
+       (1, 67),
+       (1, 80),
+       (1, 81),
+       (1, 82),
+       (1, 83),
+       (1, 84);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -256,11 +268,16 @@ values (2, 1),
        (13, 63),
        (13, 64),
        (13, 65),
-       (13, 66),
+       (13, 67),
        (14, 53),
        (15, 54),
        (15, 55),
-       (17, 60);
+       (17, 60),
+       (17, 80),
+       (17, 81),
+       (17, 82),
+       (17, 83),
+       (17, 84);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

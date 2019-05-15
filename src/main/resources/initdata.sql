@@ -58,7 +58,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (19, current_date, null, '监理台账', '', 1, '', true, false, 1, 7),
        (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
        (21, current_date, null, '进场验收', '/siteAcceptance/listSiteAcceptsByDepart', 1, '', true, false, 1, 20),
-       (22, current_date, null, '监理会议', '', 1, '', true, false, 1, 20),
+       (22, current_date, null, '监理会议', '/conference/listConferencePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (23, current_date, null, '文件审核', '', 1, '', true, false, 1, 20),
        (24, current_date, null, '见证取样', '', 1, '', true, false, 1, 20),
        (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
@@ -181,7 +181,10 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (90, 'addBtn','/siteAcceptance/saveSiteAcceptance', current_date, current_date,1),
        (91, 'page','/siteAcceptance/listAllProjects', current_date, current_date,1),
        (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
-       (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1);
+       (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1),
+       (100, 'addorEditBtn','/conference/saveConference', current_date, current_date,1),
+       (101, 'delBtn','/conference//delete/conferenceId/{conferenceId}', current_date, current_date,1),
+       (102, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -261,7 +264,10 @@ values (1, 1),
        (1, 90),
        (1, 91),
        (1, 92),
-       (1, 93);
+       (1, 93),
+       (1, 100),
+       (1, 101),
+       (1, 102);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -322,7 +328,10 @@ values (2, 1),
        (21, 90),
        (21, 91),
        (21, 92),
-       (21, 93);
+       (21, 93),
+       (22, 100),
+       (22, 101),
+       (22, 102);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

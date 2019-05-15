@@ -1,5 +1,6 @@
 package com.xinguan.workresult.controller;
 
+import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.workresult.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,4 +21,6 @@ public abstract class WorkResultBaseController {
     protected DocumentService documentService;
     @Autowired
     protected DocumentCategoryService documentCategoryService;
+    @Autowired
+    protected EmployeeService employeeService;
 }

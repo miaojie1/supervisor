@@ -1,9 +1,12 @@
 package com.xinguan.workresult.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinguan.workprocess.model.ProjectSupervisionDepartment;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -20,6 +23,16 @@ public class PictureFolder {
     @Version
     @Column
     private int version;
+    @OneToMany(mappedBy = "pictureFolder", cascade = {CascadeType.REMOVE})
+    private List<Picture> pictureList;
+
+    public List<Picture> getPictureList() {
+        return pictureList;
+    }
+
+    public void setPictureList(List<Picture> pictureList) {
+        this.pictureList = pictureList;
+    }
 
     public int getVersion() {
         return version;

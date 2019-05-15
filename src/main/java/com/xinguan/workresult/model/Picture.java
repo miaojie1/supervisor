@@ -1,5 +1,6 @@
 package com.xinguan.workresult.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Employee;
 
@@ -21,6 +22,8 @@ public class Picture {
     @Column
     private Date createDate;
     @ManyToOne
+    @JoinColumn(name="picture_folder_id")
+    @JsonIgnore
     private PictureFolder pictureFolder;
     @Version
     @Column

@@ -26,7 +26,7 @@ public class DocumentFolderController extends WorkResultBaseController {
     @PostMapping("/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}")
     public PageInfo<DocumentFolder> listDocumentFolderPage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
                                                  @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
-                                                 @ApiParam(name = "documentFolderName", value = "角色名称，支持模糊查询") String documentFolderName) {
+                                                 @ApiParam(name = "documentFolderName", value = "文档库名称，支持模糊查询") String documentFolderName) {
         Page<DocumentFolder> documentFolders = documentFolderService.listFolderByPage(pageSize, pageNo, documentFolderName);
         Map<String, Object> param = Maps.newHashMap("documentFolderName", documentFolderName);
         return new PageInfo<>(documentFolders, param);

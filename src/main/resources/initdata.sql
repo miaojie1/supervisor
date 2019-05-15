@@ -178,6 +178,7 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (83, 'page','/superLogJob/listSuperLogRecordByPage', current_date, current_date,1),
        (84, 'delbtn','/superLogJob/deleteSupLogRecordById', current_date, current_date,1),
        (85, 'delBtn', '/document/delete/documentId/{documentId}', current_date, current_date, 1),
+       (86, 'primary', '/documentCategory/listAllDocumentCategories', current_date, current_date, 1),
        (90, 'addBtn','/siteAcceptance/saveSiteAcceptance', current_date, current_date,1),
        (91, 'page','/siteAcceptance/listAllProjects', current_date, current_date,1),
        (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
@@ -261,6 +262,7 @@ values (1, 1),
        (1, 83),
        (1, 84),
        (1, 85),
+       (1, 86),
        (1, 90),
        (1, 91),
        (1, 92),
@@ -332,32 +334,6 @@ values (2, 1),
        (22, 100),
        (22, 101),
        (22, 102);
-
-insert into project_status(id, name, remark, version)
-values (1, '状态1', 'remark1', 1),
-        (2, '状态2', 'remark1', 1);
-
-insert into project(id, construction, create_date, development, modification_date, name, no, section, version, manager_id, project_status_id)
-values (1, '施工单位1',current_date, '建设单位1', current_date , '项目1','01','标段1',1,1, 1),
-      (2, '施工单位2',current_date, '建设单位2', current_date , '项目2','02','标段2',1,1, 2);
-
-insert into project_supervision_department(id, create_date, description, modification_date, name, remark, version, major_id, project_id)
-values (1,current_date, '项目监理部门111', current_date , '项目监理部门1','remark1',1,1, 1),
-       (2,current_date, '项目监理部门2', current_date , '项目监理部门2','remark1',1,2, 2);
-
-insert into project_supervision_department_membership(project_supervision_department_id,membership_id)
-values (1, 1);
-
-insert into document_category(id, create_date, name, remark, version)
-values (1, current_date, 'txt', '文本文档', 1),
-        (2, current_date, 'xls', '表格', 1);
-
-insert into document_folder(id,create_date, description, name ,version)
-values (1, current_date,'这是文档库1','文档库1',1);
-
-insert into document(id, create_date, document_name, document_url, version, document_category_id, document_folder_id, uploader_id)
-values (1, current_date, 'test11557751731659.txt','f:/uploadTest',1,1,1,1),
-      (2, current_date, 'test11557670867748.txt','f:/uploadTest',1,1,1,1);
 
 update hibernate_sequence
 set next_val=100

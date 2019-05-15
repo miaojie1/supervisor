@@ -18,4 +18,6 @@ public abstract class WorkResultBaseController {
     protected DocumentFolderService documentFolderService;
     @Autowired
     protected DocumentService documentService;
+    @Autowired
+    protected DocumentCategoryService documentCategoryService;
 }

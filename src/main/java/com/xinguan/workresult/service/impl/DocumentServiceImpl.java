@@ -2,7 +2,6 @@ package com.xinguan.workresult.service.impl;
 
 import com.xinguan.core.service.BaseService;
 import com.xinguan.workresult.model.Document;
-import com.xinguan.workresult.model.DocumentFolder;
 import com.xinguan.workresult.service.DocumentService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -24,9 +23,10 @@ public class DocumentServiceImpl extends BaseService<Document> implements Docume
     private String srcPath;
 
     @Override
-    public Page<Document> listDocumentByFolderPage(int pageSize, int pageNo, DocumentFolder documentFolder) {
-        return documentRepository.findByDocumentFolder(documentFolder,PageRequest.of(pageNo,pageSize,Sort.Direction.ASC,"createDate"));
+    public Page<Document> listDocumentByFolderPage(int pageSize, int pageNo,String documentName, String documentFolderId, String documentCategoryId) {
+        return documentRepository.findByDocumentFolderAndDocumentCategoryAndDocumentName(documentName,documentFolderId,documentCategoryId,PageRequest.of(pageNo,pageSize,Sort.Direction.ASC,"create_date"));
     }
+
     @Override
     public void downloadDocument(String documentPath, HttpServletResponse response)
             throws ServletException, IOException{

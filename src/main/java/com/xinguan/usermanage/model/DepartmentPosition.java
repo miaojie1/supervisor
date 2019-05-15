@@ -33,6 +33,9 @@ public class DepartmentPosition {
     private Date createDate;
     @Column
     private Date modificationDate;
+
+    @Column
+    private Integer rank;
     @Version
     @Column
     private int version;
@@ -40,7 +43,8 @@ public class DepartmentPosition {
     @OneToMany(mappedBy = "departmentPosition")
     private List<Employee> employeeList;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @JsonIgnore
@@ -59,6 +63,14 @@ public class DepartmentPosition {
 
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
     public int getVersion() {

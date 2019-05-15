@@ -8,14 +8,14 @@ values (1, current_date, 'department', null, '总裁办', 1, null),
        (2, current_date, 'department1', null, '人力资源', 1, 1),
        (3, current_date, 'department2', null, '质管部', 1, 1);
 
-insert into department_position(id, create_date, description, modification_date, name, status, version,department_id)
-values (1, current_date, '总经理', null, '总经理', true, 1, 1),
-       (2, current_date, '副总经理', null, '副总经理', true, 1, 1),
-       (3, current_date, '挂名总经理', null, '挂名总经理', true, 1, 1),
-       (4, current_date, '人力资源总监', null, '人力总监', true, 1, 2),
-       (5, current_date, '人力资源', null, '人力干部', true, 1, 2),
-       (6, current_date, '质管部', null, '质管总监', true, 1, 3),
-       (7, current_date, '质管部', null, '质管干部', true, 1, 3);
+insert into department_position(id, create_date, description, modification_date, name,rank, status, version,department_id)
+values (1, current_date, '总经理', null, '总经理', 1, true, 1, 1),
+       (2, current_date, '副总经理', null, '副总经理', 2, true, 1, 1),
+       (3, current_date, '挂名总经理', null, '挂名总经理',3, true, 1, 1),
+       (4, current_date, '人力资源总监', null, '人力总监',3, true, 1, 2),
+       (5, current_date, '人力资源', null, '人力干部', 4,true, 1, 2),
+       (6, current_date, '质管部', null, '质管总监',3, true, 1, 3),
+       (7, current_date, '质管部', null, '质管干部', 4,true, 1, 3);
 
 insert into employee_status(id, create_date, description, modification_date, name, status, version)
 values (1, current_date, '在职', null, '在职', true, 1),
@@ -180,7 +180,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (85, 'delBtn', '/document/delete/documentId/{documentId}', current_date, current_date, 1),
        (90, 'addBtn','/siteAcceptance/saveSiteAcceptance', current_date, current_date,1),
        (91, 'page','/siteAcceptance/listAllProjects', current_date, current_date,1),
-       (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1);
+       (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
+       (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -259,7 +260,8 @@ values (1, 1),
        (1, 85),
        (1, 90),
        (1, 91),
-       (1, 92);
+       (1, 92),
+       (1, 93);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -319,7 +321,8 @@ values (2, 1),
        (15, 85),
        (21, 90),
        (21, 91),
-       (21, 92);
+       (21, 92),
+       (21, 93);
 
 insert into project_status(id, name, remark, version)
 values (1, '状态1', 'remark1', 1),

@@ -33,5 +33,7 @@ public interface SiteAcceptanceService {
      * @param pageSize
      * @return
      */
-    Page<SiteAcceptance> listSiteAcceptancesByDepart(int pageNo, int pageSize);
+    Page<SiteAcceptance> listSiteAcceptancesByDepart(int pageNo, int pageSize, String name);
+
+    SiteAcceptance findById(int id);
 }

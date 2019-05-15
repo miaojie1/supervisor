@@ -48,6 +48,8 @@ public class SiteAcceptance {
     @Column
     private String remark;
     @Column
+    private Integer originRank;
+    @Column
     private String processId;
     @Column
     @Version
@@ -61,6 +63,14 @@ public class SiteAcceptance {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getOriginRank() {
+        return originRank;
+    }
+
+    public void setOriginRank(Integer originRank) {
+        this.originRank = originRank;
     }
 
     public String getMaterialName() {

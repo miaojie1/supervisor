@@ -70,6 +70,8 @@ public abstract class BaseService<T> {
     protected SupervisionLogRecordRepository supervisionLogRecordRepository;
     @Autowired
     protected FileCategoryRepository fileCategoryRepository;
+    @Autowired
+    protected SiteAcceptanceRepository siteAcceptanceRepository;
     public BaseService() {
     }
 

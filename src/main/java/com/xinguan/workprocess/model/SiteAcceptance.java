@@ -1,6 +1,9 @@
 package com.xinguan.workprocess.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinguan.usermanage.model.Department;
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workresult.model.Picture;
 
 import javax.persistence.*;
@@ -9,16 +12,27 @@ import java.util.List;
 
 /**
  * @author zhangzhan
+ * 进场验收
  */
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SiteAcceptance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String materialName;
+
+    //发起人
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name="employee_id")
+    private Employee sponsor;
+
+    // 所属部门
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
     @Column
     private Double quantity;
     @Column
@@ -55,6 +69,22 @@ public class SiteAcceptance {
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
+    }
+
+    public Employee getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(Employee sponsor) {
+        this.sponsor = sponsor;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Double getQuantity() {

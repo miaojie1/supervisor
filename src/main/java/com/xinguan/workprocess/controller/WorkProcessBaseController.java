@@ -24,4 +24,6 @@ public abstract class WorkProcessBaseController {
     protected EmployeeService employeeService;
     @Autowired
     protected FileCategoryService fileCategoryService;
+    @Autowired
+    protected SiteAcceptanceService siteAcceptanceService;
 }

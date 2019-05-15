@@ -183,7 +183,7 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
        (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1),
        (100, 'addorEditBtn','/conference/saveConference', current_date, current_date,1),
-       (101, 'delBtn','/conference//delete/conferenceId/{conferenceId}', current_date, current_date,1),
+       (101, 'delBtn','/conference/delete/conferenceId/{conferenceId}', current_date, current_date,1),
        (102, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1);
 
 insert into role_operation(roles_id, operations_id)

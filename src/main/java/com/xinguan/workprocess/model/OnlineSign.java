@@ -47,6 +47,7 @@ public class OnlineSign {
     @ManyToOne
     private Project project;
     // 审核情况
+    @OneToMany
     private List<EmployeeAudit> employeeAuditList;
 
     public Long getId() {

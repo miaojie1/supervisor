@@ -74,6 +74,8 @@ public abstract class BaseService<T> {
     protected SiteAcceptanceRepository siteAcceptanceRepository;
     @Autowired
     protected ConferenceRepository conferenceRepository;
+    @Autowired
+    protected OnlineSignRepository onlineSignRepository;
     public BaseService() {
     }
 

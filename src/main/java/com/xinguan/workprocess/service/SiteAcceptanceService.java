@@ -1,10 +1,8 @@
 package com.xinguan.workprocess.service;
 
-import com.xinguan.usermanage.model.Department;
 import com.xinguan.workprocess.model.SiteAcceptance;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
 
 public interface SiteAcceptanceService {
     /**

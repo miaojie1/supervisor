@@ -1,53 +1,41 @@
 package com.xinguan.workprocess.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
-import com.xinguan.workresult.model.Picture;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 /**
- * @author zhangzhan
- * 进场验收
+ * 在线会签
+ * @author MJ
  */
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class SiteAcceptance {
-
+public class OnlineSign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // 会签名称
     @Column
-    private String materialName;
-
+    private String signName;
     //发起人
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="employee_id")
     private Employee sponsor;
-
     // 所属部门
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="department_id")
     private Department department;
-
-    @Column
-    private Double quantity;
-    @Column
-    private String standard;
     @Column
     private Date createDate;
     @Column
     private Date modificationDate;
-    @OneToMany
-    private List<Picture> pictureList;
-    @OneToOne
-    private EmployeeAudit employeeAudit;
     @Column
     private String remark;
+    // 当前职位等级
     @Column
     private Integer originRank;
     @Column
@@ -55,9 +43,11 @@ public class SiteAcceptance {
     @Column
     @Version
     private int version;
+    // 所属项目
     @ManyToOne
     private Project project;
-
+    // 审核情况
+    private List<EmployeeAudit> employeeAuditList;
 
     public Long getId() {
         return id;
@@ -67,20 +57,12 @@ public class SiteAcceptance {
         this.id = id;
     }
 
-    public Integer getOriginRank() {
-        return originRank;
+    public String getSignName() {
+        return signName;
     }
 
-    public void setOriginRank(Integer originRank) {
-        this.originRank = originRank;
-    }
-
-    public String getMaterialName() {
-        return materialName;
-    }
-
-    public void setMaterialName(String materialName) {
-        this.materialName = materialName;
+    public void setSignName(String signName) {
+        this.signName = signName;
     }
 
     public Employee getSponsor() {
@@ -99,22 +81,6 @@ public class SiteAcceptance {
         this.department = department;
     }
 
-    public Double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getStandard() {
-        return standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -131,28 +97,20 @@ public class SiteAcceptance {
         this.modificationDate = modificationDate;
     }
 
-    public List<Picture> getPictureList() {
-        return pictureList;
-    }
-
-    public void setPictureList(List<Picture> pictureList) {
-        this.pictureList = pictureList;
-    }
-
-    public EmployeeAudit getEmployeeAudit() {
-        return employeeAudit;
-    }
-
-    public void setEmployeeAudit(EmployeeAudit employeeAudit) {
-        this.employeeAudit = employeeAudit;
-    }
-
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getOriginRank() {
+        return originRank;
+    }
+
+    public void setOriginRank(Integer originRank) {
+        this.originRank = originRank;
     }
 
     public String getProcessId() {
@@ -177,5 +135,13 @@ public class SiteAcceptance {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public List<EmployeeAudit> getEmployeeAuditList() {
+        return employeeAuditList;
+    }
+
+    public void setEmployeeAuditList(List<EmployeeAudit> employeeAuditList) {
+        this.employeeAuditList = employeeAuditList;
     }
 }

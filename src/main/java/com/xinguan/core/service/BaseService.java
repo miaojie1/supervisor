@@ -78,6 +78,10 @@ public abstract class BaseService<T> {
     protected OnlineSignRepository onlineSignRepository;
     @Autowired
     protected SideStationRepository sideStationRepository;
+    @Autowired
+    protected WitnessSamplingRepository witnessSamplingRepository;
+    @Autowired
+    protected PatrolRepository patrolRepository;
 
     public BaseService() {
     }

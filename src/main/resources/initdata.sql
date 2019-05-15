@@ -60,9 +60,9 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (21, current_date, null, '进场验收', '/siteAcceptance/listSiteAcceptsByDepart', 1, '', true, false, 1, 20),
        (22, current_date, null, '监理会议', '/conference/listConferencePage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (23, current_date, null, '文件审核', '', 1, '', true, false, 1, 20),
-       (24, current_date, null, '见证取样', '', 1, '', true, false, 1, 20),
+       (24, current_date, null, '见证取样', '/witnessSampling/listWitnessSamplingByDepartment', 1, '', true, false, 1, 20),
        (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
-       (26, current_date, null, '巡视', '', 1, '', true, false, 1, 20),
+       (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '', 1, '', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
@@ -179,13 +179,17 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (84, 'delbtn','/superLogJob/deleteSupLogRecordById', current_date, current_date,1),
        (85, 'delBtn', '/document/delete/documentId/{documentId}', current_date, current_date, 1),
        (86, 'primary', '/documentCategory/listAllDocumentCategories', current_date, current_date, 1),
+       (87, 'editBtn','/witnessSampling/saveWitnessSampling', current_date, current_date,1),
+       (88, 'delBtn','/witnessSampling/deleteWitnessSamplingById', current_date, current_date,1),
+       (89, 'editBtn','/patrol/savePatrol', current_date, current_date,1),
        (90, 'addBtn','/siteAcceptance/saveSiteAcceptance', current_date, current_date,1),
        (91, 'page','/siteAcceptance/listAllProjects', current_date, current_date,1),
        (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
        (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1),
        (100, 'addorEditBtn','/conference/saveConference', current_date, current_date,1),
        (101, 'delBtn','/conference/delete/conferenceId/{conferenceId}', current_date, current_date,1),
-       (102, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1);
+       (102, 'getCurrentUser', '/employee/getCurrentUser', current_date, current_date, 1),
+       (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -263,13 +267,17 @@ values (1, 1),
        (1, 84),
        (1, 85),
        (1, 86),
+       (1, 87),
+       (1, 88),
+       (1, 89),
        (1, 90),
        (1, 91),
        (1, 92),
        (1, 93),
        (1, 100),
        (1, 101),
-       (1, 102);
+       (1, 102),
+       (1, 110);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -327,13 +335,17 @@ values (2, 1),
        (17, 83),
        (17, 84),
        (15, 85),
+       (24, 87),
+       (24, 88),
        (21, 90),
        (21, 91),
        (21, 92),
        (21, 93),
        (22, 100),
        (22, 101),
-       (22, 102);
+       (22, 102),
+       (24, 89),
+       (24, 110);
 
 update hibernate_sequence
 set next_val=100

@@ -1,9 +1,6 @@
 package com.xinguan.workprocess.controller;
 
 import com.xinguan.usermanage.service.EmployeeService;
-import com.xinguan.usermanage.service.EmployeeStatusService;
-import com.xinguan.workprocess.model.Project;
-import com.xinguan.workprocess.model.ProjectStatus;
 import com.xinguan.workprocess.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,4 +27,8 @@ public abstract class WorkProcessBaseController {
     protected ConferenceService conferenceService;
     @Autowired
     protected SideStationService sideStationService;
+    @Autowired
+    protected WitnessSamplingService witnessSamplingService;
+    @Autowired
+    protected PatrolService patrolService;
 }

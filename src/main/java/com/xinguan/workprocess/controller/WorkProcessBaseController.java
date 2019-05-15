@@ -28,4 +28,6 @@ public abstract class WorkProcessBaseController {
     protected SiteAcceptanceService siteAcceptanceService;
     @Autowired
     protected ConferenceService conferenceService;
+    @Autowired
+    protected SideStationService sideStationService;
 }

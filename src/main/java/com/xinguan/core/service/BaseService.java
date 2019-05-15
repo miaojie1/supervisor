@@ -72,6 +72,8 @@ public abstract class BaseService<T> {
     protected FileCategoryRepository fileCategoryRepository;
     @Autowired
     protected SiteAcceptanceRepository siteAcceptanceRepository;
+    @Autowired
+    protected ConferenceRepository conferenceRepository;
     public BaseService() {
     }
 

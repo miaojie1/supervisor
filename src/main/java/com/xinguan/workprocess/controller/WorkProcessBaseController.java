@@ -26,4 +26,6 @@ public abstract class WorkProcessBaseController {
     protected FileCategoryService fileCategoryService;
     @Autowired
     protected SiteAcceptanceService siteAcceptanceService;
+    @Autowired
+    protected ConferenceService conferenceService;
 }

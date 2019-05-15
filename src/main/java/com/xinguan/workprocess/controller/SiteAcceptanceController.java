@@ -53,22 +53,13 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
                 siteAcceptance.setSponsor(employeeService.getCurrentUser());
                 siteAcceptance.setDepartment(employeeService.getCurrentUser().getDepartment());
                 siteAcceptance.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
-                siteAcceptanceService.saveSiteAcceptance(siteAcceptance);
                 resultInfo.setMessage("添加进场验收成功！");
-                resultInfo.setStatus(true);
             }else {
-                Long siteAccId = siteAcceptance.getId();
-                if (siteAcceptanceService.findById(Integer.parseInt(String.valueOf(siteAccId))).getOriginRank()>
-                employeeService.getCurrentUser().getDepartmentPosition().getRank()){
-                    siteAcceptance.setModificationDate(new Date());
-                    siteAcceptanceService.saveSiteAcceptance(siteAcceptance);
-                    resultInfo.setMessage("修改进场验收成功！");
-                    resultInfo.setStatus(true);
-                }else {
-                    resultInfo.setMessage("没有权限修改！");
-                    resultInfo.setStatus(false);
-                }
+                siteAcceptance.setModificationDate(new Date());
+                resultInfo.setMessage("修改进场验收成功！");
             }
+            siteAcceptanceService.saveSiteAcceptance(siteAcceptance);
+            resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);
             resultInfo.setObject(e);

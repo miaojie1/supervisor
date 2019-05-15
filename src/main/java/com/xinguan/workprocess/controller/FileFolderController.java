@@ -43,6 +43,12 @@ public class FileFolderController extends WorkProcessBaseController {
         return fileFolder;
     }
 
+    @PostMapping(value = "/findFileFolderByName")
+    @ApiOperation("通过文件夹中文件不分页")
+    public List<FileFolder> findFileFolderName(@ApiParam(name = "name", value = "")  String name) {
+        return fileFolderService.getFileFolderByName("%" + name +"%");
+    }
+
     @PostMapping(value = "/saveFileFolder")
     @ApiOperation(value = "用户新增或修改POST方法")
     public ResultInfo addOrEdit(@ApiParam(name = "fileFolder", required = true, value = "待保存的对象") @RequestBody FileFolder fileFolder) {

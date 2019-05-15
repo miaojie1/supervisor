@@ -25,6 +25,11 @@ public class FileFolderServiceImpl extends BaseService<FileFolder> implements Fi
     }
 
     @Override
+    public List<FileFolder> getFileFolderByName(String name) {
+        return fileFolderRepository.findByNameLike(name);
+    }
+
+    @Override
     public FileFolder saveOrUpdate(FileFolder fileFolder) {
         Example<FileFolder> employeeExample = getSimpleExample(fileFolder);
         if (fileFolderRepository.exists(employeeExample)) {

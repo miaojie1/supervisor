@@ -11,6 +11,8 @@ public interface FileFolderService {
 
     FileFolder getFileFolderById(Long id);
 
+    List<FileFolder> getFileFolderByName(String name);
+
     FileFolder saveOrUpdate(FileFolder fileFolder);
 
     void removeFileFolder(Long id);

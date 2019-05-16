@@ -66,7 +66,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
        (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
-       (28, current_date, null, '检查验收', '', 1, '', true, false, 1, 20),
+       (28, current_date, null, '检查验收', '', 1, '/checkAcceptance/listCheckAcceptancePage', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
        (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 20);
 
@@ -192,6 +192,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (101, 'delBtn','/conference/delete/conferenceId/{conferenceId}', current_date, current_date,1),
        (102, 'primary', '/conference/listAllEmployees', current_date, current_date, 1),
        (103, 'primary', '/conference/listAllConferenceSummary', current_date, current_date, 1),
+       (104, 'addOrEditBtn', '/checkAcceptance/saveCheckAcceptance', current_date, current_date, 1),
+       (105, 'delBtn', '/checkAcceptance/delete/checkAcceptanceId/{checkAcceptanceId}', current_date, current_date, 1),
+       (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
@@ -281,6 +284,9 @@ values (1, 1),
        (1, 101),
        (1, 102),
        (1, 103),
+       (1, 104),
+       (1, 105),
+       (1, 106),
        (1, 110);
 
 insert into menu_operation(menu_id, operation_id)
@@ -350,7 +356,10 @@ values (2, 1),
        (22, 102),
        (22, 103),
        (24, 89),
-       (24, 110);
+       (24, 110),
+       (28, 104),
+       (28, 105),
+       (28, 106);
 
 update hibernate_sequence
 set next_val=100

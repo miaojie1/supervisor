@@ -84,6 +84,8 @@ public abstract class BaseService<T> {
     protected PatrolRepository patrolRepository;
     @Autowired
     protected ConferenceSummaryRepository conferenceSummaryRepository;
+    @Autowired
+    protected CheckAcceptanceRepository checkAcceptanceRepository;
 
     public BaseService() {
     }

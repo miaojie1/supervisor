@@ -74,20 +74,14 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
             @ApiParam(name = "id", required = true, value = "id") @RequestParam int id
     ){
         ResultInfo resultInfo = new ResultInfo();
-        if(siteAcceptanceService.findById(id).getOriginRank() > employeeService.getCurrentUser().getDepartmentPosition().getRank()){
-           try {
-               siteAcceptanceService.deleteSiteAcceptById(new Long((long)id));
-               resultInfo.setMessage("删除成功！");
-               resultInfo.setStatus(true);
-           }catch (Exception e){
-               resultInfo.setStatus(false);
-               resultInfo.setMessage("删除失败！");
-           }
-        }else {
-            resultInfo.setMessage("没有权限删除");
-            resultInfo.setStatus(true);
+        try {
+           siteAcceptanceService.deleteSiteAcceptById(new Long((long)id));
+           resultInfo.setMessage("删除成功！");
+           resultInfo.setStatus(true);
+        }catch (Exception e){
+           resultInfo.setStatus(false);
+           resultInfo.setMessage("删除失败！");
         }
-
         return resultInfo;
     }
 }

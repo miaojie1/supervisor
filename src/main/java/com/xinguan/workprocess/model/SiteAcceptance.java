@@ -50,6 +50,9 @@ public class SiteAcceptance {
     private String remark;
     @Column
     private Integer originRank;
+    // 判断保存还是提交 0是保存 1是提交
+    @Column
+    private Integer isSubmit;
     @Column
     private String processId;
     @Column
@@ -73,6 +76,14 @@ public class SiteAcceptance {
 
     public void setOriginRank(Integer originRank) {
         this.originRank = originRank;
+    }
+
+    public Integer getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(Integer isSubmit) {
+        this.isSubmit = isSubmit;
     }
 
     public String getMaterialName() {

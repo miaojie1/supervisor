@@ -35,4 +35,6 @@ public abstract class WorkProcessBaseController {
     protected ConferenceSummaryService conferenceSummaryService;
     @Autowired
     protected CheckAcceptanceService checkAcceptanceService;
+    @Autowired
+    protected CheckStatusService checkStatusService;
 }

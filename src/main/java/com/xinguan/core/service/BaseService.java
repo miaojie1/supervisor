@@ -86,6 +86,8 @@ public abstract class BaseService<T> {
     protected ConferenceSummaryRepository conferenceSummaryRepository;
     @Autowired
     protected CheckAcceptanceRepository checkAcceptanceRepository;
+    @Autowired
+    protected CheckStatusRepository checkStatusRepository;
 
     public BaseService() {
     }

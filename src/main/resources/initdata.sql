@@ -21,6 +21,9 @@ insert into employee_status(id, create_date, description, modification_date, nam
 values (1, current_date, '在职', null, '在职', true, 1),
         (2, current_date, '离职', null, '离职', true, 1);
 
+insert into check_status(id, status)
+value (1, '未审核'),
+       (2, '已审核');
 update employee
 set department_id=1
 where id = 1;
@@ -195,7 +198,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (104, 'addOrEditBtn', '/checkAcceptance/saveCheckAcceptance', current_date, current_date, 1),
        (105, 'delBtn', '/checkAcceptance/delete/checkAcceptanceId/{checkAcceptanceId}', current_date, current_date, 1),
        (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
-       (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1);
+       (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
+       (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -287,7 +291,8 @@ values (1, 1),
        (1, 104),
        (1, 105),
        (1, 106),
-       (1, 110);
+       (1, 110),
+       (1, 111);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

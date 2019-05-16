@@ -44,6 +44,9 @@ public class Conference {
     private Department department;
     @Column
     private Integer originRank;
+    // 判断保存还是提交 0是保存 1是提交
+    @Column
+    private Integer isSubmit;
     @Column
     @Version
     private int version;
@@ -142,6 +145,14 @@ public class Conference {
 
     public void setOriginRank(Integer originRank) {
         this.originRank = originRank;
+    }
+
+    public Integer getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(Integer isSubmit) {
+        this.isSubmit = isSubmit;
     }
 
     public int getVersion() {

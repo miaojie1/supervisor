@@ -45,7 +45,7 @@ public class ConferenceServiceImpl extends BaseService<Conference> implements Co
     @Override
     public Conference saveOrUpdate(Conference conference) {
         Example<Conference> conferenceExample = getSimpleExample(conference);
-        if (conferenceRepository.exists(conferenceExample)) {
+        if (conference.getId() != null) {
             conference.setModificationDate(new Date());
         } else {
             conference.setInitiator(employeeService.getCurrentUser());

@@ -108,6 +108,7 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
     @Override
     public void removeAttachment(Long id) {
         Assert.notNull(id, "The given Id must not be null!");
+        attachmentRepository.deletePostingSystemAttachmentById(id);
         attachmentRepository.deleteById(id);
     }
 

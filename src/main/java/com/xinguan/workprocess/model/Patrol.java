@@ -39,7 +39,7 @@ public class Patrol {
     private Date createDate;
     @Column
     private Date modificationDate;
-    //流程图
+    //图像资料
     @OneToMany
     private List<Picture> pictureList;
     //审核
@@ -47,6 +47,9 @@ public class Patrol {
     private EmployeeAudit employeeAudit;
     @Column
     private String remark;
+    // 判断保存还是提交 0是保存 1是提交
+    @Column
+    private Integer isSubmit;
     //职位等级 用来权限判断 等级最高为1
     @Column
     private Integer originRank;
@@ -62,6 +65,14 @@ public class Patrol {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(Integer isSubmit) {
+        this.isSubmit = isSubmit;
     }
 
     public String getLocation() {

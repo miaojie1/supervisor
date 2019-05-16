@@ -43,7 +43,7 @@ public class WitnessSampling {
     private Date createDate;
     @Column
     private Date modificationDate;
-    //流程图
+    //图像资料
     @OneToMany
     private List<Picture> pictureList;
     //审核
@@ -51,6 +51,9 @@ public class WitnessSampling {
     private EmployeeAudit employeeAudit;
     @Column
     private String remark;
+    // 判断保存还是提交 0是保存 1是提交
+    @Column
+    private Integer isSubmit;
     //职位等级 用来权限判断 等级最高为1
     @Column
     private Integer originRank;
@@ -66,6 +69,14 @@ public class WitnessSampling {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(Integer isSubmit) {
+        this.isSubmit = isSubmit;
     }
 
     public Integer getOriginRank() {

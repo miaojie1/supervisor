@@ -54,18 +54,13 @@ public class WitnessSamplingController extends WorkProcessBaseController{
     @ApiOperation(value = "删除 见证取样 只有比自己职位高的才可以进行删除操作")
     public ResultInfo deleteWitnessSamplingById(@ApiParam(name = "id", required = true, value = "id") @RequestParam int id){
         ResultInfo resultInfo = new ResultInfo();
-        if(witnessSamplingService.findById(id).getOriginRank() > employeeService.getCurrentUser().getDepartmentPosition().getRank()){
-            try {
-                witnessSamplingService.deleteWitnessSamplingById(new Long((long)id));
-                resultInfo.setMessage("删除成功！");
-                resultInfo.setStatus(true);
-            }catch (Exception e){
-                resultInfo.setStatus(false);
-                resultInfo.setMessage("删除失败！");
-            }
-        }else {
-            resultInfo.setMessage("没有权限删除");
+        try {
+            witnessSamplingService.deleteWitnessSamplingById(new Long((long)id));
+            resultInfo.setMessage("删除成功！");
             resultInfo.setStatus(true);
+        }catch (Exception e){
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("删除失败！");
         }
         return resultInfo;
     }

@@ -33,4 +33,6 @@ public abstract class WorkProcessBaseController {
     protected PatrolService patrolService;
     @Autowired
     protected ConferenceSummaryService conferenceSummaryService;
+    @Autowired
+    protected CheckAcceptanceService checkAcceptanceService;
 }

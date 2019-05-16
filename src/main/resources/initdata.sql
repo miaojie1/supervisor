@@ -208,7 +208,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
        (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
-       (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1);
+       (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
+       (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1);
+
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -308,7 +310,8 @@ values (1, 1),
        (1, 106),
        (1, 110),
        (1, 111),
-       (1, 120);
+       (1, 120),
+       (1, 121);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -383,6 +386,7 @@ values (2, 1),
        (23, 98),
        (23, 99),
        (23, 120),
+       (23, 121),
        (24, 89),
        (24, 110),
        (28, 104),

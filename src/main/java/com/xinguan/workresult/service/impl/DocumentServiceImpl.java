@@ -20,10 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.Date;
 
 @Service
@@ -114,6 +112,7 @@ public class DocumentServiceImpl extends BaseService<Document> implements Docume
         return document;
     }
 
+    @Transactional
     @Override
     public Document saveOrUpdate(Document document){
         if(document.getId()==null){
@@ -126,5 +125,60 @@ public class DocumentServiceImpl extends BaseService<Document> implements Docume
     @Override
     public Document findDocuById(Long id){
         return documentRepository.findById(id).get();
+    }
+
+    @Override
+    public void downloadDoc(String fileName, HttpServletResponse response){
+        String orginFilePath = srcPath + '/' + fileName;
+        File file = new File(orginFilePath);
+        if (file.exists()) {
+            InputStream inStream = null;
+            BufferedOutputStream os = null;
+            try {
+                inStream = new FileInputStream(file);
+                // 设置输出的格式，以附件的方式输出，不用用浏览器打开
+                byte[] buffer = new byte[1024];
+                int byteread;
+                try {
+                    response.reset();
+                    response.addHeader("Content-Disposition","attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+                    response.setContentType("application/octet-stream");
+                    os = new BufferedOutputStream(response.getOutputStream());
+                    while ((byteread = inStream.read(buffer)) != -1) {
+                        os.write(buffer, 0, byteread);
+                    }
+                    inStream.close();
+                    os.flush();
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inStream != null) {
+                        inStream.close();
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    if (os != null) {
+                        os.close();
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        } else {
+            response.reset();
+            try {
+                response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("文件不存在", "UTF-8"));
+                response.setContentType("application/octet-stream");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

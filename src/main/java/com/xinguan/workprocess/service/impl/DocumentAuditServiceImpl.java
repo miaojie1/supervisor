@@ -14,6 +14,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
         return documentAuditRepository.findById(id).get();
     }
 
+    @Transactional
     @Override
     public DocumentAudit saveDocumentAudit(DocumentAudit documentAudit){
         return documentAuditRepository.saveAndFlush(documentAudit);

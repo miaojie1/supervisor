@@ -1,5 +1,6 @@
 package com.xinguan.workprocess.controller;
 
+import com.xinguan.usermanage.service.AttachmentService;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.DocumentAudit;
 import com.xinguan.workprocess.model.Project;
@@ -14,9 +15,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +34,8 @@ public class DocumentAuditController extends WorkProcessBaseController {
     DocumentService documentService;
     @Autowired
     DocumentCategoryService documentCategoryService;
+    @Autowired
+    AttachmentService attachmentService;
     @Autowired
     DocumentFolderService documentFolderService;
     @PostMapping(value = "/listAllProjects")
@@ -72,8 +79,28 @@ public class DocumentAuditController extends WorkProcessBaseController {
                 documentAudit.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
                 resultInfo.setMessage("添加审核文件成功！");
             }else {
-                documentAudit.setModificationDate(new Date());
-                resultInfo.setMessage("修改审核文件成功！");
+                if (!StringUtils.isEmpty(documentId)){
+                    documentService.removeDocument(documentAuditService.findById(documentAudit.getId()).getDocument().getId());
+                    Document toSaveDoc = documentService.findDocuById(documentId);
+                    if (!StringUtils.isEmpty(categoryId)){
+                        toSaveDoc.setDocumentCategory(documentCategoryService.findDocuCateById(categoryId));
+                    }
+                    if(!StringUtils.isEmpty(folderId)){
+                        toSaveDoc.setDocumentFolder(documentFolderService.findDocuFolderById(folderId));
+                    }
+                    documentAudit.setModificationDate(new Date());
+                    resultInfo.setMessage("修改审核文件成功！");
+                }else {
+                    Document document = documentService.findDocuById(documentAudit.getDocument().getId());
+                    if (!StringUtils.isEmpty(categoryId)){
+                        document.setDocumentCategory(documentCategoryService.findDocuCateById(categoryId));
+                    }
+                    if(!StringUtils.isEmpty(folderId)){
+                        document.setDocumentFolder(documentFolderService.findDocuFolderById(folderId));
+                    }
+                    documentAudit.setModificationDate(new Date());
+                    resultInfo.setMessage("修改审核文件成功！");
+                }
             }
             documentAuditService.saveDocumentAudit(documentAudit);
             resultInfo.setStatus(true);
@@ -128,5 +155,11 @@ public class DocumentAuditController extends WorkProcessBaseController {
             resultInfo.setObject(e);
         }
         return resultInfo;
+    }
+
+    @ApiOperation(value = "下载文档")
+    @GetMapping("/downloadDoc")
+    public void downloadFile(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
+        documentService.downloadDocument(filePath, response);
     }
 }

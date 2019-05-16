@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface ConferenceService {
 
-    Page<Conference> listConferenceByPage(int pageSize, int pageNo, String content, Employee employee);
+    Page<Conference> listConferenceByPage(int pageSize, int pageNo,  String content);
 
     Conference saveOrUpdate(Conference conference);
 

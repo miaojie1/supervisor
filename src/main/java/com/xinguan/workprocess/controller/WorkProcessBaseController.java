@@ -31,4 +31,6 @@ public abstract class WorkProcessBaseController {
     protected WitnessSamplingService witnessSamplingService;
     @Autowired
     protected PatrolService patrolService;
+    @Autowired
+    protected ConferenceSummaryService conferenceSummaryService;
 }

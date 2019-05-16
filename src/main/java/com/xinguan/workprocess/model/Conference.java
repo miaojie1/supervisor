@@ -1,6 +1,7 @@
 package com.xinguan.workprocess.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
 
 import javax.persistence.*;
@@ -37,6 +38,12 @@ public class Conference {
     private String remark;
     @OneToMany(mappedBy = "conference", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<ConferenceSummary> conferenceSummaryList;
+    // 所属部门
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
+    @Column
+    private Integer originRank;
     @Column
     @Version
     private int version;
@@ -119,6 +126,22 @@ public class Conference {
 
     public void setConferenceSummaryList(List<ConferenceSummary> conferenceSummaryList) {
         this.conferenceSummaryList = conferenceSummaryList;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Integer getOriginRank() {
+        return originRank;
+    }
+
+    public void setOriginRank(Integer originRank) {
+        this.originRank = originRank;
     }
 
     public int getVersion() {

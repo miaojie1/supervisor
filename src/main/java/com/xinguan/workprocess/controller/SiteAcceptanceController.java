@@ -37,8 +37,7 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
     public Page<SiteAcceptance> listSiteAccepts(
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
-            @ApiParam(name = "materialName", required = true, value = "材料名称") @RequestParam(name = "materialName") String materialName
-    ) {
+            @ApiParam(name = "materialName", required = true, value = "材料名称") @RequestParam(name = "materialName") String materialName) {
         return siteAcceptanceService.listSiteAcceptancesByDepart(pageNo,pageSize,materialName);
     }
 
@@ -71,8 +70,7 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
     @PostMapping(value = "/deleteSiteAcceptanceById")
     @ApiOperation(value = "删除 进场验收 只有比自己职位高的才可以进行删除操作")
     public ResultInfo deleteSiteAcceptById(
-            @ApiParam(name = "id", required = true, value = "id") @RequestParam int id
-    ){
+            @ApiParam(name = "id", required = true, value = "id") @RequestParam int id){
         ResultInfo resultInfo = new ResultInfo();
         try {
            siteAcceptanceService.deleteSiteAcceptById(new Long((long)id));

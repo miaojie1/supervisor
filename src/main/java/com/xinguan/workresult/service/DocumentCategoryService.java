@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DocumentCategoryService {
     List<DocumentCategory> listAllDocumentCategories();
+    DocumentCategory findDocuCateById(Long id);
 }

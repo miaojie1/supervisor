@@ -1,8 +1,13 @@
 package com.xinguan.workresult.service.impl;
 
 import com.xinguan.core.service.BaseService;
+import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.workresult.model.Document;
 import com.xinguan.workresult.service.DocumentService;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,18 +15,25 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 @Service
 public class DocumentServiceImpl extends BaseService<Document> implements DocumentService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentService.class);
+
     @Value("${upload_location}")
     private String srcPath;
-
+    @Autowired
+    EmployeeService employeeService;
     @Override
     public Page<Document> listDocumentByFolderPage(int pageSize, int pageNo,String documentName, String documentFolderId, String documentCategoryId) {
         return documentRepository.findByDocumentFolderAndDocumentCategoryAndDocumentName(documentName,documentFolderId,documentCategoryId,PageRequest.of(pageNo,pageSize,Sort.Direction.ASC,"create_date"));
@@ -68,5 +80,51 @@ public class DocumentServiceImpl extends BaseService<Document> implements Docume
     public void removeDocument(Long id){
         Assert.notNull(id, "The given Id must not be null!");
         documentRepository.deleteById(id);
+    }
+
+    @Override
+    public Document uploadFile(MultipartFile multipartFile){
+        String targetFilePath = srcPath;
+        //1，获取原始文件名
+        String originalFilename = multipartFile.getOriginalFilename();
+        //2,截取源文件的文件名前缀,不带后缀
+        String fileNamePrefix = originalFilename.substring(0,originalFilename.lastIndexOf("."));
+        //3,加工处理文件名，原文件加上时间戳
+        String newFileNamePrefix  = fileNamePrefix + System.currentTimeMillis();
+        //4,得到新文件名
+        String fileName = newFileNamePrefix + originalFilename.substring(originalFilename.lastIndexOf("."));
+        File targetFile = new File(targetFilePath + File.separator + fileName);
+        FileOutputStream fileOutputStream = null;
+        Document document=new Document();
+        document.setDocumentName(fileName);
+        document.setDocumentUrl(targetFilePath);
+        try {
+            fileOutputStream = new FileOutputStream(targetFile);
+            IOUtils.copy(multipartFile.getInputStream(), fileOutputStream);
+            LOGGER.info("------>>>>>>uploaded a file successfully!<<<<<<------");
+        } catch (IOException e) {
+            LOGGER.error("上传文件失败：" + e);
+        } finally {
+            try {
+                fileOutputStream.close();
+            } catch (IOException e) {
+                LOGGER.error("失败" + e);
+            }
+        }
+        return document;
+    }
+
+    @Override
+    public Document saveOrUpdate(Document document){
+        if(document.getId()==null){
+            document.setUploader(employeeService.getCurrentUser());
+            document.setCreateDate(new Date());
+        }
+       return documentRepository.saveAndFlush(document);
+    }
+
+    @Override
+    public Document findDocuById(Long id){
+        return documentRepository.findById(id).get();
     }
 }

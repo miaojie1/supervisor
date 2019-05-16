@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +40,13 @@ public class DocumentController extends WorkResultBaseController {
     @GetMapping("/download")
     public void downloadDocument(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
         documentService.downloadDocument(filePath,response);
+    }
+
+    @PostMapping(value = "/uploadDocument")
+    @ApiOperation(value = "文档上传方法")
+    public Long uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+        Document document=documentService.saveOrUpdate(documentService.uploadFile(multipartFile));
+        return document.getId();
     }
 
     @PostMapping("/delete/documentId/{documentId}")

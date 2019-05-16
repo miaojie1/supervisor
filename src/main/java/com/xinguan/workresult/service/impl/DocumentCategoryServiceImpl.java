@@ -13,4 +13,9 @@ public class DocumentCategoryServiceImpl extends BaseService<DocumentCategory> i
     public List<DocumentCategory> listAllDocumentCategories(){
        return documentCategoryRepository.findAll();
    }
+
+    @Override
+    public DocumentCategory findDocuCateById(Long id){
+        return documentCategoryRepository.findById(id).get();
+    }
 }

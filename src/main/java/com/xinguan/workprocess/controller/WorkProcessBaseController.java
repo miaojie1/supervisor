@@ -2,6 +2,8 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.workprocess.service.*;
+import com.xinguan.workresult.service.DocumentCategoryService;
+import com.xinguan.workresult.service.DocumentFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -37,4 +39,10 @@ public abstract class WorkProcessBaseController {
     protected CheckAcceptanceService checkAcceptanceService;
     @Autowired
     protected CheckStatusService checkStatusService;
+    @Autowired
+    protected DocumentAuditService documentAuditService;
+    @Autowired
+    protected DocumentFolderService documentFolderService;
+    @Autowired
+    protected DocumentCategoryService documentCategoryService;
 }

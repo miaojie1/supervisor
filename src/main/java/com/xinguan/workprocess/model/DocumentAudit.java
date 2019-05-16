@@ -1,6 +1,7 @@
 package com.xinguan.workprocess.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workresult.model.Document;
 
@@ -30,6 +31,12 @@ public class DocumentAudit {
      */
     @OneToMany
     private List<EmployeeAudit> employeeAuditList;
+
+    // 所属部门
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private Department department;
+
     @Column
     private Date createDate;
     @Column
@@ -37,8 +44,9 @@ public class DocumentAudit {
     /**
      * 发起人
      */
-    @ManyToOne
-    private Employee employee;
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @JoinColumn(name="employee_id")
+    private Employee sponsor;
     /**
      * 截止日期
      */
@@ -49,6 +57,12 @@ public class DocumentAudit {
      */
     @Column
     private String processId;
+    // 职位等级
+    @Column
+    private Integer originRank;
+    // 判断保存还是提交 0是保存 1是提交
+    @Column
+    private Integer isSubmit;
     @Version
     @Column
     private int version;
@@ -79,6 +93,30 @@ public class DocumentAudit {
         this.id = id;
     }
 
+    public Integer getOriginRank() {
+        return originRank;
+    }
+
+    public void setOriginRank(Integer originRank) {
+        this.originRank = originRank;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Integer getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(Integer isSubmit) {
+        this.isSubmit = isSubmit;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -93,6 +131,14 @@ public class DocumentAudit {
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public Employee getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(Employee sponsor) {
+        this.sponsor = sponsor;
     }
 
     public List<EmployeeAudit> getEmployeeAuditList() {
@@ -117,14 +163,6 @@ public class DocumentAudit {
 
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public Date getExpirationDate() {

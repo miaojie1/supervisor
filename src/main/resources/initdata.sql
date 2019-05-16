@@ -1,6 +1,7 @@
 insert into employee(id, name, username, password, create_date, modification_date, version)
 values (1, 'admin', 'admin', '827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1),
-       (2, '监理测试', 'test','827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1);
+       (2, '监理测试', 'test2','827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1),
+       (3, '监理测试', 'test3','827ccb0eea8a706c4c34a16891f84e7b', current_date, current_date, 1);
 
 insert into department(id, create_date, description, modification_date, name, version,
                        superior_department_id)
@@ -40,7 +41,8 @@ values (1, current_date, '管理员', current_date, 'admin', null, 1);
 
 insert into employee_role(employees_id, roles_id)
 values (1, 1),
-       (2, 1);
+       (2, 1),
+       (3, 1);
 
 replace into menu(id, create_date, modification_date, name, url, sort, remark, status, root_menu, version,
                   parent_menu_id)
@@ -64,7 +66,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
        (21, current_date, null, '进场验收', '/siteAcceptance/listSiteAcceptsByDepart', 1, '', true, false, 1, 20),
        (22, current_date, null, '监理会议', '/conference/listConferencePage/pageSize/{pageSize}/pageNo/{pageNo}', 1, '', true, false, 1, 20),
-       (23, current_date, null, '文件审核', '', 1, '', true, false, 1, 20),
+       (23, current_date, null, '文件审核', '/documentAudit/listDocumentAuditsByDepart', 1, '', true, false, 1, 20),
        (24, current_date, null, '见证取样', '/witnessSampling/listWitnessSamplingByDepartment', 1, '', true, false, 1, 20),
        (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
        (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
@@ -191,6 +193,12 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (91, 'page','/siteAcceptance/listAllProjects', current_date, current_date,1),
        (92, 'page','/siteAcceptance/listAllEmployees', current_date, current_date,1),
        (93, 'delBtn','/siteAcceptance/deleteSiteAcceptanceById', current_date, current_date,1),
+       (94, 'download', '/document/uploadDocument', current_date, current_date, 1),
+       (95, 'addBtn', '/documentAudit/saveDocumentAudit', current_date, current_date, 1),
+       (96, 'page', '/documentAudit/listAllProjects', current_date,current_date,1),
+       (97, 'page', '/documentAudit/listAllFolders', current_date,current_date,1),
+       (98, 'page', '/documentAudit/listAllCategorys', current_date,current_date,1),
+       (99, 'delBtn', '/documentAudit/deleteDocAuditById', current_date,current_date,1),
        (100, 'addorEditBtn','/conference/saveConference', current_date, current_date,1),
        (101, 'delBtn','/conference/delete/conferenceId/{conferenceId}', current_date, current_date,1),
        (102, 'primary', '/conference/listAllEmployees', current_date, current_date, 1),
@@ -199,7 +207,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (105, 'delBtn', '/checkAcceptance/delete/checkAcceptanceId/{checkAcceptanceId}', current_date, current_date, 1),
        (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
-       (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1);
+       (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
+       (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -284,6 +293,12 @@ values (1, 1),
        (1, 91),
        (1, 92),
        (1, 93),
+       (1, 94),
+       (1, 95),
+       (1, 96),
+       (1, 97),
+       (1, 98),
+       (1, 99),
        (1, 100),
        (1, 101),
        (1, 102),
@@ -292,7 +307,8 @@ values (1, 1),
        (1, 105),
        (1, 106),
        (1, 110),
-       (1, 111);
+       (1, 111),
+       (1, 120);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -360,11 +376,32 @@ values (2, 1),
        (22, 101),
        (22, 102),
        (22, 103),
+       (23, 94),
+       (23, 95),
+       (23, 96),
+       (23, 97),
+       (23, 98),
+       (23, 99),
+       (23, 120),
        (24, 89),
        (24, 110),
        (28, 104),
        (28, 105),
        (28, 106);
+
+insert  into document_category(id, create_date, name, remark, version)
+values (1, current_date, '类别1', '',1),
+       (2, current_date, '类别2', '',1);
+insert into document_folder(id, create_date, description, name, version)
+values (1, create_date, '文件夹1', '文件夹1', 1),
+       (2, create_date, '文件夹2', '文件夹2', 1);
+insert into project_status(id, name, remark, version)
+VALUES (1, '在建' , '' ,1),
+       (2, '竣工', '',1);
+insert into project(id, construction, create_date, development, modification_date, name, no, section, version, manager_id, project_status_id)
+values (1, '测试1',current_date, 'develop1', null,'项目1', '01', '',1,1,1),
+       (2, '测试2',current_date, 'develop2', null,'项目2', '02', '',1,1,2);
+
 
 update hibernate_sequence
 set next_val=100

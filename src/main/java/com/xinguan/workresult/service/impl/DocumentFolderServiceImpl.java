@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DocumentFolderServiceImpl extends BaseService<DocumentFolder> implements DocumentFolderService {
@@ -45,5 +46,14 @@ public class DocumentFolderServiceImpl extends BaseService<DocumentFolder> imple
     public void removeDocumentFolder(Long id){
         Assert.notNull(id, "The given Id must not be null!");
         documentFolderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<DocumentFolder> listAllDocuFolder(){
+        return documentFolderRepository.findAll();
+    }
+    @Override
+    public DocumentFolder findDocuFolderById(Long id){
+        return documentFolderRepository.findById(id).get();
     }
 }

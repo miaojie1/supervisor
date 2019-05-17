@@ -68,6 +68,16 @@ public class DocumentAudit {
     private int version;
     @ManyToOne
     private Project project;
+    @Column
+    private String auditStatus;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
 
     public Project getProject() {
         return project;

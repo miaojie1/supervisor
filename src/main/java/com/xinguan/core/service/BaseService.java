@@ -2,10 +2,9 @@ package com.xinguan.core.service;
 
 import com.xinguan.usermanage.repository.*;
 import com.xinguan.workprocess.repository.*;
-import com.xinguan.workresult.repository.PictureFolderRepository;
-import com.xinguan.workresult.repository.PictureRepository;
-import com.xinguan.workresult.repository.SupervisionLogRepository;
 import com.xinguan.workresult.repository.*;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +73,12 @@ public abstract class BaseService<T> {
     protected SiteAcceptanceRepository siteAcceptanceRepository;
     @Autowired
     protected ConferenceRepository conferenceRepository;
+    @Autowired
+    protected RuntimeService runtimeService;
+    @Autowired
+    protected TaskService taskService;
+    @Autowired
+    protected EmployeeAuditRepository employeeAuditRepository;
     @Autowired
     protected OnlineSignRepository onlineSignRepository;
     @Autowired

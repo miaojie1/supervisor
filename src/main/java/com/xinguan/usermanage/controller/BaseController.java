@@ -1,8 +1,8 @@
 package com.xinguan.usermanage.controller;
 
-import com.xinguan.usermanage.repository.OperationRepository;
 import com.xinguan.usermanage.repository.RoleRepository;
 import com.xinguan.usermanage.service.*;
+import com.xinguan.workprocess.service.DocumentAuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
@@ -41,6 +41,8 @@ public abstract class BaseController {
 
     @Autowired
     protected BackupDataService backupDataService;
+    @Autowired
+    protected DocumentAuditService documentAuditService;
     protected Map<String, Object> transforParamToMap(String param) {
 
         return null;

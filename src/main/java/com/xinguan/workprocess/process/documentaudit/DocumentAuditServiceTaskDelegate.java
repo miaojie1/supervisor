@@ -1,4 +1,4 @@
-package com.xinguan.workprocess.process;
+package com.xinguan.workprocess.process.documentaudit;
 
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;

@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -70,5 +71,11 @@ public class ProjectServiceImpl extends BaseService<Project> implements ProjectS
             Set<Long> longIdList = Sets.newTreeSet(ids.split(",")).stream().map(Long::parseLong).collect(Collectors.toSet());
             longIdList.forEach(id -> projectRepository.deleteById(id));
         }
+    }
+
+    @Override
+    public Project findById(Long id) {
+        Optional<Project> projectOptional = projectRepository.findById(id);
+        return projectOptional.orElse(null);
     }
 }

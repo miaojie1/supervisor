@@ -1,8 +1,7 @@
 package com.xinguan.workprocess.service;
 
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workprocess.model.DocumentAudit;
-import com.xinguan.workresult.model.DocumentCategory;
-import com.xinguan.workresult.model.DocumentFolder;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -22,4 +21,6 @@ public interface DocumentAuditService {
     DocumentAudit saveDocumentAudit(DocumentAudit documentAudit);
 
     void deleteDocAuditById(long id);
+
+    DocumentAudit allotAuditTask(long id, List<Employee> employees);
 }

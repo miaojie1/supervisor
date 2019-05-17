@@ -11,6 +11,10 @@ public interface ProcessConstant {
          */
         interface NodeId {
             /**
+             * 流程ID
+             */
+            static final String PROCESS_KEY = "conference";
+            /**
              * 提交会议申请节点ID
              */
             static final String COMMIT_CONFERENCE = "_commit";
@@ -64,6 +68,10 @@ public interface ProcessConstant {
          */
         interface NodeId {
             /**
+             * 流程ID
+             */
+            static final String PROCESS_KEY = "siteAcceptanceProcess";
+            /**
              * 提交进场记录ID
              */
             static final String COMMIT_SITE_ACCEPTANCE = "_commit";
@@ -86,6 +94,63 @@ public interface ProcessConstant {
              * 是否发送相关责任人
              */
             static final String SEND_TO_CHARGE = "sendToCharge";
+            /**
+             * 相关人员审核
+             */
+            static final String AUDIT_ASSIGNMENT = "auditUserId";
         }
+    }
+
+    /**
+     * 文件审核流程常量
+     */
+    interface DocumentAudit{
+        /**
+         * 节点ID
+         */
+        interface NodeId{
+            /**
+             * 流程ID
+             */
+            static final String process_Key = "documentAuditProcess";
+
+            /**
+             * 上传审核文件
+             */
+            static final String _upload = "_upload";
+            /**
+             * 分配审核任务
+             */
+            static final String _distribution = "_distribution";
+            /**
+             * 审核
+             */
+            static final String audit = "_audit";
+            /**
+             * 汇总
+             */
+            static final String collection = "_collection";
+            /**
+             * 总监审核
+             */
+            static final String major_audit = "_majoraudit";
+
+        }
+
+        interface NodeVariable{
+            /**
+             * 上传审核文件
+             */
+            static final String upload_file = "userId";
+            /**
+             * 分配审核任务
+             */
+            static final String allot_audit_task = "majorUserId";
+            /**
+             * 总监审核
+             */
+            static final String major_audit = "majorUserId";
+        }
+
     }
 }

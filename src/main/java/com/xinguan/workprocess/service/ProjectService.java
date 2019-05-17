@@ -13,4 +13,6 @@ public interface ProjectService {
     Project saveOrUpdate(Project project);
     void removeProject(Long id);
     void removeProjectBatch(String ids);
+
+    Project findById(Long id);
 }

@@ -208,7 +208,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
        (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
-       (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1);
+       (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
+       (121,'add','/documentAudit/test',current_date,current_date,1),
+       (122,'allot','/documentAudit/testAllot',current_date,current_date,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -308,7 +310,9 @@ values (1, 1),
        (1, 106),
        (1, 110),
        (1, 111),
-       (1, 120);
+       (1, 120),
+       (1,121),
+       (1,122);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -402,6 +406,11 @@ insert into project(id, construction, create_date, development, modification_dat
 values (1, '测试1',current_date, 'develop1', null,'项目1', '01', '',1,1,1),
        (2, '测试2',current_date, 'develop2', null,'项目2', '02', '',1,1,2);
 
+insert into document(id, create_date, document_name, document_url, version, document_category_id, document_folder_id, uploader_id)
+value (1,current_date,'test file name','132123123',1,1,1,1);
+
+insert into project_supervision_department(id, create_date, description, modification_date, name, remark, version, major_id, project_id)
+value (1,current_date,'项目监理部1',null,'项目监理部1',null,1,1,1);
 
 update hibernate_sequence
 set next_val=100

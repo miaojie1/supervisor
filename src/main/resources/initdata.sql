@@ -68,7 +68,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (22, current_date, null, '监理会议', '/conference/listConferencePage/pageSize/{pageSize}/pageNo/{pageNo}', 1, '', true, false, 1, 20),
        (23, current_date, null, '文件审核', '/documentAudit/listDocumentAuditsByDepart', 1, '', true, false, 1, 20),
        (24, current_date, null, '见证取样', '/witnessSampling/listWitnessSamplingByDepartment', 1, '', true, false, 1, 20),
-       (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
+       (25, current_date, null, '旁站', '/sideStation/listSideStation/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '', 1, '/checkAcceptance/listCheckAcceptancePage', true, false, 1, 20),
@@ -209,8 +209,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
        (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
-       (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1);
-
+       (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
+       (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
+       (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -311,7 +312,9 @@ values (1, 1),
        (1, 110),
        (1, 111),
        (1, 120),
-       (1, 121);
+       (1, 121),
+       (1, 130),
+       (1, 131);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

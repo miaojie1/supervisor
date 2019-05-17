@@ -408,6 +408,13 @@ values (1, current_date, '类别1', '',1),
 insert into document_folder(id, create_date, description, name, version)
 values (1, create_date, '文件夹1', '文件夹1', 1),
        (2, create_date, '文件夹2', '文件夹2', 1);
+
+insert into file_folder(id, create_date, description, name, remark, status, version)
+values (1, create_date, '文件夹1', '文件夹1','',true,1),
+       (2, create_date, '文件夹2', '文件夹2','',true, 1);
+insert into file_category(id, create_date, name, remark, status, version)
+values (1, create_date,  'docx','',true,1),
+       (2, create_date, 'txt','',true, 1);
 insert into project_status(id, name, remark, version)
 VALUES (1, '在建' , '' ,1),
        (2, '竣工', '',1);

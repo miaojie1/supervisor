@@ -4,6 +4,7 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.CheckAcceptance;
+import com.xinguan.workprocess.model.Project;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,10 +29,16 @@ public class CheckAcceptanceController extends WorkProcessBaseController {
         return employeeService.listAllEmployees();
     }
 
+    @PostMapping(value = "/listAllProjects")
+    @ApiOperation(value = "获取所有项目信息")
+    public List<Project> listAllProjects() {
+        return projectService.listAllProjects();
+    }
+
     @ApiOperation(value = "获取监理会议列表", notes = "返回项目列表。支持通过项目名称模糊查询。")
-    @PostMapping("/listCheckAcceptancePage/pageSize/{pageSize}/pageNo/{pageNo}")
-    public PageInfo<CheckAcceptance> listCheckAcceptancePage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
-                                                       @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
+    @PostMapping("/listCheckAcceptancePage")
+    public PageInfo<CheckAcceptance> listCheckAcceptancePage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
+                                                       @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
                                                        @ApiParam(name = "acceptanceName", value = "名称，支持模糊查询") String acceptanceName) {
         Page<CheckAcceptance> checkAcceptances = checkAcceptanceService.listCheckAcceptanceByPage(pageSize, pageNo,acceptanceName);
         Map<String, Object> param = Maps.newHashMap("acceptanceName", acceptanceName);

@@ -2,6 +2,7 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Patrol;
+import com.xinguan.workprocess.model.Project;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -9,11 +10,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/patrol")
 @Api(value = "巡视相关接口")
 public class PatrolController extends WorkProcessBaseController{
+
+    @PostMapping(value = "/listAllProjects")
+    @ApiOperation(value = "获取所有项目信息")
+    public List<Project> listProjects() {
+        return projectService.listAllProjects();
+    }
 
     @PostMapping(value = "/listPatrolByDepartment")
     @ApiOperation(value = "获取当前部门巡视列表")

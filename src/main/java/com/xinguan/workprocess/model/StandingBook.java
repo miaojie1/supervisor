@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 /**
  * 进场验收台账记录
+ * 暂时不用
  *
  * @author zhangzhan
  */

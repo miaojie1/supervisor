@@ -90,7 +90,10 @@ public abstract class BaseService<T> {
     protected CheckAcceptanceRepository checkAcceptanceRepository;
     @Autowired
     protected CheckStatusRepository checkStatusRepository;
-
+    @Autowired
+    protected AccountRecordRepository accountRecordRepository;
+    @Autowired
+    protected AccountCategoryRepository accountCategoryRepository;
     public BaseService() {
     }
 

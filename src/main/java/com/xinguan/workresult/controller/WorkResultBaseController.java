@@ -23,4 +23,6 @@ public abstract class WorkResultBaseController {
     protected DocumentCategoryService documentCategoryService;
     @Autowired
     protected EmployeeService employeeService;
+    @Autowired
+    protected AccountRecordService accountRecordService;
 }

@@ -6,9 +6,6 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.service.EmployeeService;
 import com.xinguan.workprocess.model.DocumentAudit;
 import com.xinguan.workprocess.service.DocumentAuditService;
-import com.xinguan.workresult.model.Document;
-import com.xinguan.workresult.model.DocumentCategory;
-import com.xinguan.workresult.model.DocumentFolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> implements DocumentAuditService {
@@ -26,14 +22,13 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
 
     @Override
     public Page<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name){
+
         Employee currentUser=employeeService.getCurrentUser();
         Department currentdepart=currentUser.getDepartment();
-        Document document = new Document();
-        if (name != "") {
-            document.setDocumentName("%" + name + "%");
-        }
         DocumentAudit documentAudit=new DocumentAudit();
-//        documentAudit.setDocument(document);
+        if (name != "") {
+            documentAudit.setTitle("%" + name + "%");
+        }
         documentAudit.setDepartment(currentdepart);
         documentAudit.setOriginRank(null);
         Example<DocumentAudit> documentAuditExample = getSimpleExample(documentAudit);

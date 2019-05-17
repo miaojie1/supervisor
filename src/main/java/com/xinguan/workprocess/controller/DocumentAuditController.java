@@ -4,12 +4,11 @@ import com.xinguan.usermanage.service.AttachmentService;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.DocumentAudit;
 import com.xinguan.workprocess.model.Project;
+import com.xinguan.workresult.model.AccountRecord;
 import com.xinguan.workresult.model.Document;
 import com.xinguan.workresult.model.DocumentCategory;
 import com.xinguan.workresult.model.DocumentFolder;
-import com.xinguan.workresult.service.DocumentCategoryService;
-import com.xinguan.workresult.service.DocumentFolderService;
-import com.xinguan.workresult.service.DocumentService;
+import com.xinguan.workresult.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -38,6 +37,10 @@ public class DocumentAuditController extends WorkProcessBaseController {
     AttachmentService attachmentService;
     @Autowired
     DocumentFolderService documentFolderService;
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
     @PostMapping(value = "/listAllProjects")
     @ApiOperation(value = "获取所有项目信息")
     public List<Project> listAllProjects() {
@@ -102,7 +105,17 @@ public class DocumentAuditController extends WorkProcessBaseController {
                     resultInfo.setMessage("修改审核文件成功！");
                 }
             }
-            documentAuditService.saveDocumentAudit(documentAudit);
+            DocumentAudit haveSaveDocAudit=documentAuditService.saveDocumentAudit(documentAudit);
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(haveSaveDocAudit.getId())==null){
+                toSaveAcc.setRecordId(haveSaveDocAudit.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(haveSaveDocAudit.getId());
+            }
+            toSaveAcc.setRecordName(haveSaveDocAudit.getTitle());
+            toSaveAcc.setDepartment(haveSaveDocAudit.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("文件审核"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
             resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);

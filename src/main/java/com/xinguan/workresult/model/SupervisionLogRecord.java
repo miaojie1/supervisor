@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ * 监理日志记录
  * @author MJ
  */
 @Entity

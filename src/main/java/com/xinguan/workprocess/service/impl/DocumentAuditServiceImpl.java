@@ -38,12 +38,10 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
     public Page<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name){
         Employee currentUser=employeeService.getCurrentUser();
         Department currentdepart=currentUser.getDepartment();
-        Document document = new Document();
-        if (name != "") {
-            document.setDocumentName("%" + name + "%");
-        }
         DocumentAudit documentAudit=new DocumentAudit();
-//        documentAudit.setDocument(document);
+        if (name != "") {
+            documentAudit.setTitle("%" + name + "%");
+        }
         documentAudit.setDepartment(currentdepart);
         documentAudit.setOriginRank(null);
         Example<DocumentAudit> documentAuditExample = getSimpleExample(documentAudit);
@@ -55,8 +53,8 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
         return documentAuditRepository.findById(id).get();
     }
 
-    @Override
     @Transactional
+    @Override
     public DocumentAudit saveDocumentAudit(DocumentAudit documentAudit){
         documentAudit.setAuditStatus("未审核");
         DocumentAudit result = documentAuditRepository.saveAndFlush(documentAudit);

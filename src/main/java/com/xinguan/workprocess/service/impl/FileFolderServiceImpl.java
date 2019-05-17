@@ -5,6 +5,7 @@ import com.xinguan.workprocess.model.FileFolder;
 import com.xinguan.workprocess.service.FileFolderService;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
@@ -29,6 +30,7 @@ public class FileFolderServiceImpl extends BaseService<FileFolder> implements Fi
         return fileFolderRepository.findByNameLike(name);
     }
 
+    @Transactional
     @Override
     public FileFolder saveOrUpdate(FileFolder fileFolder) {
         Example<FileFolder> employeeExample = getSimpleExample(fileFolder);

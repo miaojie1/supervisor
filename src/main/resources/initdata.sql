@@ -62,18 +62,18 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (17, current_date, null, '监理日志', '/superLogJob/listSupervisionLogByPage', 1, '', true, false, 1, 7),
        (18, current_date, null, '学习考试', '', 1, '', true, false, 1, 7),
-       (19, current_date, null, '监理台账', '', 1, '', true, false, 1, 7),
+       (19, current_date, null, '监理台账', '/accountRecord/listAccRecordsByTitle', 1, '', true, false, 1, 7),
        (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
        (21, current_date, null, '进场验收', '/siteAcceptance/listSiteAcceptsByDepart', 1, '', true, false, 1, 20),
        (22, current_date, null, '监理会议', '/conference/listConferencePage/pageSize/{pageSize}/pageNo/{pageNo}', 1, '', true, false, 1, 20),
        (23, current_date, null, '文件审核', '/documentAudit/listDocumentAuditsByDepart', 1, '', true, false, 1, 20),
        (24, current_date, null, '见证取样', '/witnessSampling/listWitnessSamplingByDepartment', 1, '', true, false, 1, 20),
-       (25, current_date, null, '旁站', '', 1, '', true, false, 1, 20),
+       (25, current_date, null, '旁站', '/sideStation/listSideStation/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
-       (28, current_date, null, '检查验收', '', 1, '/checkAcceptance/listCheckAcceptancePage', true, false, 1, 20),
+       (28, current_date, null, '检查验收', '/checkAcceptance/listCheckAcceptancePage', 1, '', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
-       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 20);
+       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7);
 
 
 
@@ -206,11 +206,14 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (104, 'addOrEditBtn', '/checkAcceptance/saveCheckAcceptance', current_date, current_date, 1),
        (105, 'delBtn', '/checkAcceptance/delete/checkAcceptanceId/{checkAcceptanceId}', current_date, current_date, 1),
        (106, 'primary', '/checkAcceptance/listAllEmployees', current_date, current_date, 1),
+       (107, 'primary', '/checkAcceptance/listAllProjects', current_date, current_date, 1),
+       (108, 'primary', '/patrol/listAllProjects', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
        (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
-       (121,'add','/documentAudit/test',current_date,current_date,1),
-       (122,'allot','/documentAudit/testAllot',current_date,current_date,1);
+       (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
+       (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
+       (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -308,11 +311,14 @@ values (1, 1),
        (1, 104),
        (1, 105),
        (1, 106),
+       (1, 107),
+       (1, 108),
        (1, 110),
        (1, 111),
        (1, 120),
-       (1,121),
-       (1,122);
+       (1, 121),
+       (1, 130),
+       (1, 131);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -387,11 +393,14 @@ values (2, 1),
        (23, 98),
        (23, 99),
        (23, 120),
+       (23, 121),
        (24, 89),
+       (24, 108),
        (24, 110),
        (28, 104),
        (28, 105),
-       (28, 106);
+       (28, 106),
+       (28, 107);
 
 insert  into document_category(id, create_date, name, remark, version)
 values (1, current_date, '类别1', '',1),
@@ -399,6 +408,13 @@ values (1, current_date, '类别1', '',1),
 insert into document_folder(id, create_date, description, name, version)
 values (1, create_date, '文件夹1', '文件夹1', 1),
        (2, create_date, '文件夹2', '文件夹2', 1);
+
+insert into file_folder(id, create_date, description, name, remark, status, version)
+values (1, create_date, '文件夹1', '文件夹1','',true,1),
+       (2, create_date, '文件夹2', '文件夹2','',true, 1);
+insert into file_category(id, create_date, name, remark, status, version)
+values (1, create_date,  'docx','',true,1),
+       (2, create_date, 'txt','',true, 1);
 insert into project_status(id, name, remark, version)
 VALUES (1, '在建' , '' ,1),
        (2, '竣工', '',1);
@@ -406,6 +422,16 @@ insert into project(id, construction, create_date, development, modification_dat
 values (1, '测试1',current_date, 'develop1', null,'项目1', '01', '',1,1,1),
        (2, '测试2',current_date, 'develop2', null,'项目2', '02', '',1,1,2);
 
+insert into account_category(id, name, version)
+values (1, '监理会议', 0),
+       (2, '文件审核', 0),
+       (3, '进场验收', 0),
+       (4, '见证取样', 0),
+       (5, '旁站', 0),
+       (6, '巡视', 0),
+       (7, '平行检验', 0),
+       (8, '检查验收', 0),
+       (9, '线上会签', 0);
 insert into document(id, create_date, document_name, document_url, version, document_category_id, document_folder_id, uploader_id)
 value (1,current_date,'test file name','132123123',1,1,1,1);
 

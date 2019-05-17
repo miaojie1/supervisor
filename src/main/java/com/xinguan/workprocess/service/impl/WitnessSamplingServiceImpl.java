@@ -11,12 +11,14 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class WitnessSamplingServiceImpl extends BaseService<WitnessSampling> implements WitnessSamplingService {
     @Autowired
     EmployeeService employeeService;
 
+    @Transactional
     @Override
     public WitnessSampling saveWitnessSampling(WitnessSampling witnessSampling){
         return witnessSamplingRepository.save(witnessSampling);

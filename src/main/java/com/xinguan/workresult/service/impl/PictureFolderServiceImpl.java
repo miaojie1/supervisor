@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.criteria.Predicate;
@@ -29,7 +30,7 @@ public class PictureFolderServiceImpl extends BaseService<PictureFolder> impleme
             return criteriaQuery.getRestriction();
         }, PageRequest.of(pageNo, pageSize, Sort.Direction.ASC, "createDate"));
     }
-
+    @Transactional
     @Override
     public PictureFolder saveOrUpdate(PictureFolder pictureFolder) {
         Example<PictureFolder> employeeExample = getSimpleExample(pictureFolder);

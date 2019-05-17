@@ -12,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
@@ -77,6 +78,7 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
         return knowledgeRepository.getOne(id);
     }
 
+    @Transactional
     @Override
     public Knowledge saveOrUpdate(Knowledge knowledge, String fileFolderId, Employee employee) {
         FileFolder fileFolder = null;

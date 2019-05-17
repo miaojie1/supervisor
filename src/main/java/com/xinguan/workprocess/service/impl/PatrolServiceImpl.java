@@ -11,17 +11,20 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PatrolServiceImpl extends BaseService<Patrol> implements PatrolService {
     @Autowired
     EmployeeService employeeService;
 
+    @Transactional
     @Override
     public Patrol savePatrol(Patrol Patrol){
         return patrolRepository.save(Patrol);
     }
 
+    @Transactional
     @Override
     public void deletePatrolById(Long id){
         patrolRepository.deleteById(id);

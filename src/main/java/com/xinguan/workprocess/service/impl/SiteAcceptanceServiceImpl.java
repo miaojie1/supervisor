@@ -9,6 +9,7 @@ import com.xinguan.workprocess.service.SiteAcceptanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SiteAcceptanceServiceImpl extends BaseService<SiteAcceptance> implements SiteAcceptanceService {
@@ -22,6 +23,7 @@ public class SiteAcceptanceServiceImpl extends BaseService<SiteAcceptance> imple
         return siteAcceptanceRepository.findAll(pageable);
     }
 
+    @Transactional
     @Override
     public SiteAcceptance saveSiteAcceptance(SiteAcceptance siteAcceptance){
        return siteAcceptanceRepository.save(siteAcceptance);

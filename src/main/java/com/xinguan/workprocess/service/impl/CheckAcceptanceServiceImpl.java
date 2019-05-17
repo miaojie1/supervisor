@@ -11,6 +11,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
@@ -35,6 +36,7 @@ public class CheckAcceptanceServiceImpl extends BaseService<CheckAcceptance> imp
         return checkAcceptanceRepository.findAll(example, PageRequest.of(pageNo, pageSize));
     }
 
+    @Transactional
     @Override
     public CheckAcceptance saveOrUpdate(CheckAcceptance checkAcceptance) {
         Example<CheckAcceptance> conferenceExample = getSimpleExample(checkAcceptance);

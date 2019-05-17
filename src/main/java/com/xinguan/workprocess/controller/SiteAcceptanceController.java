@@ -5,9 +5,13 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Project;
 import com.xinguan.workprocess.model.SiteAcceptance;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +24,11 @@ import java.util.List;
 @RequestMapping("/siteAcceptance")
 @Api(value = "进场验收相关接口")
 public class SiteAcceptanceController extends WorkProcessBaseController {
+
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
     @PostMapping(value = "/listAllProjects")
     @ApiOperation(value = "获取所有项目信息")
     public List<Project> listAllProjects() {
@@ -57,7 +66,18 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
                 siteAcceptance.setModificationDate(new Date());
                 resultInfo.setMessage("修改进场验收成功！");
             }
-            siteAcceptanceService.saveSiteAcceptance(siteAcceptance);
+
+            SiteAcceptance haveSaveSiteAcc = siteAcceptanceService.saveSiteAcceptance(siteAcceptance);
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(haveSaveSiteAcc.getId())==null){
+                toSaveAcc.setRecordId(haveSaveSiteAcc.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(haveSaveSiteAcc.getId());
+            }
+            toSaveAcc.setRecordName(haveSaveSiteAcc.getMaterialName());
+            toSaveAcc.setDepartment(haveSaveSiteAcc.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("进场验收"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
             resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);

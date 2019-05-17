@@ -15,4 +15,5 @@ public interface DocumentService {
     Document uploadFile(MultipartFile multipartFile);
     Document saveOrUpdate(Document document);
     Document findDocuById(Long id);
+    void downloadDoc(String filePath, HttpServletResponse response);
 }

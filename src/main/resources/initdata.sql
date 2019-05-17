@@ -73,7 +73,8 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '/checkAcceptance/listCheckAcceptancePage', 1, '', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
-       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7);
+       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7),
+       (31, current_date, null, '学习资料', '/studyMaterial/listStudyMaterial/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 18);
 
 
 
@@ -106,7 +107,8 @@ values (1, 1),
        (1, 27),
        (1, 28),
        (1, 29),
-       (1, 30);
+       (1, 30),
+       (1, 31);
 
 
 
@@ -212,6 +214,11 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
        (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
+       (122, 'download','/studyMaterial/downloadStudyMaterialAttachment', current_date, current_date,1),
+       (123, 'upload','/studyMaterial/uploadStudyMaterialAttachment', current_date, current_date,1),
+       (124, 'delAttBtn','/studyMaterial/deleteStudyMaterialAttachment', current_date, current_date,1),
+       (125, 'editBtn','/studyMaterial/saveStudyMaterial', current_date, current_date,1),
+       (126, 'delBtn','/studyMaterial/delete/studyMaterialId/{studyMaterialId}', current_date, current_date,1),
        (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
        (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1);
 
@@ -317,6 +324,11 @@ values (1, 1),
        (1, 111),
        (1, 120),
        (1, 121),
+       (1, 122),
+       (1, 123),
+       (1, 124),
+       (1, 125),
+       (1, 126),
        (1, 130),
        (1, 131);
 
@@ -400,7 +412,12 @@ values (2, 1),
        (28, 104),
        (28, 105),
        (28, 106),
-       (28, 107);
+       (28, 107),
+       (31, 122),
+       (31, 123),
+       (31, 124),
+       (31, 125),
+       (31, 126);
 
 insert  into document_category(id, create_date, name, remark, version)
 values (1, current_date, '类别1', '',1),

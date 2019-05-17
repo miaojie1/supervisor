@@ -3,9 +3,13 @@ package com.xinguan.workprocess.controller;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Patrol;
 import com.xinguan.workprocess.model.Project;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,11 @@ import java.util.List;
 @RequestMapping("/patrol")
 @Api(value = "巡视相关接口")
 public class PatrolController extends WorkProcessBaseController{
+
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
 
     @PostMapping(value = "/listAllProjects")
     @ApiOperation(value = "获取所有项目信息")
@@ -49,7 +58,17 @@ public class PatrolController extends WorkProcessBaseController{
             }else {
                 resultInfo.setMessage("修改巡视成功！");
             }
-            patrolService.savePatrol(patrol);
+            Patrol havaSavePatrol = patrolService.savePatrol(patrol);
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(havaSavePatrol.getId())==null){
+                toSaveAcc.setRecordId(havaSavePatrol.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(havaSavePatrol.getId());
+            }
+            toSaveAcc.setRecordName(havaSavePatrol.getLocation());
+            toSaveAcc.setDepartment(havaSavePatrol.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("巡视"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
             resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);

@@ -2,9 +2,13 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.WitnessSampling;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +18,11 @@ import java.util.Date;
 @RequestMapping("/witnessSampling")
 @Api(value = "见证取样相关接口")
 public class WitnessSamplingController extends WorkProcessBaseController{
+
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
 
     @PostMapping(value = "/listWitnessSamplingByDepartment")
     @ApiOperation(value = "获取当前部门见证取样列表")
@@ -40,7 +49,18 @@ public class WitnessSamplingController extends WorkProcessBaseController{
             }else {
                 resultInfo.setMessage("修改见证取样成功！");
             }
-            witnessSamplingService.saveWitnessSampling(witnessSampling);
+            WitnessSampling haveSaveWitnessSampling =witnessSamplingService.saveWitnessSampling(witnessSampling);
+            AccountRecord toSaveAcc = new AccountRecord();
+            Long id = haveSaveWitnessSampling.getId();
+            if (accountRecordService.getAccByRecordId(id)==null){
+                toSaveAcc.setRecordId(id);
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(id);
+            }
+            toSaveAcc.setRecordName(haveSaveWitnessSampling.getSamplingName());
+            toSaveAcc.setDepartment(haveSaveWitnessSampling.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("见证取样"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
             resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);

@@ -25,4 +25,8 @@ public abstract class WorkResultBaseController {
     protected EmployeeService employeeService;
     @Autowired
     protected AccountRecordService accountRecordService;
+    @Autowired
+    protected StudyMaterialCategoryService studyMaterialCategoryService;
+    @Autowired
+    protected StudyMaterialService studyMaterialService;
 }

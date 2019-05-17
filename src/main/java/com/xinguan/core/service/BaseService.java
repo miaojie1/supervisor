@@ -99,6 +99,10 @@ public abstract class BaseService<T> {
     protected AccountRecordRepository accountRecordRepository;
     @Autowired
     protected AccountCategoryRepository accountCategoryRepository;
+    @Autowired
+    protected StudyMaterialCategoryRepository studyMaterialCategoryRepository;
+    @Autowired
+    protected StudyMaterialRepository studyMaterialRepository;
     public BaseService() {
     }
 

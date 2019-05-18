@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CheckStatusService {
     List<CheckStatus> listAllCheckStatus();
+    CheckStatus getOneById(int id);
 }

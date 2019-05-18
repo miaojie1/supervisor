@@ -3,9 +3,13 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.SideStation;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +19,11 @@ import java.util.Date;
 @RequestMapping("/sideStation")
 @Api(value = "旁站相关接口")
 public class SideStationController extends WorkProcessBaseController {
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
+
     @PostMapping(value = "/listSideStation/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取旁站列表")
     public Page<SideStation> listSideStations(
@@ -38,12 +47,25 @@ public class SideStationController extends WorkProcessBaseController {
                 sideStation.setCreateDate(new Date());
                 sideStation.setSponsor(employeeService.getCurrentUser());
                 sideStation.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
+                sideStation.setCheckStatus(checkStatusService.getOneById(1));
                 resultInfo.setMessage("添加旁站成功！");
             }else {
                 sideStation.setModifier(employeeService.getCurrentUser());
                 resultInfo.setMessage("修改旁站成功！");
             }
-            sideStationService.saveSideStation(sideStation);
+            SideStation haveSaveSideStation =  sideStationService.saveSideStation(sideStation);
+
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(haveSaveSideStation.getId())==null){
+                toSaveAcc.setRecordId(haveSaveSideStation.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(haveSaveSideStation.getId());
+            }
+            toSaveAcc.setRecordName(haveSaveSideStation.getPart());
+            toSaveAcc.setDepartment(haveSaveSideStation.getSponsor().getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("旁站"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
+
             resultInfo.setStatus(true);
         } catch (Exception e){
             resultInfo.setStatus(false);

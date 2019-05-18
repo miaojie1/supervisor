@@ -14,4 +14,9 @@ public class CheckStatusServiceImpl extends BaseService<CheckStatus> implements 
     public List<CheckStatus> listAllCheckStatus() {
         return checkStatusRepository.findAll();
     }
+
+    @Override
+    public CheckStatus getOneById(int id) {
+        return  checkStatusRepository.getOne(new Long((long)id));
+    }
 }

@@ -48,6 +48,10 @@ public class SideStation {
     @Column
     private Date createDate;
 
+    //旁站时间
+    @Column
+    private Date sideStationDate;
+
     //简要内容
     @Column
     private String brief;
@@ -68,6 +72,13 @@ public class SideStation {
     @ManyToOne
     private CheckStatus checkStatus;
 
+    public CheckStatus getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(CheckStatus checkStatus) {
+        this.checkStatus = checkStatus;
+    }
 
     public Long getId() {
         return id;
@@ -155,5 +166,13 @@ public class SideStation {
 
     public void setOriginRank(Integer originRank) {
         this.originRank = originRank;
+    }
+
+    public Date getSideStationDate() {
+        return sideStationDate;
+    }
+
+    public void setSideStationDate(Date sideStationDate) {
+        this.sideStationDate = sideStationDate;
     }
 }

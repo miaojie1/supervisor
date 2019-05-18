@@ -14,15 +14,15 @@ public class SideStationServiceImpl extends BaseService<SideStation> implements 
     public Page<SideStation> listSideStations(int pageNo, int pageSize, String partName) {
         SideStation sideStation=new SideStation();
         if (partName!=""){
-            sideStation.setPart("%" + partName + "%");
+            sideStation.setPart("%"+partName+"%");
         }
         Example<SideStation> sideStationExample = getSimpleExample(sideStation);
-        return sideStationRepository.findAll(sideStationExample, PageRequest.of(pageNo, pageSize));
+        return sideStationRepository.findAll(sideStationExample,PageRequest.of(pageNo, pageSize));
     }
 
     @Override
-    public void saveSideStation(SideStation sideStation) {
-        sideStationRepository.saveAndFlush(sideStation);
+    public SideStation saveSideStation(SideStation sideStation) {
+        return sideStationRepository.saveAndFlush(sideStation);
     }
 
     @Override

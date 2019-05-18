@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 public interface SideStationService {
     Page<SideStation> listSideStations(int pageNo, int pageSize, String partName);
 
-    void saveSideStation(SideStation sideStation);
+    SideStation saveSideStation(SideStation sideStation);
 
     void deleteSideStationById(long id);
 }

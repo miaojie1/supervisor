@@ -70,7 +70,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (24, current_date, null, '见证取样', '/witnessSampling/listWitnessSamplingByDepartment', 1, '', true, false, 1, 20),
        (25, current_date, null, '旁站', '/sideStation/listSideStation/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (26, current_date, null, '巡视', '/patrol/listPatrolByDepartment', 1, '', true, false, 1, 20),
-       (27, current_date, null, '平行检验', '', 1, '', true, false, 1, 20),
+       (27, current_date, null, '平行检验', '/parallelTest/listParallelTest/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '/checkAcceptance/listCheckAcceptancePage', 1, '', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
        (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7),
@@ -220,7 +220,9 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (125, 'editBtn','/studyMaterial/saveStudyMaterial', current_date, current_date,1),
        (126, 'delBtn','/studyMaterial/delete/studyMaterialId/{studyMaterialId}', current_date, current_date,1),
        (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
-       (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1);
+       (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1),
+       (132, 'primary','/parallelTest/saveParallelTest',current_date, current_date,1),
+       (133, 'delBtn', '/parallelTest/deleteParallelTestById',current_date ,current_date ,1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -330,7 +332,9 @@ values (1, 1),
        (1, 125),
        (1, 126),
        (1, 130),
-       (1, 131);
+       (1, 131),
+       (1, 132),
+       (1, 133);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

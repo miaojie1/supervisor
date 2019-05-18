@@ -70,7 +70,7 @@ public class SideStationController extends WorkProcessBaseController {
         } catch (Exception e){
             resultInfo.setStatus(false);
             resultInfo.setObject(e);
-            resultInfo.setMessage("添加进场验收失败！");
+            resultInfo.setMessage("添加旁站失败！");
         }
         return  resultInfo;
     }

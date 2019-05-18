@@ -20,7 +20,7 @@ public class ParallelTest {
 
     //检查时间
     @Column
-    private Date testData;
+    private Date testDate;
 
     // 部位
     @Column
@@ -42,7 +42,7 @@ public class ParallelTest {
     @ManyToOne
     private CheckStatus checkStatus;
 
-    //修改人
+    //检查人员
     @ManyToOne
     private Employee sponsor;
 
@@ -58,12 +58,12 @@ public class ParallelTest {
         this.id = id;
     }
 
-    public Date getTestData() {
-        return testData;
+    public Date getTestDate() {
+        return testDate;
     }
 
-    public void setTestData(Date testData) {
-        this.testData = testData;
+    public void setTestDate(Date testDate) {
+        this.testDate = testDate;
     }
 
     public String getPart() {

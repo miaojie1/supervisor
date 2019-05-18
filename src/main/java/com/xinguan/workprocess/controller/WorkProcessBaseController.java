@@ -45,4 +45,6 @@ public abstract class WorkProcessBaseController {
     protected DocumentFolderService documentFolderService;
     @Autowired
     protected DocumentCategoryService documentCategoryService;
+    @Autowired
+    protected ParallelTestService parallelTestService;
 }

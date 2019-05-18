@@ -103,6 +103,8 @@ public abstract class BaseService<T> {
     protected StudyMaterialCategoryRepository studyMaterialCategoryRepository;
     @Autowired
     protected StudyMaterialRepository studyMaterialRepository;
+    @Autowired
+    protected ParallelTestRepository parallelTestRepository;
     public BaseService() {
     }
 

@@ -82,17 +82,15 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
     @Override
     public Knowledge saveOrUpdate(Knowledge knowledge, String fileFolderId, Employee employee) {
         FileFolder fileFolder = null;
-        FileCategory fileCategory = null;
         if(fileFolderId!=""){
             fileFolder = fileFolderRepository.getOne(Long.parseLong(fileFolderId));
         }
         Example<Knowledge> knowledgeExample = getSimpleExample(knowledge);
-        if (knowledgeRepository.exists(knowledgeExample)) {
+        if (knowledge.getId()!=null) {
             Assert.notNull(knowledge.getFileName(), "文件已存在!");
         } else {
             knowledge.setCreateDate(new Date());
             knowledge.setFileFolder(fileFolder);
-            knowledge.setFileCategory(fileCategory);
             knowledge.setRepublisher(employee);
         }
         return knowledgeRepository.saveAndFlush(knowledge);
@@ -121,7 +119,7 @@ public class KnowledgeServiceImpl extends BaseService<Knowledge> implements Know
         //2,截取源文件的文件名前缀,不带后缀
         String fileNamePrefix = originalFilename.substring(0,originalFilename.lastIndexOf("."));
         //后缀
-        String fileNameUnder = originalFilename.substring(1,originalFilename.lastIndexOf("."));
+        String fileNameUnder = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
         //3,加工处理文件名，原文件加上时间戳
         String newFileNamePrefix  = fileNamePrefix + System.currentTimeMillis();
         //4,得到新文件名

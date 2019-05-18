@@ -5,12 +5,16 @@ import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.CheckAcceptance;
 import com.xinguan.workprocess.model.Project;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,11 @@ import java.util.Map;
 @RequestMapping("/checkAcceptance")
 public class CheckAcceptanceController extends WorkProcessBaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CheckAcceptanceController.class);
+
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
 
     @PostMapping(value = "/listAllEmployees")
     @ApiOperation(value = "获取所有人员信息")
@@ -50,10 +59,20 @@ public class CheckAcceptanceController extends WorkProcessBaseController {
     public ResultInfo addOrEdit(@ApiParam(name = "checkAcceptance", required = true, value = "待保存的对象") @RequestBody CheckAcceptance checkAcceptance) {
         ResultInfo resultInfo =new ResultInfo();
         try{
-            CheckAcceptance result = checkAcceptanceService.saveOrUpdate(checkAcceptance);
+            CheckAcceptance havaCheckAcceptance = checkAcceptanceService.saveOrUpdate(checkAcceptance);
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(havaCheckAcceptance.getId())==null){
+                toSaveAcc.setRecordId(havaCheckAcceptance.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(havaCheckAcceptance.getId());
+            }
+            toSaveAcc.setRecordName(havaCheckAcceptance.getAcceptanceName());
+            toSaveAcc.setDepartment(havaCheckAcceptance.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("检查验收"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
             resultInfo.setStatus(true);
             resultInfo.setMessage("保存成功");
-            resultInfo.setObject(result);
+            resultInfo.setObject(havaCheckAcceptance);
         }catch (Exception e) {
             resultInfo.setStatus(false);
             resultInfo.setMessage("保存失败");

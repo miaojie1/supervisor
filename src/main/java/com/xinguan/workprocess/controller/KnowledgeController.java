@@ -41,6 +41,12 @@ public class KnowledgeController extends WorkProcessBaseController {
         return knowledgeService.listAllKnowledge();
     }
 
+    @PostMapping(value = "/listAllFileCategory")
+    @ApiOperation("获取所有的文件类型不分页")
+    public List<FileCategory> listAllFileCategory() {
+        return fileCategoryService.listAllCategory();
+    }
+
     @PostMapping(value = "/findKnowledgeByFileFolder")
     @ApiOperation("通过文件夹中文件不分页")
     public List<Knowledge> findKnowledgeByFileFolder(@ApiParam(name = "fileFolderId", value = "")  String fileFolderId) {

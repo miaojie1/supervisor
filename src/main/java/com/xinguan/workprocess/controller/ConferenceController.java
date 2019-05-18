@@ -6,12 +6,16 @@ import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Conference;
 import com.xinguan.workprocess.model.ConferenceSummary;
 import com.xinguan.workprocess.model.Project;
+import com.xinguan.workresult.model.AccountRecord;
+import com.xinguan.workresult.service.AccountCategoryService;
+import com.xinguan.workresult.service.AccountRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +29,11 @@ import java.util.Set;
 @RequestMapping("/conference")
 public class ConferenceController extends WorkProcessBaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConferenceController.class);
+
+    @Autowired
+    AccountRecordService accountRecordService;
+    @Autowired
+    AccountCategoryService accountCategoryService;
 
     @PostMapping(value = "/listAllEmployees")
     @ApiOperation(value = "获取所有人员信息")
@@ -59,10 +68,23 @@ public class ConferenceController extends WorkProcessBaseController {
     public ResultInfo addOrEdit(@ApiParam(name = "conference", required = true, value = "待保存的对象") @RequestBody Conference conference) {
         ResultInfo resultInfo =new ResultInfo();
         try{
-                Conference result = conferenceService.saveOrUpdate(conference);
-                resultInfo.setStatus(true);
-                resultInfo.setMessage("保存成功");
-                resultInfo.setObject(result);
+//                Conference result = conferenceService.saveOrUpdate(conference);
+//                resultInfo.setStatus(true);
+
+            Conference havaConference = conferenceService.saveOrUpdate(conference);
+            AccountRecord toSaveAcc = new AccountRecord();
+            if (accountRecordService.getAccByRecordId(havaConference.getId())==null){
+                toSaveAcc.setRecordId(havaConference.getId());
+            } else {
+                toSaveAcc = accountRecordService.getAccByRecordId(havaConference.getId());
+            }
+            toSaveAcc.setRecordName(havaConference.getContent());
+            toSaveAcc.setDepartment(havaConference.getDepartment());
+            toSaveAcc.setAccountCategory(accountCategoryService.getAccCategoryByName("监理会议"));
+            accountRecordService.saveAccountRecord(toSaveAcc);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("保存成功");
+            resultInfo.setObject(havaConference);
         }catch (Exception e) {
             resultInfo.setStatus(false);
             resultInfo.setMessage("保存失败");

@@ -15,7 +15,7 @@
     <userTask activiti:assignee="#{majorUserId}" activiti:exclusive="true" id="_majoraudit" name="总监审核"/>
     <exclusiveGateway gatewayDirection="Unspecified" id="_13" name="是否通过"/>
     <endEvent id="_14" name="EndEvent"/>
-    <endEvent id="_15" name="EndEvent">
+    <endEvent id="_15" errorCode="notApproved" name="EndEvent">
       <errorEventDefinition id="_15_ED_1"/>
     </endEvent>
     <sequenceFlow id="_18" sourceRef="_majoraudit" targetRef="_13"/>

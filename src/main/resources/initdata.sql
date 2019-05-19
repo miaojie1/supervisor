@@ -16,7 +16,8 @@ values (1, current_date, '总经理', null, '总经理', 1, true, 1, 1),
        (4, current_date, '人力资源总监', null, '人力总监',3, true, 1, 2),
        (5, current_date, '人力资源', null, '人力干部', 4,true, 1, 2),
        (6, current_date, '质管部', null, '质管总监',3, true, 1, 3),
-       (7, current_date, '质管部', null, '质管干部', 4,true, 1, 3);
+       (7, current_date, '质管部', null, '质管干部', 4,true, 1, 3),
+       (8, current_date, '总监',null,'总监',1,true,1,1);
 
 insert into employee_status(id, create_date, description, modification_date, name, status, version)
 values (1, current_date, '在职', null, '在职', true, 1),
@@ -222,7 +223,11 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
        (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1),
        (132, 'primary','/parallelTest/saveParallelTest',current_date, current_date,1),
-       (133, 'delBtn', '/parallelTest/deleteParallelTestById',current_date ,current_date ,1);
+       (133, 'delBtn', '/parallelTest/deleteParallelTestById',current_date ,current_date ,1),
+       (140, 'page', '/documentAudit/listAllEmployees',current_date,null,1),
+       (141, 'page', '/documentAudit/allotAuditTask',current_date,null,1),
+       (142, 'page', '/documentAudit/allotUserAudit', current_date, null, 1),
+       (143, 'page', '/siteAcceptance/checkSiteAcceptance', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -335,6 +340,10 @@ values (1, 1),
        (1, 128),
        (1, 130),
        (1, 131),
+       (1, 140),
+       (1, 141),
+       (1, 142),
+       (1, 143),
        (1, 132),
        (1, 133);
 
@@ -400,6 +409,7 @@ values (2, 1),
        (21, 91),
        (21, 92),
        (21, 93),
+       (21, 143),
        (22, 100),
        (22, 101),
        (22, 102),
@@ -412,6 +422,8 @@ values (2, 1),
        (23, 99),
        (23, 120),
        (23, 121),
+       (23, 141),
+       (23, 142),
        (24, 89),
        (24, 108),
        (24, 110),

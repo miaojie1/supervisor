@@ -80,7 +80,7 @@ public class DocumentAuditController extends WorkProcessBaseController {
     }
 
 
-    @PostMapping(value = "allotUserAudit")
+    @PostMapping(value = "/allotUserAudit")
     @ApiOperation(value = "分配的审核人审核文件")
     public ResultInfo allotUserAudit(@ApiParam(name = "documentAuditId", required = true, value = "文档审核对象ID") @RequestParam Long documentAuditId,
                                      @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,

@@ -166,7 +166,7 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
 
     @Override
     public void allotUserAudit(Long documentAuditId, String taskId, Boolean approved, String auditOpinion,String auditType) {
-        DocumentAudit documentAudit = documentAuditRepository.getOne(documentAuditId);
+        DocumentAudit documentAudit = documentAuditRepository.findById(documentAuditId).get();
         Employee employee = employeeService.getCurrentUser();
         boolean flag = false;
         if (documentAudit != null) {
@@ -206,7 +206,6 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
                 }
             }
         }
-
 
 
         if (!flag) {

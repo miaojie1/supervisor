@@ -1,5 +1,6 @@
 package com.xinguan.workprocess.service;
 
+import com.xinguan.utils.PageInfo;
 import com.xinguan.workprocess.model.SiteAcceptance;
 import org.springframework.data.domain.Page;
 
@@ -19,6 +20,8 @@ public interface SiteAcceptanceService {
      */
     SiteAcceptance saveSiteAcceptance(SiteAcceptance siteAcceptance);
 
+    void checkSiteAccept(Long siteAcceptanceId, String taskId, Boolean approved, String auditOpinion);
+
     /**
      * 删除 一次进场验收
      * @param id
@@ -31,7 +34,7 @@ public interface SiteAcceptanceService {
      * @param pageSize
      * @return
      */
-    Page<SiteAcceptance> listSiteAcceptancesByDepart(int pageNo, int pageSize, String name);
+    PageInfo<SiteAcceptance> listSiteAcceptancesByDepart(int pageNo, int pageSize, String name);
 
     SiteAcceptance findById(int id);
 }

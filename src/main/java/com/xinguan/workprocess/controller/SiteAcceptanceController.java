@@ -2,6 +2,7 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Project;
 import com.xinguan.workprocess.model.SiteAcceptance;
@@ -43,7 +44,7 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
 
     @PostMapping(value = "/listSiteAcceptsByDepart")
     @ApiOperation(value = "获取当前部门进场验收列表")
-    public Page<SiteAcceptance> listSiteAccepts(
+    public PageInfo<SiteAcceptance> listSiteAccepts(
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
             @ApiParam(name = "materialName", required = true, value = "材料名称") @RequestParam(name = "materialName") String materialName) {
@@ -85,6 +86,26 @@ public class SiteAcceptanceController extends WorkProcessBaseController {
             resultInfo.setMessage("添加进场验收失败！");
         }
         return  resultInfo;
+    }
+
+    @PostMapping(value = "/checkSiteAcceptance")
+    @ApiOperation(value = "审核人审核进场验收")
+    public ResultInfo allotUserAuditSiteAccept(@ApiParam(name = "siteAcceptanceId", required = true, value = "文档审核对象ID") @RequestParam Long siteAcceptanceId,
+                                     @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                     @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                     @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            siteAcceptanceService.checkSiteAccept(siteAcceptanceId,taskId,approved,auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
+        return resultInfo;
     }
 
     @PostMapping(value = "/deleteSiteAcceptanceById")

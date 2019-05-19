@@ -53,7 +53,11 @@ public class DocumentAuditController extends WorkProcessBaseController {
     public List<DocumentFolder> listAllFolders() {
         return documentFolderService.listAllDocuFolder();
     }
-
+    @PostMapping(value = "/listAllEmployees")
+    @ApiOperation(value = "获取所有的人员信息")
+    public List<Employee> listAllEmployees(){
+        return employeeService.listAllEmployees();
+    }
 
     @PostMapping(value = "/listAllCategorys")
     @ApiOperation(value = "获取所有文件夹类别")

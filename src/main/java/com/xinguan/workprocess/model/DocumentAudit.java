@@ -27,11 +27,10 @@ public class DocumentAudit {
     @OneToOne
     private Document document;
     /**
-     * 审核人员
+     * 审核人员 审核意见
      */
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<EmployeeAudit> employeeAuditList;
-
     /**
      * 总监审核
      *
@@ -75,6 +74,7 @@ public class DocumentAudit {
     private int version;
     @ManyToOne
     private Project project;
+    // 审批状态
     @Column
     private String auditStatus;
     @Transient
@@ -83,14 +83,6 @@ public class DocumentAudit {
     private Boolean needAllot;
     @Transient
     private String taskId;
-
-    public EmployeeAudit getMajorAudit() {
-        return majorAudit;
-    }
-
-    public void setMajorAudit(EmployeeAudit majorAudit) {
-        this.majorAudit = majorAudit;
-    }
 
     public String getTaskId() {
         return taskId;
@@ -114,6 +106,14 @@ public class DocumentAudit {
 
     public void setNeedAllot(Boolean needAllot) {
         this.needAllot = needAllot;
+    }
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
     }
 
     public String getAuditStatus() {

@@ -32,6 +32,13 @@ public class DocumentAudit {
     @OneToMany
     private List<EmployeeAudit> employeeAuditList;
 
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
+
     // 所属部门
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinColumn(name="department_id")
@@ -77,6 +84,13 @@ public class DocumentAudit {
     @Transient
     private String taskId;
 
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
+    }
 
     public String getTaskId() {
         return taskId;

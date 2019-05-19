@@ -85,10 +85,11 @@ public class DocumentAuditController extends WorkProcessBaseController {
     public ResultInfo allotUserAudit(@ApiParam(name = "documentAuditId", required = true, value = "文档审核对象ID") @RequestParam Long documentAuditId,
                                      @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
                                      @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
-                                     @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+                                     @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion,
+                                     @ApiParam(name = "auditType",required = true,value = "审核类型，分配人员审核：0，总监审核：1") @RequestParam String auditType) {
         ResultInfo resultInfo = new ResultInfo();
         try {
-            documentAuditService.allotUserAudit(documentAuditId, taskId, approved, auditOpinion);
+            documentAuditService.allotUserAudit(documentAuditId, taskId, approved, auditOpinion,auditType);
             resultInfo.setStatus(true);
             resultInfo.setMessage("审核成功");
         } catch (Exception e) {

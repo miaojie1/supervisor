@@ -100,6 +100,10 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
     @Override
     public DocumentAudit saveDocumentAudit(DocumentAudit documentAudit){
         documentAudit.setAuditStatus("未审核");
+        EmployeeAudit employeeAudit = new EmployeeAudit();
+        employeeAudit.setEmployee(documentAudit.getProject().getManager());
+        employeeAuditRepository.saveAndFlush(employeeAudit);
+        documentAudit.setMajorAudit(employeeAudit);
         DocumentAudit result = documentAuditRepository.saveAndFlush(documentAudit);
 
         //如果已经提交，提交文件审核流程
@@ -108,7 +112,7 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
             //设置启动流程所属变量
             Map<String,Object> param = Maps.newHashMap();
             param.put(ProcessConstant.DocumentAudit.NodeVariable.upload_file,currentUserId);
-            param.put(ProcessConstant.DocumentAudit.NodeVariable.major_audit,result.getProject().getProjectSupervisionDepartment().getMajor().getId());
+            param.put(ProcessConstant.DocumentAudit.NodeVariable.major_audit,result.getProject().getManager().getId());
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(ProcessConstant.DocumentAudit.NodeId.process_Key, param);
             result.setProcessId(processInstance.getId());
             result.setAuditStatus("进行中");
@@ -161,23 +165,39 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
     }
 
     @Override
-    public void allotUserAudit(Long documentAuditId, String taskId, Boolean approved, String auditOpinion) {
+    public void allotUserAudit(Long documentAuditId, String taskId, Boolean approved, String auditOpinion,String auditType) {
         DocumentAudit documentAudit = documentAuditRepository.getOne(documentAuditId);
         Employee employee = employeeService.getCurrentUser();
         boolean flag = false;
-        if (documentAudit != null && documentAudit.getEmployeeAuditList() != null && employee!=null) {
-            Optional<EmployeeAudit> employeeAuditOptional = documentAudit.getEmployeeAuditList().stream().filter(e -> e.getEmployee().getId().equals(employee.getId())).findAny();
-            if (employeeAuditOptional.isPresent()) {
-                EmployeeAudit employeeAudit = employeeAuditOptional.get();
-                employeeAudit.setApproved(approved);
-                employeeAudit.setAuditOpinion(auditOpinion);
-                employeeAudit.setAuditDate(new Date());
-                employeeAuditRepository.saveAndFlush(employeeAudit);
-                //完成个人任务
-                taskService.complete(taskId);
-                flag  = true;
+        if (documentAudit != null) {
+            if ("0".equals(auditType)) {
+                if ( documentAudit.getEmployeeAuditList() != null && employee!=null) {
+                    Optional<EmployeeAudit> employeeAuditOptional = documentAudit.getEmployeeAuditList().stream().filter(e -> e.getEmployee().getId().equals(employee.getId())).findAny();
+                    if (employeeAuditOptional.isPresent()) {
+                        EmployeeAudit employeeAudit = employeeAuditOptional.get();
+                        employeeAudit.setApproved(approved);
+                        employeeAudit.setAuditOpinion(auditOpinion);
+                        employeeAudit.setAuditDate(new Date());
+                        employeeAuditRepository.saveAndFlush(employeeAudit);
+                        //完成个人任务
+                        taskService.complete(taskId);
+                        flag  = true;
+                    }
+                }
+            } else if ("1".equals(auditType)) {
+                if (documentAudit.getMajorAudit() != null) {
+                    EmployeeAudit employeeAudit = documentAudit.getMajorAudit();
+                    employeeAudit.setApproved(approved);
+                    employeeAudit.setAuditOpinion(auditOpinion);
+                    employeeAudit.setAuditDate(new Date());
+                    employeeAuditRepository.saveAndFlush(employeeAudit);
+                    taskService.complete(taskId);
+                    flag = true;
+                }
             }
         }
+
+
 
         if (!flag) {
             throw new RuntimeException("审核失败");

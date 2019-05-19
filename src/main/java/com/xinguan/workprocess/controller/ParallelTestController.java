@@ -40,6 +40,7 @@ public class ParallelTestController extends WorkProcessBaseController{
         ResultInfo resultInfo = new ResultInfo();
         try {
             if (parallelTest.getId() == null){
+                parallelTest.setSponsor(employeeService.getCurrentUser());
                 parallelTest.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
                 parallelTest.setCheckStatus(checkStatusService.getOneById(1));
                 resultInfo.setMessage("添加平行验收成功！");

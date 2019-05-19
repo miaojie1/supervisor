@@ -150,6 +150,10 @@ public interface ProcessConstant {
              * 总监审核
              */
             static final String major_audit = "majorUserId";
+            /**
+             * 审核是否通过
+             */
+            static final String APPROVED = "approved";
         }
 
     }

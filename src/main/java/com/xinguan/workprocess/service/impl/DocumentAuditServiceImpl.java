@@ -191,6 +191,13 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
                     employeeAudit.setAuditOpinion(auditOpinion);
                     employeeAudit.setAuditDate(new Date());
                     employeeAuditRepository.saveAndFlush(employeeAudit);
+                    Map<String,Object> param = Maps.newHashMap();
+                    if (approved) {
+                        param.put(ProcessConstant.DocumentAudit.NodeVariable.APPROVED, "true");
+                    }else{
+                        param.put(ProcessConstant.DocumentAudit.NodeVariable.APPROVED, "false");
+                    }
+                    taskService.setVariables(taskId, param);
                     taskService.complete(taskId);
                     flag = true;
                 }

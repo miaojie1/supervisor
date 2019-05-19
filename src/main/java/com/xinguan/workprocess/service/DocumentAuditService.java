@@ -1,8 +1,8 @@
 package com.xinguan.workprocess.service;
 
 import com.xinguan.usermanage.model.Employee;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.workprocess.model.DocumentAudit;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface DocumentAuditService {
      * @param name
      * @return
      */
-    Page<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name);
+    PageInfo<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name);
 
     DocumentAudit findById(long id);
 

@@ -70,6 +70,37 @@ public class DocumentAudit {
     private Project project;
     @Column
     private String auditStatus;
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private Boolean needAllot;
+    @Transient
+    private String taskId;
+
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+    public Boolean getNeedAllot() {
+        return needAllot;
+    }
+
+    public void setNeedAllot(Boolean needAllot) {
+        this.needAllot = needAllot;
+    }
 
     public String getAuditStatus() {
         return auditStatus;

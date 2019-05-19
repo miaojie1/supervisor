@@ -2,6 +2,7 @@ package com.xinguan.workprocess.controller;
 
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.service.AttachmentService;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.DocumentAudit;
 import com.xinguan.workprocess.model.Project;
@@ -14,7 +15,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -150,12 +150,13 @@ public class DocumentAuditController extends WorkProcessBaseController {
 
     @PostMapping(value = "/listDocumentAuditsByDepart")
     @ApiOperation(value = "列出 文件审核列表")
-    public Page<DocumentAudit> listDocumentAuditsByDepart(
+    public PageInfo<DocumentAudit> listDocumentAuditsByDepart(
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
             @ApiParam(name = "name", required = true, value = "文件名称") @RequestParam(name = "name") String name){
         return documentAuditService.listDocumentAuditByDocName(pageNo,pageSize,name);
     }
+
 
     @PostMapping(value = "/deleteDocAuditById")
     @ApiOperation(value = "根据id删除文件审核 以及相关的文档")

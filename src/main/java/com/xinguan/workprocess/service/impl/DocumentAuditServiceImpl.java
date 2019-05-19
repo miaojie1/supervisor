@@ -5,13 +5,15 @@ import com.xinguan.core.service.BaseService;
 import com.xinguan.usermanage.model.Department;
 import com.xinguan.usermanage.model.Employee;
 import com.xinguan.usermanage.service.EmployeeService;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ProcessConstant;
 import com.xinguan.workprocess.model.DocumentAudit;
 import com.xinguan.workprocess.model.EmployeeAudit;
 import com.xinguan.workprocess.service.DocumentAuditService;
-import com.xinguan.workresult.model.Document;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +37,7 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
     EmployeeService employeeService;
 
     @Override
-    public Page<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name){
+    public PageInfo<DocumentAudit> listDocumentAuditByDocName(int pageNo, int pageSize, String name){
         Employee currentUser=employeeService.getCurrentUser();
         Department currentdepart=currentUser.getDepartment();
         DocumentAudit documentAudit=new DocumentAudit();
@@ -45,7 +47,47 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
         documentAudit.setDepartment(currentdepart);
         documentAudit.setOriginRank(null);
         Example<DocumentAudit> documentAuditExample = getSimpleExample(documentAudit);
-        return documentAuditRepository.findAll(documentAuditExample, PageRequest.of(pageNo, pageSize));
+        Page<DocumentAudit> auditPage = documentAuditRepository.findAll(documentAuditExample, PageRequest.of(pageNo, pageSize));
+        Map<String,Object> param = Maps.newHashMap();
+        param.put("name",name);
+        PageInfo<DocumentAudit> pageInfo = new PageInfo<>(auditPage,param);
+        pageInfo.setContent(processDocument(auditPage.getContent()));
+        return pageInfo;
+    }
+
+
+    private List<DocumentAudit> processDocument(List<DocumentAudit> documentAudits) {
+        List<DocumentAudit> processResult = Lists.newArrayList();
+        documentAudits.stream().filter(e->{
+            boolean flag = false;
+            if (StringUtils.isNotBlank(e.getProcessId())) {
+                flag = true;
+            }else{
+                processResult.add(e);
+            }
+            return flag;
+        }).forEach(e->{
+            String userId = String.valueOf(employeeService.getCurrentUser().getId());
+            Task task = taskService.createTaskQuery().taskCandidateOrAssigned(userId).processInstanceId(e.getProcessId()).singleResult();
+            //如果task为空，则添加到结果列表中，否则获取当前流程的执行节点
+            if (task == null) {
+                processResult.add(e);
+            }else{
+                Execution execution = runtimeService.createExecutionQuery().executionId(task.getExecutionId()).singleResult();
+                String activityId = execution.getActivityId();
+                //判断当前流程所到达的节点
+                if (ProcessConstant.DocumentAudit.NodeId._distribution.equals(activityId)) {
+                    e.setNeedAllot(true);
+                }else if(ProcessConstant.DocumentAudit.NodeId.audit.equals(activityId)
+                    || ProcessConstant.DocumentAudit.NodeId.major_audit.equals(activityId)){
+                    e.setNeedAudit(true);
+                }
+                e.setTaskId(task.getId());
+                processResult.add(e);
+            }
+        });
+
+        return processResult;
     }
 
     @Override

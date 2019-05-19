@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> implements DocumentAuditService {
@@ -157,6 +158,30 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
             }
         }
         return documentAudit;
+    }
+
+    @Override
+    public void allotUserAudit(Long documentAuditId, String taskId, Boolean approved, String auditOpinion) {
+        DocumentAudit documentAudit = documentAuditRepository.getOne(documentAuditId);
+        Employee employee = employeeService.getCurrentUser();
+        boolean flag = false;
+        if (documentAudit != null && documentAudit.getEmployeeAuditList() != null && employee!=null) {
+            Optional<EmployeeAudit> employeeAuditOptional = documentAudit.getEmployeeAuditList().stream().filter(e -> e.getEmployee().getId().equals(employee.getId())).findAny();
+            if (employeeAuditOptional.isPresent()) {
+                EmployeeAudit employeeAudit = employeeAuditOptional.get();
+                employeeAudit.setApproved(approved);
+                employeeAudit.setAuditOpinion(auditOpinion);
+                employeeAudit.setAuditDate(new Date());
+                employeeAuditRepository.saveAndFlush(employeeAudit);
+                //完成个人任务
+                taskService.complete(taskId);
+                flag  = true;
+            }
+        }
+
+        if (!flag) {
+            throw new RuntimeException("审核失败");
+        }
     }
 
 }

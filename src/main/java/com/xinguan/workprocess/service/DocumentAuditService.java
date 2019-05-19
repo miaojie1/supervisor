@@ -23,4 +23,6 @@ public interface DocumentAuditService {
     void deleteDocAuditById(long id);
 
     DocumentAudit allotAuditTask(long id, List<Employee> employees);
+
+    void allotUserAudit(Long documentAuditId, String taskId, Boolean approved, String auditOpinion);
 }

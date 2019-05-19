@@ -80,6 +80,28 @@ public class DocumentAuditController extends WorkProcessBaseController {
     }
 
 
+    @PostMapping(value = "allotUserAudit")
+    @ApiOperation(value = "分配的审核人审核文件")
+    public ResultInfo allotUserAudit(@ApiParam(name = "documentAuditId", required = true, value = "文档审核对象ID") @RequestParam Long documentAuditId,
+                                     @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                     @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                     @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            documentAuditService.allotUserAudit(documentAuditId, taskId, approved, auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
+        return resultInfo;
+    }
+
+
+
     @PostMapping(value = "/saveDocumentAudit")
     @ApiOperation(value = "增加或修改 文件审核")
     public ResultInfo saveSiteAcceptance(

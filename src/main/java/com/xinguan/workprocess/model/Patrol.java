@@ -42,9 +42,17 @@ public class Patrol {
     //图像资料
     @OneToMany
     private List<Picture> pictureList;
-    //审核
+    /**
+     * 审核人审核
+     */
     @OneToOne
     private EmployeeAudit employeeAudit;
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
     @Column
     private String remark;
     // 判断保存还是提交 0是保存 1是提交
@@ -58,6 +66,46 @@ public class Patrol {
     @Column
     @Version
     private int version;
+    // 审批状态
+    @Column
+    private String auditStatus;
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private String taskId;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public Long getId() {
         return id;

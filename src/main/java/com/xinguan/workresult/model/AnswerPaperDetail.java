@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Employee;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -25,6 +26,16 @@ public class AnswerPaperDetail {
 
     @ManyToOne
     private TestPaperDetail testPaperDetail;
+    @Column
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public Long getId() {
         return id;

@@ -105,6 +105,12 @@ public abstract class BaseService<T> {
     protected StudyMaterialRepository studyMaterialRepository;
     @Autowired
     protected ParallelTestRepository parallelTestRepository;
+    @Autowired
+    protected TestPaperRepository testPaperRepository;
+    @Autowired
+    protected TestPaperCategoryRepository testPaperCategoryRepository;
+    @Autowired
+    protected TestPaperDetailRepository testPaperDetailRepository;
     public BaseService() {
     }
 

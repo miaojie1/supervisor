@@ -29,4 +29,10 @@ public abstract class WorkResultBaseController {
     protected StudyMaterialCategoryService studyMaterialCategoryService;
     @Autowired
     protected StudyMaterialService studyMaterialService;
+    @Autowired
+    protected TestPaperCategoryService testPaperCategoryService;
+    @Autowired
+    protected TestPaperService testPaperService;
+    @Autowired
+    protected TestPaperDetailService testPaperDetailService;
 }

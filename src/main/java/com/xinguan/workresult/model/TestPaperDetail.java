@@ -3,6 +3,7 @@ package com.xinguan.workresult.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,9 @@ public class TestPaperDetail {
     //备注
     @Column
     private String remark;
+    //试题内容
+    @Column
+    private String content;
     //题目满分
     @Column
     private Integer fullScore;
@@ -25,6 +29,8 @@ public class TestPaperDetail {
     @JoinColumn(name = "test_paper_id")
     private TestPaper testPaper;
 
+    @Column
+    private Date createDate;
     @OneToMany
     private List<AnswerPaperDetail> answerPaperDetails;
 
@@ -36,6 +42,21 @@ public class TestPaperDetail {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
     public String getTestPaperDetailName() {
         return testPaperDetailName;
     }

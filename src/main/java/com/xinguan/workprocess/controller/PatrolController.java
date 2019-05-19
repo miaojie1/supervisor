@@ -1,5 +1,7 @@
 package com.xinguan.workprocess.controller;
 
+import com.xinguan.usermanage.model.Employee;
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Patrol;
 import com.xinguan.workprocess.model.Project;
@@ -10,7 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -32,9 +33,15 @@ public class PatrolController extends WorkProcessBaseController{
         return projectService.listAllProjects();
     }
 
+    @PostMapping(value = "/listAllEmployees")
+    @ApiOperation(value = "获取所有人员信息")
+    public List<Employee> listAllEmployees() {
+        return employeeService.listAllEmployees();
+    }
+
     @PostMapping(value = "/listPatrolByDepartment")
     @ApiOperation(value = "获取当前部门巡视列表")
-    public Page<Patrol> listPatrols(
+    public PageInfo<Patrol> listPatrols(
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
             @ApiParam(name = "location", required = true, value = "巡视部位") @RequestParam(name = "location") String location
@@ -76,6 +83,26 @@ public class PatrolController extends WorkProcessBaseController{
             resultInfo.setMessage("添加巡视失败！");
         }
         return  resultInfo;
+    }
+
+    @PostMapping(value = "/checkPatrol")
+    @ApiOperation(value = "审核人审核巡视")
+    public ResultInfo allotUserAuditPatrol(@ApiParam(name = "patrolId", required = true, value = "文档审核对象ID") @RequestParam Long patrolId,
+                                               @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                               @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                               @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            patrolService.checkPatrol(patrolId,taskId,approved,auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
+        return resultInfo;
     }
 
     @PostMapping(value = "/deletePatrolById")

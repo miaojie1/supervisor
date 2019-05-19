@@ -1,11 +1,12 @@
 package com.xinguan.workprocess.service;
 
+import com.xinguan.utils.PageInfo;
 import com.xinguan.workprocess.model.Patrol;
-import org.springframework.data.domain.Page;
 
 public interface PatrolService {
     Patrol savePatrol(Patrol patrol);
+    void checkPatrol(Long patrolId, String taskId, Boolean approved, String auditOpinion);
     void deletePatrolById(Long id);
-    Page<Patrol> listPatrolByDepartment(int pageNo, int pageSize, String location);
+    PageInfo<Patrol> listPatrolByDepartment(int pageNo, int pageSize, String location);
     Patrol findById(int id);
 }

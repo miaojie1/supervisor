@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.xinguan.usermanage.model.Department;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,8 @@ public class TestPaper {
     @Column
     private Integer fullScore;
 
+    @Column
+    private Date createDate;
     //试卷类别
     @ManyToOne
     private TestPaperCategory testPaperCategory;
@@ -43,6 +46,14 @@ public class TestPaper {
 
     public void setTestPaperDetails(List<TestPaperDetail> testPaperDetails) {
         this.testPaperDetails = testPaperDetails;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public Integer getFullScore() {

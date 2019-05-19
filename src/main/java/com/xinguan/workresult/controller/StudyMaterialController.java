@@ -1,14 +1,18 @@
 package com.xinguan.workresult.controller;
 
+import com.xinguan.usermanage.model.Department;
+import com.xinguan.usermanage.service.DepartmentService;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workresult.model.StudyMaterial;
+import com.xinguan.workresult.model.StudyMaterialCategory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.assertj.core.util.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Api("学习资料相关接口")
@@ -24,6 +29,19 @@ import java.util.Map;
 public class StudyMaterialController extends WorkResultBaseController{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(StudyMaterialController.class);
+    @Autowired
+    protected DepartmentService departmentService;
+    @PostMapping(value = "/listAllStudyMaterialCategories")
+    @ApiOperation("获取所有的学习资料类型列表不分页")
+    public List<StudyMaterialCategory> listAllStudyMaterialCategories(){
+        return studyMaterialCategoryService.listAllStudyMaterialCategories();
+    }
+    @PostMapping(value = "/listAllDepartment")
+    @ApiOperation("获取所有的部门列表不分页")
+    public List<Department> listAllDepartment(){
+        return departmentService.listAllDepartment();
+    }
+
     @PostMapping(value = "/listStudyMaterial/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取学习资料")
     public PageInfo<StudyMaterial> listStudyMaterial(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
@@ -41,17 +59,35 @@ public class StudyMaterialController extends WorkResultBaseController{
         studyMaterialService.downloadStudyMaterialAttachment(filePath,response);
     }
 
-    @PostMapping(value = "/uploadStudyMaterialAttachment")
+    @PostMapping(value = "/uploadStudyMaterialAttachment/studyMaterialId/{studyMaterialId}")
     @ApiOperation(value = "学习资料附件上传方法")
-    public void uploadStudyMaterialAttachment(@RequestParam("file") MultipartFile multipartFile,
-                                              @RequestParam("studyMaterialId") String studyMaterialId) {
-        studyMaterialService.uploadStudyMaterialAttachment(multipartFile,studyMaterialId);
+    public ResultInfo uploadStudyMaterialAttachment(@RequestParam("file") MultipartFile multipartFile,
+                                              @PathVariable("studyMaterialId") String studyMaterialId) {
+        ResultInfo resultInfo = new ResultInfo();
+        try{
+            studyMaterialService.uploadStudyMaterialAttachment(multipartFile,studyMaterialId);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("上传附件成功");
+        }catch (Exception e) {
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("上传附件失败");
+        }
+        return resultInfo;
     }
 
     @PostMapping(value = "/deleteStudyMaterialAttachment")
     @ApiOperation(value = "学习资料附件删除方法")
-    public void deleteStudyMaterialAttachment(@RequestParam("studyMaterialId") String studyMaterialId) {
-        studyMaterialService.deleteStudyMaterialAttachment(studyMaterialId);
+    public ResultInfo deleteStudyMaterialAttachment(@RequestParam("studyMaterialId") String studyMaterialId) {
+        ResultInfo resultInfo = new ResultInfo();
+        try{
+            studyMaterialService.deleteStudyMaterialAttachment(studyMaterialId);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("删除附件成功");
+        }catch (Exception e) {
+            resultInfo.setStatus(false);
+            resultInfo.setMessage("删除附件失败");
+        }
+        return resultInfo;
     }
 
     @PostMapping(value = "/saveStudyMaterial")

@@ -61,7 +61,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (15, current_date, null, '文档库管理', '/documentFolder/listDocumentFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (16, current_date, null, '影像资料管理', '/pictureFolder/listPicFolderPage/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (17, current_date, null, '监理日志', '/superLogJob/listSupervisionLogByPage', 1, '', true, false, 1, 7),
-       (18, current_date, null, '学习考试', '', 1, '', true, false, 1, 7),
+       (18, current_date, null, '学习考试', '/studyMaterial/listStudyMaterial/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 7),
        (19, current_date, null, '监理台账', '/accountRecord/listAccRecordsByTitle', 1, '', true, false, 1, 7),
        (20, current_date, null, '工作过程', null, 2, null, true, true,1, null),
        (21, current_date, null, '进场验收', '/siteAcceptance/listSiteAcceptsByDepart', 1, '', true, false, 1, 20),
@@ -73,8 +73,7 @@ values (1, current_date, null, '公共功能', null, 2, null, true, true, 1, nul
        (27, current_date, null, '平行检验', '/parallelTest/listParallelTest/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 20),
        (28, current_date, null, '检查验收', '/checkAcceptance/listCheckAcceptancePage', 1, '', true, false, 1, 20),
        (29, current_date, null, '线上会签', '', 1, '', true, false, 1, 20),
-       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7),
-       (31, current_date, null, '学习资料', '/studyMaterial/listStudyMaterial/pageNo/{pageNo}/pageSize/{pageSize}', 1, '', true, false, 1, 18);
+       (30, current_date, null, '统计分析报表', '', 1, '', true, false, 1, 7);
 
 
 
@@ -107,8 +106,7 @@ values (1, 1),
        (1, 27),
        (1, 28),
        (1, 29),
-       (1, 30),
-       (1, 31);
+       (1, 30);
 
 
 
@@ -215,10 +213,12 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
        (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
        (122, 'download','/studyMaterial/downloadStudyMaterialAttachment', current_date, current_date,1),
-       (123, 'upload','/studyMaterial/uploadStudyMaterialAttachment', current_date, current_date,1),
+       (123, 'upload','/studyMaterial/uploadStudyMaterialAttachment/studyMaterialId/{studyMaterialId}', current_date, current_date,1),
        (124, 'delAttBtn','/studyMaterial/deleteStudyMaterialAttachment', current_date, current_date,1),
        (125, 'editBtn','/studyMaterial/saveStudyMaterial', current_date, current_date,1),
        (126, 'delBtn','/studyMaterial/delete/studyMaterialId/{studyMaterialId}', current_date, current_date,1),
+       (127, 'primary', '/studyMaterial/listAllStudyMaterialCategories', current_date, current_date, 1),
+       (128, 'primary', '/studyMaterial/listAllDepartment', current_date, current_date, 1),
        (130, 'primary','/sideStation/saveSideStation',current_date, current_date,1),
        (131, 'delBtn', '/sideStation/deleteSideStationById',current_date ,current_date ,1),
        (132, 'primary','/parallelTest/saveParallelTest',current_date, current_date,1),
@@ -331,6 +331,8 @@ values (1, 1),
        (1, 124),
        (1, 125),
        (1, 126),
+       (1, 127),
+       (1, 128),
        (1, 130),
        (1, 131),
        (1, 132),
@@ -417,11 +419,13 @@ values (2, 1),
        (28, 105),
        (28, 106),
        (28, 107),
-       (31, 122),
-       (31, 123),
-       (31, 124),
-       (31, 125),
-       (31, 126);
+       (18, 122),
+       (18, 123),
+       (18, 124),
+       (18, 125),
+       (18, 126),
+       (18, 127),
+       (18, 128);
 
 insert  into document_category(id, create_date, name, remark, version)
 values (1, current_date, '类别1', '',1),

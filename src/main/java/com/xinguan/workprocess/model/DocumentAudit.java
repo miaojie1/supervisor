@@ -50,7 +50,7 @@ public class DocumentAudit {
     /**
      * 发起人
      */
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="employee_id")
     private Employee sponsor;
     /**

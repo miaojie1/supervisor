@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SiteAcceptanceServiceImpl extends BaseService<SiteAcceptance> implements SiteAcceptanceService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentAuditServiceImpl.class);
 
@@ -48,7 +49,7 @@ public class SiteAcceptanceServiceImpl extends BaseService<SiteAcceptance> imple
         employeeAudit.setEmployee(siteAcceptance.getProject().getManager());
         employeeAuditRepository.saveAndFlush(employeeAudit);
         siteAcceptance.setMajorAudit(employeeAudit);
-        SiteAcceptance result = siteAcceptanceRepository.saveAndFlush(siteAcceptance);
+        SiteAcceptance result = siteAcceptanceRepository.save(siteAcceptance);
 
         //如果已经提交，提交文件审核流程
         if (1==siteAcceptance.getIsSubmit()) {
@@ -61,7 +62,7 @@ public class SiteAcceptanceServiceImpl extends BaseService<SiteAcceptance> imple
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(ProcessConstant.SiteAcceptance.NodeId.PROCESS_KEY, param);
             result.setProcessId(processInstance.getId());
             result.setAuditStatus("进行中");
-            siteAcceptanceRepository.saveAndFlush(result);
+            siteAcceptanceRepository.save(result);
             //完成我的个人任务
             Task task = taskService.createTaskQuery().taskAssignee(currentUserId).processInstanceId(processInstance.getId()).singleResult();
             if (task != null) {

@@ -25,7 +25,7 @@ public class SiteAcceptance {
     private String materialName;
 
     //发起人
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="employee_id")
     private Employee sponsor;
 
@@ -47,13 +47,13 @@ public class SiteAcceptance {
     /**
      * 审核人审核
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit employeeAudit;
     /**
      * 总监审核
      *
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit majorAudit;
     @Column
     private String remark;
@@ -67,7 +67,7 @@ public class SiteAcceptance {
     @Column
     @Version
     private int version;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private Project project;
     // 审批状态
     @Column

@@ -23,9 +23,6 @@ insert into employee_status(id, create_date, description, modification_date, nam
 values (1, current_date, '在职', null, '在职', true, 1),
         (2, current_date, '离职', null, '离职', true, 1);
 
-insert into check_status(id, status)
-value (1, '未审核'),
-       (2, '已审核');
 update employee
 set department_id=1
 where id = 1;
@@ -222,7 +219,6 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (108, 'primary', '/patrol/listAllProjects', current_date, current_date, 1),
        (109, 'primary', '/witnessSampling/listAllProjects', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
-       (111, 'primary','/checkStatus/listAllCheckStatus',current_date, current_date,1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
        (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
        (122, 'download','/studyMaterial/downloadStudyMaterialAttachment', current_date, current_date,1),
@@ -240,7 +236,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (141, 'page', '/documentAudit/allotAuditTask',current_date,null,1),
        (142, 'page', '/documentAudit/allotUserAudit', current_date, null, 1),
        (143, 'page', '/siteAcceptance/checkSiteAcceptance', current_date, null, 1),
-       (144, 'primary', '/getFlowImg/{processInstanceId}', current_date, null, 1);
+       (144, 'primary', '/getFlowImg/{processInstanceId}', current_date, null, 1),
+       (145, 'page', '/parallelTest/checkParallelTest', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -353,7 +350,6 @@ values (1, 1),
        (1, 108),
        (1, 109),
        (1, 110),
-       (1, 111),
        (1, 120),
        (1, 121),
        (1, 122),
@@ -371,7 +367,8 @@ values (1, 1),
        (1, 143),
        (1, 144),
        (1, 132),
-       (1, 133);
+       (1, 133),
+       (1, 145);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

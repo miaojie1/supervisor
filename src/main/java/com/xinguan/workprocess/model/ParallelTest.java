@@ -39,8 +39,23 @@ public class ParallelTest {
     private Integer originRank;
 
     //审核状态
-    @ManyToOne
-    private CheckStatus checkStatus;
+    @Column
+    private String auditStatus;
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private String taskId;
+    /**
+     * 审核人审核
+     */
+    @OneToOne
+    private EmployeeAudit employeeAudit;
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
 
     //检查人员
     @ManyToOne
@@ -49,6 +64,58 @@ public class ParallelTest {
     //项目
     @ManyToOne
     private Project project;
+
+    @Column
+    private String processId;
+
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+    public EmployeeAudit getEmployeeAudit() {
+        return employeeAudit;
+    }
+
+    public void setEmployeeAudit(EmployeeAudit employeeAudit) {
+        this.employeeAudit = employeeAudit;
+    }
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
+    }
 
     public Long getId() {
         return id;
@@ -96,14 +163,6 @@ public class ParallelTest {
 
     public void setOriginRank(Integer originRank) {
         this.originRank = originRank;
-    }
-
-    public CheckStatus getCheckStatus() {
-        return checkStatus;
-    }
-
-    public void setCheckStatus(CheckStatus checkStatus) {
-        this.checkStatus = checkStatus;
     }
 
     public Employee getSponsor() {

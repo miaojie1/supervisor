@@ -1,5 +1,6 @@
 package com.xinguan.workprocess.controller;
 
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.ParallelTest;
 import com.xinguan.workresult.model.AccountRecord;
@@ -9,7 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -25,7 +25,7 @@ public class ParallelTestController extends WorkProcessBaseController{
 
     @PostMapping(value = "/listParallelTest/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取旁站列表")
-    public Page<ParallelTest> listParallelTests(
+    public PageInfo<ParallelTest> listParallelTests(
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
             @ApiParam(name = "partName", value = "部位名称") String partName) {
@@ -42,7 +42,6 @@ public class ParallelTestController extends WorkProcessBaseController{
             if (parallelTest.getId() == null){
                 parallelTest.setSponsor(employeeService.getCurrentUser());
                 parallelTest.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
-                parallelTest.setCheckStatus(checkStatusService.getOneById(1));
                 resultInfo.setMessage("添加平行验收成功！");
             }else {
                 resultInfo.setMessage("修改平行验收成功！");
@@ -87,4 +86,24 @@ public class ParallelTestController extends WorkProcessBaseController{
         return resultInfo;
     }
 
+
+    @PostMapping(value = "/checkParallelTest")
+    @ApiOperation(value = "审核人审核进场验收")
+    public ResultInfo allotUserAuditSiteAccept(@ApiParam(name = "ParallelTestId", required = true, value = "审核对象ID") @RequestParam Long parallelTestId,
+                                               @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                               @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                               @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            parallelTestService.checkParallelTest(parallelTestId,taskId,approved,auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
+        return resultInfo;
+    }
 }

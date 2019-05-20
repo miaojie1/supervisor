@@ -10,13 +10,10 @@ import java.util.Map;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -45,6 +42,8 @@ public class ActUtils {
     private TaskService taskService;
     @Autowired
     private ProcessEngineConfiguration processEngineConfiguration;
+    @Autowired
+    private ProcessEngine processEngine;
 
     /**
      * 根据流程实例Id,获取实时流程图片
@@ -176,4 +175,9 @@ public class ActUtils {
         return highLightedFlowIds;
     }
 
+    public List<org.activiti.engine.task.Task> getMyTaskList(String id) {
+        List<Task> taskList = processEngine.getTaskService()
+                .createTaskQuery().taskAssignee(id).list();
+        return taskList;
+    }
 }

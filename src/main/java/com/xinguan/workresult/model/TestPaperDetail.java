@@ -24,6 +24,9 @@ public class TestPaperDetail {
     //题目满分
     @Column
     private Integer fullScore;
+    //题目正确答案
+    @Column
+    private String answer;
 
     @ManyToOne
     @JoinColumn(name = "test_paper_id")
@@ -71,6 +74,14 @@ public class TestPaperDetail {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public Integer getFullScore() {

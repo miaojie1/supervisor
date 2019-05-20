@@ -111,6 +111,10 @@ public abstract class BaseService<T> {
     protected TestPaperCategoryRepository testPaperCategoryRepository;
     @Autowired
     protected TestPaperDetailRepository testPaperDetailRepository;
+    @Autowired
+    protected AnswerPaperDetailRepository answerPaperDetailRepository;
+    @Autowired
+    protected ExaminationRecordRepository examinationRecordRepository;
     public BaseService() {
     }
 

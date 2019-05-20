@@ -219,6 +219,12 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (108, 'primary', '/patrol/listAllProjects', current_date, current_date, 1),
        (109, 'primary', '/witnessSampling/listAllProjects', current_date, current_date, 1),
        (110, 'delBtn','/patrol/deletePatrolById', current_date, current_date,1),
+       (111, 'primary', '/testPaper/getTestPaperById', current_date, current_date, 1),
+       (112, 'primary', '/answerPaperDetail/listAllEmployees', current_date, current_date, 1),
+       (113, 'primary','/answerPaperDetail/listAnswerPaperDetailByTestPaperDetailPage/pageNo/{pageNo}/pageSize/{pageSize}', current_date, current_date,1),
+       (114, 'editBtn','/answerPaperDetail/saveAnswerPaperDetail',current_date, current_date,1),
+       (115, 'delBtn', '/answerPaperDetail/delete/answerPaperDetailId/{answerPaperDetailId}', current_date, current_date, 1),
+       (116, 'primary', '/examinationRecord/saveExaminationRecord', current_date, current_date, 1),
        (120, 'delBtn','/documentAudit/deleteDocById', current_date, current_date,1),
        (121, 'download','/documentAudit/downloadDoc', current_date, current_date,1),
        (122, 'download','/studyMaterial/downloadStudyMaterialAttachment', current_date, current_date,1),
@@ -352,6 +358,12 @@ values (1, 1),
        (1, 108),
        (1, 109),
        (1, 110),
+       (1, 111),
+       (1, 112),
+       (1, 113),
+       (1, 114),
+       (1, 115),
+       (1, 116),
        (1, 120),
        (1, 121),
        (1, 122),
@@ -470,6 +482,12 @@ values (2, 1),
        (18, 77),
        (18, 78),
        (18, 79),
+       (18, 111),
+       (18, 112),
+       (18, 113),
+       (18, 114),
+       (18, 115),
+       (18, 116),
        (18, 122),
        (18, 123),
        (18, 124),
@@ -482,15 +500,15 @@ insert  into document_category(id, create_date, name, remark, version)
 values (1, current_date, '类别1', '',1),
        (2, current_date, '类别2', '',1);
 insert into document_folder(id, create_date, description, name, version)
-values (1, create_date, '文件夹1', '文件夹1', 1),
-       (2, create_date, '文件夹2', '文件夹2', 1);
+values (1, current_date , '文件夹1', '文件夹1', 1),
+       (2, current_date , '文件夹2', '文件夹2', 1);
 
 insert into file_folder(id, create_date, description, name, remark, status, version)
-values (1, create_date, '文件夹1', '文件夹1','',true,1),
-       (2, create_date, '文件夹2', '文件夹2','',true, 1);
+values (1, current_date , '文件夹1', '文件夹1','',true,1),
+       (2, current_date , '文件夹2', '文件夹2','',true, 1);
 insert into file_category(id, create_date, name, remark, status, version)
-values (1, create_date,  'docx','',true,1),
-       (2, create_date, 'txt','',true, 1);
+values (1, current_date ,  'docx','',true,1),
+       (2, current_date , 'txt','',true, 1);
 insert into project_status(id, name, remark, version)
 VALUES (1, '在建' , '' ,1),
        (2, '竣工', '',1);

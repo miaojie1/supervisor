@@ -15,7 +15,7 @@ public class ExaminationRecord {
     //考试时间
     @Column
     private Date testDate;
-    //参考人
+    //参加考试的人
     @OneToOne
     private Employee candidate;
     //考卷

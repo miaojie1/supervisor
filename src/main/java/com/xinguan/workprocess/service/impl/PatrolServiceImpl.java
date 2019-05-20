@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class PatrolServiceImpl extends BaseService<Patrol> implements PatrolService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PatrolServiceImpl.class);
     @Autowired
@@ -42,7 +43,7 @@ public class PatrolServiceImpl extends BaseService<Patrol> implements PatrolServ
         employeeAudit.setEmployee(patrol.getProject().getManager());
         employeeAuditRepository.saveAndFlush(employeeAudit);
         patrol.setMajorAudit(employeeAudit);
-        Patrol result = patrolRepository.saveAndFlush(patrol);
+        Patrol result = patrolRepository.save(patrol);
 
         //如果已经提交，提交巡视审核流程
         if (1==patrol.getIsSubmit()) {
@@ -55,7 +56,7 @@ public class PatrolServiceImpl extends BaseService<Patrol> implements PatrolServ
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(ProcessConstant.Patrol.NodeId.PROCESS_KEY, param);
             result.setProcessId(processInstance.getId());
             result.setAuditStatus("进行中");
-            patrolRepository.saveAndFlush(result);
+            patrolRepository.save(result);
             //完成我的个人任务
             Task task = taskService.createTaskQuery().taskAssignee(currentUserId).processInstanceId(processInstance.getId()).singleResult();
             if (task != null) {

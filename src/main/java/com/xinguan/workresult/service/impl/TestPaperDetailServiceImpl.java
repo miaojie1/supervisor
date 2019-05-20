@@ -32,4 +32,8 @@ public class TestPaperDetailServiceImpl extends BaseService<TestPaperDetail> imp
         Assert.notNull(id, "The given Id must not be null!");
         testPaperDetailRepository.deleteById(id);
     }
+    @Override
+    public TestPaperDetail getById(Long id){
+        return testPaperDetailRepository.findById(id).get();
+    }
 }

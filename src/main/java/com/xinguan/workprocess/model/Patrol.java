@@ -25,11 +25,11 @@ public class Patrol {
     @Column
     private Date patrolDate;
     //巡视人
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="employee_id")
     private Employee inspector;
     //所属项目
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private Project project;
     // 所属部门
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
@@ -45,13 +45,13 @@ public class Patrol {
     /**
      * 审核人审核
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit employeeAudit;
     /**
      * 总监审核
      *
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit majorAudit;
     @Column
     private String remark;

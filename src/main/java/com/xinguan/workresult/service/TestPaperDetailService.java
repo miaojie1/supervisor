@@ -7,4 +7,5 @@ public interface TestPaperDetailService {
     Page<TestPaperDetail> listTestPaperDetailByTestPaperPage(int pageSize, int pageNo, String testPaperDetailName, String testPaperId);
     TestPaperDetail saveOrUpdate(TestPaperDetail testPaperDetail);
     void deleteById (Long id);
+    TestPaperDetail getById(Long id);
 }

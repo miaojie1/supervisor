@@ -37,6 +37,11 @@ public class TestPaperController extends WorkResultBaseController{
         return departmentService.listAllDepartment();
     }
 
+    @PostMapping(value = "/getTestPaperById")
+    @ApiOperation("获取指定考卷不分页")
+    public TestPaper getTestPaperById(@ApiParam(name = "testPaperId", value = "根据Id查询")String testPaperId){
+        return testPaperService.getById(Long.parseLong(testPaperId));
+    }
     @PostMapping(value = "/listTestPaper/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取考卷")
     public PageInfo<TestPaper> listTestPaper(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,

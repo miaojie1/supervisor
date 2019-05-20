@@ -35,4 +35,8 @@ public abstract class WorkResultBaseController {
     protected TestPaperService testPaperService;
     @Autowired
     protected TestPaperDetailService testPaperDetailService;
+    @Autowired
+    protected AnswerPaperDetailService answerPaperDetailService;
+    @Autowired
+    protected ExaminationRecordService examinationRecordService;
 }

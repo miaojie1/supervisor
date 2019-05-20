@@ -25,7 +25,7 @@ public class WitnessSampling {
     @Column
     private String location;
     //创建人
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="employee_id")
     private Employee creator;
 
@@ -43,7 +43,7 @@ public class WitnessSampling {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private Project project;
     //图像资料
     @OneToMany
@@ -51,13 +51,13 @@ public class WitnessSampling {
     /**
      * 审核人审核
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit employeeAudit;
     /**
      * 总监审核
      *
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
     private EmployeeAudit majorAudit;
     @Column
     private String remark;

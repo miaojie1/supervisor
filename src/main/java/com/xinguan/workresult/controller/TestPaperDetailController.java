@@ -25,7 +25,7 @@ public class TestPaperDetailController extends WorkResultBaseController {
     public PageInfo<TestPaperDetail> listTestPaperDetailByTestPaperPage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
                                                           @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
                                                           @ApiParam(name = "testPaperId", value = "查看指定试卷的试题") String testPaperId,
-                                                          @ApiParam(name = "testPaperDetailName", value = "文件名称模糊查询") String testPaperDetailName) {
+                                                          @ApiParam(name = "testPaperDetailName", value = "试题题目模糊查询") String testPaperDetailName) {
         Page<TestPaperDetail> testPaperDetails = testPaperDetailService.listTestPaperDetailByTestPaperPage(pageSize,pageNo,testPaperDetailName,testPaperId);
         Map<String, Object> param = Maps.newHashMap("param",testPaperDetailName+","+testPaperId);
         return new PageInfo<>(testPaperDetails,param);
@@ -38,6 +38,10 @@ public class TestPaperDetailController extends WorkResultBaseController {
         try{
             TestPaper testPaper = testPaperService.getById(Long.parseLong(testPaperId));
             testPaperDetail.setTestPaper(testPaper);
+//            List<TestPaperDetail> testPaperDetails= new ArrayList<TestPaperDetail>();
+//            testPaperDetails = testPaper.getTestPaperDetails();
+//            testPaperDetails.add(testPaperDetail);
+//            testPaperService.saveOrUpdate(testPaper);
             TestPaperDetail result = testPaperDetailService.saveOrUpdate(testPaperDetail);
             resultInfo.setStatus(true);
             resultInfo.setMessage("保存成功");

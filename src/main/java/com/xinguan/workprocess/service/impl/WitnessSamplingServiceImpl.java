@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class WitnessSamplingServiceImpl extends BaseService<WitnessSampling> implements WitnessSamplingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(WitnessSamplingServiceImpl.class);
     @Autowired
@@ -42,7 +43,7 @@ public class WitnessSamplingServiceImpl extends BaseService<WitnessSampling> imp
         employeeAudit.setEmployee(witnessSampling.getProject().getManager());
         employeeAuditRepository.saveAndFlush(employeeAudit);
         witnessSampling.setMajorAudit(employeeAudit);
-        WitnessSampling result = witnessSamplingRepository.saveAndFlush(witnessSampling);
+        WitnessSampling result = witnessSamplingRepository.save(witnessSampling);
 
         //如果已经提交，提交见证取样审核流程
         if (1==witnessSampling.getIsSubmit()) {
@@ -55,7 +56,7 @@ public class WitnessSamplingServiceImpl extends BaseService<WitnessSampling> imp
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(ProcessConstant.WitnessSampling.NodeId.PROCESS_KEY, param);
             result.setProcessId(processInstance.getId());
             result.setAuditStatus("进行中");
-            witnessSamplingRepository.saveAndFlush(result);
+            witnessSamplingRepository.save(result);
             //完成我的个人任务
             Task task = taskService.createTaskQuery().taskAssignee(currentUserId).processInstanceId(processInstance.getId()).singleResult();
             if (task != null) {

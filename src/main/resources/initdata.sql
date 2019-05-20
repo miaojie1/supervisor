@@ -239,7 +239,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (140, 'page', '/documentAudit/listAllEmployees',current_date,null,1),
        (141, 'page', '/documentAudit/allotAuditTask',current_date,null,1),
        (142, 'page', '/documentAudit/allotUserAudit', current_date, null, 1),
-       (143, 'page', '/siteAcceptance/checkSiteAcceptance', current_date, null, 1);
+       (143, 'page', '/siteAcceptance/checkSiteAcceptance', current_date, null, 1),
+       (144, 'primary', '/getFlowImg/{processInstanceId}', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -368,6 +369,7 @@ values (1, 1),
        (1, 141),
        (1, 142),
        (1, 143),
+       (1, 144),
        (1, 132),
        (1, 133);
 

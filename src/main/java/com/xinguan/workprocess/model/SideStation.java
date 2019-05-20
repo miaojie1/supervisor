@@ -23,7 +23,7 @@ public class SideStation {
     private Long id;
 
     //发起人
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH},fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee sponsor;
 
@@ -68,16 +68,75 @@ public class SideStation {
     @Column
     private Integer originRank;
 
-    //审核状态
-    @ManyToOne
-    private CheckStatus checkStatus;
 
-    public CheckStatus getCheckStatus() {
-        return checkStatus;
+    //审核状态
+    @Column
+    private String auditStatus;
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private String taskId;
+    /**
+     * 审核人审核
+     */
+    @OneToOne
+    private EmployeeAudit employeeAudit;
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
+
+    @Column
+    private String processId;
+
+    public String getProcessId() {
+        return processId;
     }
 
-    public void setCheckStatus(CheckStatus checkStatus) {
-        this.checkStatus = checkStatus;
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public EmployeeAudit getEmployeeAudit() {
+        return employeeAudit;
+    }
+
+    public void setEmployeeAudit(EmployeeAudit employeeAudit) {
+        this.employeeAudit = employeeAudit;
+    }
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
     }
 
     public Long getId() {

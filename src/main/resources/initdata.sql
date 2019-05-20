@@ -238,7 +238,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (143, 'page', '/siteAcceptance/checkSiteAcceptance', current_date, null, 1),
        (144, 'primary', '/getFlowImg/{processInstanceId}', current_date, null, 1),
        (145, 'page', '/parallelTest/checkParallelTest', current_date, null, 1),
-       (146, 'primary', '/getMyTaskList', current_date, null, 1);
+       (146, 'primary', '/getMyTaskList', current_date, null, 1),
+       (147, 'page', '/sideStation/checkSideStation', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -370,7 +371,8 @@ values (1, 1),
        (1, 132),
        (1, 133),
        (1, 145),
-       (1, 146);
+       (1, 146),
+       (1, 147);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),

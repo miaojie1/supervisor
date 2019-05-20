@@ -1,6 +1,7 @@
 package com.xinguan.workprocess.controller;
 
 
+import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.SideStation;
 import com.xinguan.workresult.model.AccountRecord;
@@ -26,7 +27,7 @@ public class SideStationController extends WorkProcessBaseController {
 
     @PostMapping(value = "/listSideStation/pageNo/{pageNo}/pageSize/{pageSize}")
     @ApiOperation(value = "获取旁站列表")
-    public Page<SideStation> listSideStations(
+    public PageInfo<SideStation> listSideStations(
             @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @PathVariable("pageNo") int pageNo,
             @ApiParam(name = "pageSize", required = true, value = "每页的条数") @PathVariable("pageSize") int pageSize,
             @ApiParam(name = "partName", value = "部位名称") String partName) {
@@ -47,7 +48,6 @@ public class SideStationController extends WorkProcessBaseController {
                 sideStation.setCreateDate(new Date());
                 sideStation.setSponsor(employeeService.getCurrentUser());
                 sideStation.setOriginRank(employeeService.getCurrentUser().getDepartmentPosition().getRank());
-                sideStation.setCheckStatus(checkStatusService.getOneById(1));
                 resultInfo.setMessage("添加旁站成功！");
             }else {
                 sideStation.setModifier(employeeService.getCurrentUser());
@@ -89,6 +89,27 @@ public class SideStationController extends WorkProcessBaseController {
             resultInfo.setStatus(false);
             resultInfo.setMessage("删除失败！");
         }
+        return resultInfo;
+    }
+
+
+    @PostMapping(value = "/checkSideStation")
+    @ApiOperation(value = "审核人审核旁站")
+    public ResultInfo allotUserAuditSiteAccept(@ApiParam(name = "sideStationId", required = true, value = "文档审核对象ID") @RequestParam Long sideStationId,
+                                               @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                               @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                               @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            sideStationService.checkSideStation(sideStationId,taskId,approved,auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
         return resultInfo;
     }
 

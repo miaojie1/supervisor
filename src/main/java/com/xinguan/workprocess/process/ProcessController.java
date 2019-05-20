@@ -1,8 +1,10 @@
 package com.xinguan.workprocess.process;
 
+import com.xinguan.workprocess.model.PersonalTask;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.activiti.engine.task.Task;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,11 +36,26 @@ public class ProcessController {
     }
 
     @ApiOperation("查询个人任务")
-    @PostMapping(value = "/getMyTaskList")
-    public List<Task> getMyTaskList(
-            @ApiParam(name = "userId", required = true, value = "用户ID") @RequestParam String userId){
+    @PostMapping(value = "/getMyTaskList/userId/{userId}")
+    public List<PersonalTask> getMyTaskList(
+            @ApiParam(name = "userId", required = true, value = "用户ID") @PathVariable("userId") String userId){
         List<org.activiti.engine.task.Task> res = actUtils.getMyTaskList(userId);
-        return res;
+        List<PersonalTask> personalTasks = Lists.newArrayList();
+        if (res != null) {
+            res.forEach(e->{
+                PersonalTask personalTask = new PersonalTask();
+                personalTask.setId(e.getId());
+                personalTask.setUserId(e.getAssignee());
+                personalTask.setName(e.getName());
+                personalTask.setPriority(e.getPriority());
+                personalTask.setCreateTime(e.getCreateTime());
+                personalTask.setExecutionId(e.getExecutionId());
+                personalTask.setProcessInstanceId(e.getProcessInstanceId());
+                personalTask.setTaskDefinitionKey(e.getTaskDefinitionKey());
+                personalTasks.add(personalTask);
+            });
+        }
+        return personalTasks;
     }
 
 }

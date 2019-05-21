@@ -43,7 +43,7 @@ public class Menu {
     private Set<Menu> subMenus;
     @Column
     private Boolean rootMenu;
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
     private Menu parentMenu;
     @Transient
     private Long parentMenuId;
@@ -52,6 +52,7 @@ public class Menu {
     @Version
     @Column
     private int version;
+
 
     public Long getParentMenuId() {
         return parentMenuId;

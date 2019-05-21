@@ -106,7 +106,7 @@ public class Employee {
     /**
      * 员工角色
      */
-    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = Role.class)
     @JoinTable(name = "employee_role")
     private Set<Role> roles;
     /**
@@ -119,7 +119,6 @@ public class Employee {
      */
     @Column
     private String lastLoginIP;
-
     @Version
     @Column
     private int version;

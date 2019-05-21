@@ -27,17 +27,17 @@ public class Role {
     private Date createDate;
     @Column
     private Date modificationDate;
-    @OneToOne(targetEntity = Role.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(targetEntity = Role.class)
     private Role superiorRole;
 
-    @ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = Menu.class)
     @JoinTable(name = "role_menu")
     private Set<Menu> menus;
 
-    @ManyToMany(targetEntity = Operation.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = Operation.class)
     @JoinTable(name = "role_operation")
     private Set<Operation> operations;
-    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "roles")
     private Set<Employee> employees;
     @Version
     @Column

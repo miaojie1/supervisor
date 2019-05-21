@@ -36,9 +36,9 @@ public class ProcessController {
     }
 
     @ApiOperation("查询个人任务")
-    @PostMapping(value = "/getMyTaskList/userId/{userId}")
+    @PostMapping(value = "/getMyTaskList")
     public List<PersonalTask> getMyTaskList(
-            @ApiParam(name = "userId", required = true, value = "用户ID") @PathVariable("userId") String userId){
+            @ApiParam(name = "userId", required = true, value = "用户ID") @RequestParam String userId){
         List<org.activiti.engine.task.Task> res = actUtils.getMyTaskList(userId);
         List<PersonalTask> personalTasks = Lists.newArrayList();
         if (res != null) {

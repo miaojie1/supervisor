@@ -73,24 +73,28 @@ public class RoleController extends BaseController{
             Role role = roleService.getRoleById(id);
             Set<Operation> operations = new HashSet<>();
             // 用于修改 如果已经有权限先设置为空
-            if (role.getMenus() != null) {
+            if (role.getMenus().size() > 0) {
                 role.setMenus(null);
             }
             if (menus != null) {
                 for (Menu menu: menus){
                     if (menu.getParentMenuId()!=null){
-                        menu.setParentMenu(menuService.getMenuById(menu.getParentMenuId()));
+                        menu.setParentMenu(findParentMenuById(menus, menu.getParentMenuId()));
+//                        menu.setParentMenu(menuService.getMenuById(menu.getParentMenuId()));
                     }
                     // 获得菜单中的按钮权限
                     for (Operation operation: menu.getOperation()){
                         operations.add(operation);
                     }
+                    menuService.saveOrUpdate(menu);
                 }
             }
             // 判断如果有基础的权限，先删掉防止报重复错误
-            for (Operation operation: operations) {
-                if (operation.getButtonId().equals("primary")){
-                    operations.remove(operation);
+            Iterator<Operation> it = operations.iterator();
+            while(it.hasNext()){
+                Operation operation = it.next();
+                if(operation.getButtonId().equals("primary")){
+                    it.remove();
                 }
             }
             // 获得基础的权限
@@ -107,6 +111,21 @@ public class RoleController extends BaseController{
         }
     }
 
+    /**
+     * 在传入的menus中查找父菜单
+     * @param menus
+     * @param id 父菜单id
+     * @return
+     */
+    private Menu findParentMenuById(Set<Menu> menus, Long id){
+        Menu res = new Menu();
+        for(Menu menu: menus) {
+            if(menu.getId() == id){
+                res = menu;
+            }
+        }
+        return res;
+    }
 
     @PostMapping("/delete/roleId/{roleId}")
     @ApiOperation(value = "根据Role ID删除 角色")

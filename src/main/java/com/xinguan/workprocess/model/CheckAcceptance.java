@@ -53,11 +53,25 @@ public class CheckAcceptance {
     //审核
     @OneToOne
     private EmployeeAudit employeeAudit;
+
     @Column
-    private Integer auditStatus;
+    private String auditStatus;
     @Column
     @Version
     private int version;
+
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private String taskId;
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
+    @Column
+    private String processId;
 
     public Long getId() {
         return id;
@@ -171,19 +185,49 @@ public class CheckAcceptance {
         this.employeeAudit = employeeAudit;
     }
 
-    public Integer getAuditStatus() {
+    public String getAuditStatus() {
         return auditStatus;
     }
 
-    public void setAuditStatus(Integer auditStatus) {
+    public void setAuditStatus(String auditStatus) {
         this.auditStatus = auditStatus;
     }
-
     public int getVersion() {
         return version;
     }
 
     public void setVersion(int version) {
         this.version = version;
+    }
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
+    }
+
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 }

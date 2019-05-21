@@ -246,7 +246,8 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (145, 'page', '/parallelTest/checkParallelTest', current_date, null, 1),
        (146, 'primary', '/getMyTaskList', current_date, null, 1),
        (147, 'page', '/sideStation/checkSideStation', current_date, null, 1),
-       (148, 'primary', '/getWeatherList', current_date, null, 1);
+       (148, 'primary', '/getWeatherList', current_date, null, 1),
+       (149, 'primary', '/checkAcceptance/checkCheckAcceptance', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -386,7 +387,8 @@ values (1, 1),
        (1, 145),
        (1, 146),
        (1, 147),
-       (1, 148);
+       (1, 148),
+       (1, 149);
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -475,6 +477,7 @@ values (2, 1),
        (28, 105),
        (28, 106),
        (28, 107),
+       (28, 149),
        (18, 69),
        (18, 70),
        (18, 71),

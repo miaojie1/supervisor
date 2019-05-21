@@ -49,9 +49,11 @@ public class CheckAcceptanceController extends WorkProcessBaseController {
     public PageInfo<CheckAcceptance> listCheckAcceptancePage(@ApiParam(name = "pageSize", required = true, value = "每页的条数") @RequestParam("pageSize") int pageSize,
                                                        @ApiParam(name = "pageNo", required = true, value = "当前页，页数从0开始") @RequestParam("pageNo") int pageNo,
                                                        @ApiParam(name = "acceptanceName", value = "名称，支持模糊查询") String acceptanceName) {
-        Page<CheckAcceptance> checkAcceptances = checkAcceptanceService.listCheckAcceptanceByPage(pageSize, pageNo,acceptanceName);
-        Map<String, Object> param = Maps.newHashMap("acceptanceName", acceptanceName);
-        return new PageInfo<>(checkAcceptances, param);
+//        Page<CheckAcceptance> checkAcceptances = checkAcceptanceService.listCheckAcceptanceByPage(pageSize, pageNo,acceptanceName);
+//        Map<String, Object> param = Maps.newHashMap("acceptanceName", acceptanceName);
+//        return new PageInfo<>(checkAcceptances, param);
+
+        return checkAcceptanceService.listCheckAcceptanceByPage(pageSize, pageNo,acceptanceName);
     }
 
     @PostMapping(value = "/saveCheckAcceptance")
@@ -93,6 +95,26 @@ public class CheckAcceptanceController extends WorkProcessBaseController {
             resultInfo.setStatus(false);
             resultInfo.setMessage("删除失败");
         }
+        return resultInfo;
+    }
+
+    @PostMapping(value = "/checkCheckAcceptance")
+    @ApiOperation(value = "审核人审核检查验收")
+    public ResultInfo allotUserAuditSiteAccept(@ApiParam(name = "checkAcceptanceId", required = true, value = "审核对象ID") @RequestParam Long checkAcceptanceId,
+                                               @ApiParam(name = "taskId", required = true, value = "待办任务ID") @RequestParam String taskId,
+                                               @ApiParam(name = "approved", required = true, value = "是否通过") @RequestParam Boolean approved,
+                                               @ApiParam(name = "auditOpinion", required = true, value = "审核意见") @RequestParam String auditOpinion) {
+        ResultInfo resultInfo = new ResultInfo();
+        try {
+            checkAcceptanceService.checkCheckAcceptance(checkAcceptanceId,taskId,approved,auditOpinion);
+            resultInfo.setStatus(true);
+            resultInfo.setMessage("审核成功");
+        } catch (Exception e) {
+            resultInfo.setMessage("审核失败");
+            resultInfo.setStatus(false);
+            e.printStackTrace();
+        }
+
         return resultInfo;
     }
 }

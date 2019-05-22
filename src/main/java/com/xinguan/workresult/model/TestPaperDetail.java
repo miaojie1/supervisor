@@ -1,5 +1,6 @@
 package com.xinguan.workresult.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -34,7 +35,9 @@ public class TestPaperDetail {
 
     @Column
     private Date createDate;
-    @OneToMany
+
+    @JsonIgnore
+    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     private List<AnswerPaperDetail> answerPaperDetails;
 
     public Long getId() {

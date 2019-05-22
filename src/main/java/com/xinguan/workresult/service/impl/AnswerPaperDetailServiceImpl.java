@@ -1,7 +1,9 @@
 package com.xinguan.workresult.service.impl;
 
 import com.xinguan.core.service.BaseService;
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workresult.model.AnswerPaperDetail;
+import com.xinguan.workresult.model.TestPaperDetail;
 import com.xinguan.workresult.service.AnswerPaperDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,10 @@ public class AnswerPaperDetailServiceImpl extends BaseService<AnswerPaperDetail>
             answerPaperDetail.setCreateDate(new Date());
         }
         return answerPaperDetailRepository.saveAndFlush(answerPaperDetail);
+    }
+    @Override
+    public AnswerPaperDetail getAnswerDetailByDetailAndRespondent(Employee respondent, TestPaperDetail testPaperDetail){
+        return answerPaperDetailRepository.findByTestPaperDetailAndRespondent(testPaperDetail.getId(),respondent.getId());
     }
 
     @Transactional

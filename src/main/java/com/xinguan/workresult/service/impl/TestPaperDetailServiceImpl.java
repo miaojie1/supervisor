@@ -11,12 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TestPaperDetailServiceImpl extends BaseService<TestPaperDetail> implements TestPaperDetailService {
     @Override
     public Page<TestPaperDetail> listTestPaperDetailByTestPaperPage(int pageSize, int pageNo, String testPaperDetailName, String testPaperId){
         return testPaperDetailRepository.listTestPaperDetail(testPaperDetailName,testPaperId, PageRequest.of(pageNo,pageSize, Sort.Direction.ASC,"create_date"));
+    }
+    @Override
+    public List<TestPaperDetail> listAllDetailByTest(String testPaperId){
+        return testPaperDetailRepository.findByTestPaper(testPaperId);
     }
     @Transactional
     @Override

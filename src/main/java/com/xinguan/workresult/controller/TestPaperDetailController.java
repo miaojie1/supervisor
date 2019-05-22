@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Api("试题相关接口")
@@ -30,6 +31,12 @@ public class TestPaperDetailController extends WorkResultBaseController {
         Map<String, Object> param = Maps.newHashMap("param",testPaperDetailName+","+testPaperId);
         return new PageInfo<>(testPaperDetails,param);
     }
+    @PostMapping(value = "/listAllDetailByTest")
+    @ApiOperation("获取指定试卷试题不分页")
+    public List<TestPaperDetail> listAllDetailByTest(@ApiParam(name = "testPaperId", value = "查看指定试卷的试题") String testPaperId){
+        return testPaperDetailService.listAllDetailByTest(testPaperId);
+    }
+
     @PostMapping(value = "/saveTestPaperDetail")
     @ApiOperation(value = "试题新增或修改POST方法")
     public ResultInfo addOrEdit(@ApiParam(name = "testPaperDetail", required = true, value = "待保存的对象") @RequestBody TestPaperDetail testPaperDetail,
@@ -38,10 +45,6 @@ public class TestPaperDetailController extends WorkResultBaseController {
         try{
             TestPaper testPaper = testPaperService.getById(Long.parseLong(testPaperId));
             testPaperDetail.setTestPaper(testPaper);
-//            List<TestPaperDetail> testPaperDetails= new ArrayList<TestPaperDetail>();
-//            testPaperDetails = testPaper.getTestPaperDetails();
-//            testPaperDetails.add(testPaperDetail);
-//            testPaperService.saveOrUpdate(testPaper);
             TestPaperDetail result = testPaperDetailService.saveOrUpdate(testPaperDetail);
             resultInfo.setStatus(true);
             resultInfo.setMessage("保存成功");

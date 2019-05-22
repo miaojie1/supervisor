@@ -46,12 +46,21 @@ public class AnswerPaperDetailController extends WorkResultBaseController{
         ResultInfo resultInfo =new ResultInfo();
         try{
             TestPaperDetail testPaperDetail = testPaperDetailService.getById(Long.parseLong(testPaperDetailId));
-            answerPaperDetail.setTestPaperDetail(testPaperDetail);
-            answerPaperDetail.setRespondent(employeeService.getCurrentUser());
-            AnswerPaperDetail result = answerPaperDetailService.saveOrUpdate(answerPaperDetail);
-            resultInfo.setStatus(true);
-            resultInfo.setMessage("保存成功");
-            resultInfo.setObject(result);
+            if (answerPaperDetailService.getAnswerDetailByDetailAndRespondent(employeeService.getCurrentUser(),testPaperDetail)!=null) {
+                resultInfo.setStatus(false);
+                resultInfo.setMessage("保存失败，已经提交过答案");
+            }else{
+                answerPaperDetail.setTestPaperDetail(testPaperDetail);
+                answerPaperDetail.setRespondent(employeeService.getCurrentUser());
+                if (answerPaperDetail.getAnswer().equals(testPaperDetail.getAnswer()))
+                    answerPaperDetail.setGradeOfAnswer(testPaperDetail.getFullScore());
+                else
+                    answerPaperDetail.setGradeOfAnswer(0);
+                AnswerPaperDetail result = answerPaperDetailService.saveOrUpdate(answerPaperDetail);
+                resultInfo.setStatus(true);
+                resultInfo.setMessage("保存成功");
+                resultInfo.setObject(result);
+            }
         }catch (Exception e) {
             resultInfo.setStatus(false);
             resultInfo.setMessage("保存失败");

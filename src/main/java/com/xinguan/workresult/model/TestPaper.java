@@ -33,7 +33,7 @@ public class TestPaper {
     @ManyToOne
     private TestPaperCategory testPaperCategory;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     private List<TestPaperDetail> testPaperDetails;
 
     @Version

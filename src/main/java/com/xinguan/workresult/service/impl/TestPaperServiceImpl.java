@@ -23,7 +23,6 @@ public class TestPaperServiceImpl extends BaseService<TestPaper> implements Test
     public TestPaper saveOrUpdate(TestPaper testPaper){
         if(testPaper.getId()==null){
             testPaper.setCreateDate(new Date());
-            testPaper.setFullScore(0);
         }
         return testPaperRepository.saveAndFlush(testPaper);
     }

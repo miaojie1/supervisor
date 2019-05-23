@@ -5,6 +5,9 @@ import com.xinguan.usermanage.model.Employee;
 import com.xinguan.workresult.model.ExaminationRecord;
 import com.xinguan.workresult.model.TestPaper;
 import com.xinguan.workresult.service.ExaminationRecordService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +33,9 @@ public class ExaminationRecordServiceImpl extends BaseService<ExaminationRecord>
     @Override
     public ExaminationRecord findById(Long id){
         return examinationRecordRepository.findById(id).get();
+    }
+    @Override
+    public Page<ExaminationRecord> listExaminationRecordByPage(int pageSize,int pageNo,String testPaperId,String candidateId){
+        return examinationRecordRepository.listExaminationRecordByPage(testPaperId,candidateId, PageRequest.of(pageNo,pageSize, Sort.Direction.ASC,"test_date"));
     }
 }

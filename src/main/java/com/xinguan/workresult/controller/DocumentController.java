@@ -3,6 +3,7 @@ package com.xinguan.workresult.controller;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workresult.model.Document;
+import com.xinguan.workresult.model.DocumentCategory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Api("文档相关接口")
@@ -63,5 +65,10 @@ public class DocumentController extends WorkResultBaseController {
             resultInfo.setMessage("删除失败");
         }
         return resultInfo;
+    }
+    @PostMapping(value = "/listAllDocumentCategories")
+    @ApiOperation("获取所有的文件类型列表不分页")
+    public List<DocumentCategory> listAllDocumentCategories(){
+        return documentCategoryService.listAllDocumentCategories();
     }
 }

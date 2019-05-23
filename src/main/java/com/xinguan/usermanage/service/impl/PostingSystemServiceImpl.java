@@ -29,7 +29,7 @@ public class PostingSystemServiceImpl extends BaseService<PostingSystem> impleme
 
     @Override
     public PostingSystem getPostingSystemById(Long id) {
-        return postingSystemRepository.getOne(id);
+        return postingSystemRepository.findById(id).get();
     }
 
     @Override

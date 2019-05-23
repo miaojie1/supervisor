@@ -1,8 +1,10 @@
 package com.xinguan.workprocess.controller;
 
+import com.xinguan.usermanage.model.Employee;
 import com.xinguan.utils.PageInfo;
 import com.xinguan.utils.ResultInfo;
 import com.xinguan.workprocess.model.Project;
+import com.xinguan.workprocess.model.ProjectStatus;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -90,5 +92,17 @@ public class ProjectController extends WorkProcessBaseController {
             resultInfo.setMessage("删除失败");
         }
         return resultInfo;
+    }
+
+    @PostMapping(value = "/listAllProjectStatus")
+    @ApiOperation("获取所有的在职状态列表不分页")
+    public List<ProjectStatus> listAllProjectStatus(){
+        return projectStatusService.listAllProjectStatus();
+    }
+
+    @PostMapping(value = "/listAllEmployees")
+    @ApiOperation(value = "获取所有人员信息")
+    public List<Employee> listAllEmployees() {
+        return employeeService.listAllEmployees();
     }
 }

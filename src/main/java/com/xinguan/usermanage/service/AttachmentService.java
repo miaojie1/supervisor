@@ -15,4 +15,5 @@ public interface AttachmentService {
     void batchRemoveAttachment(Set<Long> ids);
     Attachment getAttachmentById(Long id);
     void downloadFile(String filePath, HttpServletResponse response)throws ServletException, IOException;
+    String previewFile(String fileName);
 }

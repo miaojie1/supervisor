@@ -1,8 +1,10 @@
 package com.xinguan.usermanage.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xinguan.core.service.BaseService;
 import com.xinguan.usermanage.model.Attachment;
 import com.xinguan.usermanage.service.AttachmentService;
+import com.xinguan.utils.PreviewDocument;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,4 +126,21 @@ public class AttachmentServiceImpl extends BaseService<Attachment> implements At
         return attachmentRepository.getOne(id);
     }
 
+    @Override
+    public String previewFile(String fileName){
+        //文件上传转换,获取返回数据
+        String convertByFile = PreviewDocument.SubmitPost("http://dcs.yozosoft.com:80/upload", srcPath+"/"+fileName, "1");
+        JSONObject obj = JSONObject.parseObject(convertByFile);
+        String urlData = null;
+        if ("0".equals(obj.getString("result"))) {// 转换成功
+            urlData = obj.getString("data");
+            urlData = urlData.replace("[\"", "");//去掉[
+            urlData = urlData.replace("\"]", "");//去掉]
+            //最后urlData是文件的浏览地址
+            System.out.println(urlData);//打印网络文件预览地址
+        } else {// 转换失败
+            urlData="转换失败";
+        }
+        return urlData;
+    }
 }

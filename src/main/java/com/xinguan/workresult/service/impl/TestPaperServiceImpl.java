@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TestPaperServiceImpl extends BaseService<TestPaper> implements TestPaperService {
@@ -36,5 +37,9 @@ public class TestPaperServiceImpl extends BaseService<TestPaper> implements Test
     @Override
     public TestPaper getById(Long id){
         return testPaperRepository.findById(id).get();
+    }
+    @Override
+    public List<TestPaper> listAllTestPapers(){
+        return testPaperRepository.findAll();
     }
 }

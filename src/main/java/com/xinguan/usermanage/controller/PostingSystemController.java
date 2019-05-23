@@ -89,10 +89,13 @@ public class PostingSystemController extends BaseController{
         return resultInfo;
     }
 
-    @GetMapping(value = "/announcementDetail/postingId/{postingId}")
+    @PostMapping(value = "/announcementDetail/postingId/{postingId}")
     @ApiOperation(value = "公告详情页")
-    public PostingSystem getPostingById(@ApiParam(name = "postingId", value = "查看详情的posting id，此值不能为空")@PathVariable String postingId) {
-        PostingSystem postingSystem = postingSystemService.getPostingSystemById(Long.parseLong(postingId));
-        return postingSystem;
+    public ResultInfo getPostingById(@ApiParam(name = "postingId", value = "查看详情的posting id，此值不能为空")@PathVariable String postingId) {
+        ResultInfo resultInfo =new ResultInfo();
+        PostingSystem result = postingSystemService.getPostingSystemById(Long.parseLong(postingId));
+        resultInfo.setStatus(true);
+        resultInfo.setObject(result);
+        return resultInfo;
     }
 }

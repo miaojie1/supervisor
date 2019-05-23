@@ -48,4 +48,13 @@ public class AttachmentController extends BaseController{
     public void downloadFile(@RequestParam("filePath")String filePath, HttpServletResponse response) throws ServletException, IOException {
         attachmentService.downloadFile(filePath,response);
     }
+
+    @PostMapping(value = "/preview")
+    @ApiOperation(value = "附件预览地址转换方法")
+    public ResultInfo previewFile(@RequestParam("fileName") String fileName) {
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setStatus(true);
+        resultInfo.setMessage(attachmentService.previewFile(fileName));
+        return resultInfo;
+    }
 }

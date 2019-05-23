@@ -43,13 +43,30 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         //获取当前用户的所有角色
         Set<Role> roles = employee.getRoles();
         Set<Menu> menus = new HashSet<>();
+        Set<Menu> parentMenus = new HashSet<>();
         roles.forEach(e -> {
             if (e.getMenus() != null) {
                 menus.addAll(e.getMenus());
             }
         });
-        return menus.stream().filter(e -> e.getRootMenu() != null && e.getRootMenu()).collect(Collectors.toSet());
-
+        menus.forEach(menu -> {
+            if (menu.getRootMenu()){
+                menu.setSubMenus(null);
+                parentMenus.add(menu);
+            }
+        });
+        parentMenus.forEach(parentMenu->{
+            Set<Menu> childMenus = new HashSet<>();
+            for (Menu m: menus){
+                if (m.getRootMenu()==false){
+                    if (parentMenu.getId() == m.getParentMenu().getId()){
+                        childMenus.add(m);
+                    }
+                }
+            }
+            parentMenu.setSubMenus(childMenus);
+        });
+        return parentMenus;
     }
 
     @Override

@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class DocumentAuditServiceTaskDelegate implements TaskListener {
-//    @Override
-//    public void execute(DelegateExecution execution) {
-//
-//    }
 
     @Override
     public void notify(DelegateTask delegateTask) {

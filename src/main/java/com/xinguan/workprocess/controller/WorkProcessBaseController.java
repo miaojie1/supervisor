@@ -38,8 +38,6 @@ public abstract class WorkProcessBaseController {
     @Autowired
     protected CheckAcceptanceService checkAcceptanceService;
     @Autowired
-    protected CheckStatusService checkStatusService;
-    @Autowired
     protected DocumentAuditService documentAuditService;
     @Autowired
     protected DocumentFolderService documentFolderService;

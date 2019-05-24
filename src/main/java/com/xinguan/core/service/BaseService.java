@@ -94,8 +94,6 @@ public abstract class BaseService<T> {
     @Autowired
     protected CheckAcceptanceRepository checkAcceptanceRepository;
     @Autowired
-    protected CheckStatusRepository checkStatusRepository;
-    @Autowired
     protected AccountRecordRepository accountRecordRepository;
     @Autowired
     protected AccountCategoryRepository accountCategoryRepository;

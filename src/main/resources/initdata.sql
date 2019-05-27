@@ -253,7 +253,11 @@ values (1, 'primary', '/menu/listMenu', current_date, current_date, 1),
        (146, 'primary', '/getMyTaskList', current_date, null, 1),
        (147, 'page', '/sideStation/checkSideStation', current_date, null, 1),
        (148, 'primary', '/getWeatherList', current_date, null, 1),
-       (149, 'primary', '/checkAcceptance/checkCheckAcceptance', current_date, null, 1);
+       (149, 'primary', '/checkAcceptance/checkCheckAcceptance', current_date, null, 1),
+       (150, 'primary', '/conference/allotWriteTask', current_date, null, 1),
+       (151, 'primary', '/conference/allotUserWrite', current_date, null, 1),
+       (152, 'primary', '/conference/checkConference', current_date, null, 1),
+       (153, 'primary', '/conference/listAllProjects', current_date, null, 1);
 
 insert into role_operation(roles_id, operations_id)
 values (1, 1),
@@ -400,7 +404,12 @@ values (1, 1),
        (1, 146),
        (1, 147),
        (1, 148),
-       (1, 149);
+       (1, 149),
+       (1, 150),
+       (1, 151),
+       (1, 152),
+       (1, 153);
+
 
 insert into menu_operation(menu_id, operation_id)
 values (2, 1),
@@ -501,6 +510,10 @@ values (2, 1),
        (22, 101),
        (22, 102),
        (22, 103),
+       (22, 150),
+       (22, 151),
+       (22, 152),
+       (22, 153),
        (23, 94),
        (23, 95),
        (23, 96),

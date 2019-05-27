@@ -47,9 +47,44 @@ public class Conference {
     // 判断保存还是提交 0是保存 1是提交
     @Column
     private Integer isSubmit;
+
+    @Column
+    private String auditStatus;
+
+    /**
+     * 审核人员
+     */
+    @OneToMany
+    private List<EmployeeAudit> employeeAuditList;
+
+    // 填写会议纪要人员
+    @ManyToMany
+    private List<Employee> employeeWriteList;
+
     @Column
     @Version
     private int version;
+
+    @Transient
+    private Boolean needAudit;
+    @Transient
+    private String taskId;
+
+    /**
+     * 总监审核
+     *
+     */
+    @OneToOne
+    private EmployeeAudit majorAudit;
+
+    @Column
+    private String processId;
+    //项目
+    @ManyToOne
+    private Project project;
+
+    @Transient
+    private Boolean needWrite;
 
     public Long getId() {
         return id;
@@ -161,5 +196,77 @@ public class Conference {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
+    public List<EmployeeAudit> getEmployeeAuditList() {
+        return employeeAuditList;
+    }
+
+    public void setEmployeeAuditList(List<EmployeeAudit> employeeAuditList) {
+        this.employeeAuditList = employeeAuditList;
+    }
+
+    public List<Employee> getEmployeeWriteList() {
+        return employeeWriteList;
+    }
+
+    public void setEmployeeWriteList(List<Employee> employeeWriteList) {
+        this.employeeWriteList = employeeWriteList;
+    }
+
+    public Boolean getNeedAudit() {
+        return needAudit;
+    }
+
+    public void setNeedAudit(Boolean needAudit) {
+        this.needAudit = needAudit;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
+
+    public EmployeeAudit getMajorAudit() {
+        return majorAudit;
+    }
+
+    public void setMajorAudit(EmployeeAudit majorAudit) {
+        this.majorAudit = majorAudit;
+    }
+
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Boolean getNeedWrite() {
+        return needWrite;
+    }
+
+    public void setNeedWrite(Boolean needWrite) {
+        this.needWrite = needWrite;
     }
 }

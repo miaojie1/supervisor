@@ -24,6 +24,7 @@ public class AllotUserAudit implements TaskListener {
     @Override
     public void notify(DelegateTask delegateTask) {
         List<String> userIds = (List<String>) delegateTask.getExecution().getVariable("userIds");
+        delegateTask.getExecution().setVariable("assigneeList",userIds);
         if (userIds != null && userIds.size() > 0) {
             delegateTask.addCandidateUsers(userIds);
         }

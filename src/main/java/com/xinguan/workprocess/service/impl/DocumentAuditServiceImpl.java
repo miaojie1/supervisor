@@ -154,6 +154,7 @@ public class DocumentAuditServiceImpl extends BaseService<DocumentAudit> impleme
             documentAuditRepository.saveAndFlush(documentAudit);
             //添加流程变量
             runtimeService.setVariable(documentAudit.getProcessId(), "userIds", userIds);
+            runtimeService.setVariable(documentAudit.getProcessId(),"assigneeList",userIds);
             runtimeService.setVariable(documentAudit.getProcessId(),"documentAuditId",documentAudit.getId());
             //完成我的个人任务
             Task task = taskService.createTaskQuery().taskAssignee(employeeService.getCurrentUser().getId().toString()).processInstanceId(documentAudit.getProcessId()).singleResult();

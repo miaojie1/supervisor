@@ -4,10 +4,11 @@
     <startEvent id="_2" name="StartEvent"/>
     <userTask activiti:assignee="#{userId}" activiti:exclusive="true" id="_upload" name="上传审核文件"/>
     <userTask activiti:assignee="#{majorUserId}" activiti:exclusive="true" id="_distribution" name="总监分配审核任务"/>
-    <userTask activiti:exclusive="true" id="_audit" name="相关人员审核">
-      <extensionElements>
-        <activiti:taskListener class="com.xinguan.workprocess.process.documentaudit.AllotUserAudit" event="create"/>
-      </extensionElements>
+    <userTask activiti:assignee="${assignee}" id="_audit" name="相关人员审核">
+      <multiInstanceLoopCharacteristics isSequential="false">
+        <loopDataInputRef>assigneeList</loopDataInputRef>
+        <inputDataItem name="assignee" />
+      </multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="_6" sourceRef="_2" targetRef="_upload"/>
     <sequenceFlow id="_7" sourceRef="_upload" targetRef="_distribution"/>

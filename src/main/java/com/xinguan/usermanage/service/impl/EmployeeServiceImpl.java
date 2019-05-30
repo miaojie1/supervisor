@@ -89,7 +89,7 @@ public class EmployeeServiceImpl extends BaseService<Employee> implements Employ
     @Override
     public Employee saveOrUpdate(Employee employee) {
         Example<Employee> employeeExample = getSimpleExample(employee);
-        if (employeeRepository.exists(employeeExample)) {
+        if (employee.getId()!=null) {
             employee.setModificationDate(new Date());
         } else {
             employee.setCreateDate(new Date());

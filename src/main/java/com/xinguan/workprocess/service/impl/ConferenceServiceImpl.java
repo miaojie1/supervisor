@@ -94,6 +94,7 @@ public class ConferenceServiceImpl extends BaseService<Conference> implements Co
             Task task = taskService.createTaskQuery().taskAssignee(currentUserId).processInstanceId(processInstance.getId()).singleResult();
             if (task != null) {
                 taskService.setVariable(task.getId(),"userIds",userIds);
+                taskService.setVariable(task.getId(),"assigneeList",userIds);
                 taskService.complete(task.getId());
                 LOGGER.info("已完成个人任务");
             }
@@ -159,6 +160,7 @@ public class ConferenceServiceImpl extends BaseService<Conference> implements Co
             conferenceSummary.setConference(conference);
             conferenceSummary.setEmployee(employee);
             conferenceSummary.setContent(content);
+            conferenceSummary.setCreateDate(new Date());
             conferenceSummaryRepository.saveAndFlush(conferenceSummary);
            conferenceRepository.saveAndFlush(conference);
             Map<String,Object> param = Maps.newHashMap();

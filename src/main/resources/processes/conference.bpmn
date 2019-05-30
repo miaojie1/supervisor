@@ -1,158 +1,136 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="Yaoqiang BPMN Editor" exporterVersion="5.3" expressionLanguage="http://www.w3.org/1999/XPath" id="m1555640901664" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" expressionLanguage="http://www.w3.org/1999/XPath" id="m1555640901664" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="conference" isClosed="false" isExecutable="true" processType="Public">
     <extensionElements>
       <yaoqiang:description/>
       <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
       <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
     </extensionElements>
-    <startEvent id="_2" isInterrupting="true" name="start" parallelMultiple="false">
-      <outgoing>_10</outgoing>
-      <outputSet/>
-    </startEvent>
-    <userTask activiti:assignee="#{commitUserId}" activiti:exclusive="true" completionQuantity="1" id="_commit" implementation="##unspecified" isForCompensation="false" name="提交会议申请" startQuantity="1">
-      <incoming>_10</incoming>
-      <outgoing>_8</outgoing>
-    </userTask>
-    <userTask activiti:candidateUsers="#{userIds}" activiti:exclusive="true" completionQuantity="1" id="_summary" implementation="##unspecified" isForCompensation="false" name="会议纪要填写" startQuantity="1">
-      <extensionElements>
-        <activiti:taskListener class="com.xinguan.workprocess.process.AllotUserWrite" event="create"/>
-      </extensionElements>
-      <incoming>_8</incoming>
-      <outgoing>_3</outgoing>
+    <startEvent id="_2" isInterrupting="true" name="start" parallelMultiple="false"/>
+    <userTask activiti:assignee="#{commitUserId}" activiti:exclusive="true" completionQuantity="1" id="_commit" implementation="##unspecified" isForCompensation="false" name="提交会议申请" startQuantity="1"/>
+    <userTask activiti:candidateUsers="#{assignee}" activiti:exclusive="true" completionQuantity="1" id="_summary" implementation="##unspecified" isForCompensation="false" name="会议纪要填写" startQuantity="1">
+      <multiInstanceLoopCharacteristics isSequential="false">
+        <loopDataInputRef>assigneeList</loopDataInputRef>
+        <inputDataItem name="assignee" />
+      </multiInstanceLoopCharacteristics>
     </userTask>
     <sequenceFlow id="_10" sourceRef="_2" targetRef="_commit"/>
     <sequenceFlow id="_8" sourceRef="_commit" targetRef="_summary"/>
-    <userTask activiti:assignee="#{userId}" activiti:exclusive="true" completionQuantity="1" id="_audit" implementation="##unspecified" isForCompensation="false" name="总监审核" startQuantity="1">
-      <incoming>_3</incoming>
-      <outgoing>_14</outgoing>
-    </userTask>
+    <userTask activiti:assignee="#{userId}" activiti:exclusive="true" completionQuantity="1" id="_audit" implementation="##unspecified" isForCompensation="false" name="总监审核" startQuantity="1"/>
     <sequenceFlow id="_14" sourceRef="_audit" targetRef="_approved"/>
-    <exclusiveGateway gatewayDirection="Diverging" id="_approved" name="是否通过">
-      <incoming>_14</incoming>
-      <outgoing>_7</outgoing>
-      <outgoing>_17</outgoing>
-    </exclusiveGateway>
+    <exclusiveGateway gatewayDirection="Diverging" id="_approved" name="是否通过"/>
     <sequenceFlow id="_7" name="未通过" sourceRef="_approved" targetRef="_16">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approveStr=='false'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_17" name="通过" sourceRef="_approved" targetRef="_finalize">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approveStr=='true'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask activiti:class="com.xinguan.workprocess.process.ConferenceFinalizeDelegate" activiti:exclusive="true" completionQuantity="1" id="_finalize" implementation="##WebService" isForCompensation="false" name="定稿" startQuantity="1">
-      <incoming>_17</incoming>
-      <outgoing>_18</outgoing>
-    </serviceTask>
+    <serviceTask activiti:class="com.xinguan.workprocess.process.ConferenceFinalizeDelegate" activiti:exclusive="true" id="_finalize" name="定稿"/>
     <sequenceFlow id="_18" sourceRef="_finalize" targetRef="_4"/>
-    <endEvent id="_4" name="success">
-      <incoming>_18</incoming>
-      <inputSet/>
-    </endEvent>
+    <endEvent id="_4" name="success"/>
     <endEvent id="_16" name="failed">
-      <incoming>_7</incoming>
-      <inputSet/>
       <errorEventDefinition id="_16_ED_1"/>
     </endEvent>
     <sequenceFlow id="_3" sourceRef="_summary" targetRef="_audit"/>
   </process>
-  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-conference" name="New Diagram" resolution="96.0">
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
     <bpmndi:BPMNPlane bpmnElement="conference">
-      <bpmndi:BPMNShape bpmnElement="_2" id="Yaoqiang-_2">
+      <bpmndi:BPMNShape bpmnElement="_2" id="Shape-_2">
         <omgdc:Bounds height="32.0" width="32.0" x="320.0" y="0.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="28.0" x="322.0" y="39.86"/>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_commit" id="Yaoqiang-_commit">
+      <bpmndi:BPMNShape bpmnElement="_commit" id="Shape-_commit">
         <omgdc:Bounds height="55.0" width="85.0" x="295.0" y="110.5"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="72.0" x="301.5" y="130.08"/>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_4" id="Yaoqiang-_4">
+      <bpmndi:BPMNShape bpmnElement="_4" id="Shape-_4">
         <omgdc:Bounds height="32.0" width="32.0" x="310.0" y="865.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="48.0" x="302.0" y="904.86"/>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_summary" id="Yaoqiang-_summary">
+      <bpmndi:BPMNShape bpmnElement="_summary" id="Shape-_summary">
         <omgdc:Bounds height="72.0" width="102.0" x="285.0" y="225.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="72.0" x="300.0" y="253.08"/>
+          <omgdc:Bounds height="72.0" width="102.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_audit" id="Yaoqiang-_audit">
+      <bpmndi:BPMNShape bpmnElement="_audit" id="Shape-_audit">
         <omgdc:Bounds height="55.0" width="85.0" x="285.0" y="490.5"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="50.0" x="302.5" y="510.08"/>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_16" id="Yaoqiang-_16">
+      <bpmndi:BPMNShape bpmnElement="_16" id="Shape-_16">
         <omgdc:Bounds height="32.0" width="32.0" x="465.0" y="870.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="32.0" x="465.0" y="909.86"/>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_approved" id="Yaoqiang-_approved" isMarkerVisible="false">
-        <omgdc:Bounds height="42.0" width="42.0" x="310.0" y="610.0"/>
+      <bpmndi:BPMNShape bpmnElement="_approved" id="Shape-_approved" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="310.0" y="610.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="50.0" x="306.0" y="654.0"/>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="_finalize" id="Yaoqiang-_finalize">
+      <bpmndi:BPMNShape bpmnElement="_finalize" id="Shape-_finalize">
         <omgdc:Bounds height="55.0" width="85.0" x="285.0" y="720.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="28.0" x="313.5" y="739.58"/>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="_18" id="Yaoqiang-_18">
+      <bpmndi:BPMNEdge bpmnElement="_14" id="BPMNEdge__14" sourceElement="_audit" targetElement="_approved">
+        <omgdi:waypoint x="326.0" y="546.0"/>
+        <omgdi:waypoint x="326.0" y="610.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="18.96" width="6.0" x="966.11" y="31.52"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17" id="BPMNEdge__17" sourceElement="_approved" targetElement="_finalize">
+        <omgdi:waypoint x="326.0" y="642.0"/>
+        <omgdi:waypoint x="326.0" y="720.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="BPMNEdge__18" sourceElement="_finalize" targetElement="_4">
         <omgdi:waypoint x="326.0" y="775.0"/>
         <omgdi:waypoint x="326.0" y="865.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="6.0" x="323.0" y="810.08"/>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_17" id="Yaoqiang-_17">
-        <omgdi:waypoint x="331.0" y="652.0"/>
-        <omgdi:waypoint x="331.0" y="720.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="34.84" width="109.0" x="276.5" y="668.58"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_14" id="Yaoqiang-_14">
-        <omgdi:waypoint x="331.0" y="546.0"/>
-        <omgdi:waypoint x="331.0" y="610.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="6.0" x="328.0" y="568.08"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_10" id="Yaoqiang-_10">
-        <omgdi:waypoint x="336.0" y="32.0"/>
-        <omgdi:waypoint x="336.0" y="111.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="6.0" x="333.0" y="61.58"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_8" id="Yaoqiang-_8">
-        <omgdi:waypoint x="337.5" y="166.0"/>
-        <omgdi:waypoint x="337.5" y="225.0"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="6.0" x="334.5" y="185.58"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_7" id="Yaoqiang-_7">
-        <omgdi:waypoint x="352.0" y="631.0"/>
-        <omgdi:waypoint x="485.0" y="690.0"/>
-        <omgdi:waypoint x="485.0" y="870.5080666151704"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="34.84" width="114.0" x="428.0" y="666.84"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="_3" id="Yaoqiang-_3">
+      <bpmndi:BPMNEdge bpmnElement="_3" id="BPMNEdge__3" sourceElement="_summary" targetElement="_audit">
         <omgdi:waypoint x="327.5" y="297.0"/>
         <omgdi:waypoint x="327.5" y="491.0"/>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="19.84" width="6.0" x="324.5" y="384.08"/>
+          <omgdc:Bounds height="18.96" width="6.0" x="676.07" y="31.52"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="_approved" targetElement="_16">
+        <omgdi:waypoint x="342.0" y="626.0"/>
+        <omgdi:waypoint x="485.0" y="690.0"/>
+        <omgdi:waypoint x="485.0" y="870.5080666151704"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="_commit" targetElement="_summary">
+        <omgdi:waypoint x="337.5" y="166.0"/>
+        <omgdi:waypoint x="337.5" y="225.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="18.96" width="6.0" x="514.07" y="31.52"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="_2" targetElement="_commit">
+        <omgdi:waypoint x="336.0" y="32.0"/>
+        <omgdi:waypoint x="336.0" y="111.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="18.96" width="6.0" x="369.07" y="31.52"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

@@ -5,12 +5,10 @@ import org.jolokia.util.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping
@@ -20,7 +18,8 @@ public class WeatherController {
 
     @PostMapping(value = "/getWeatherList")
     public String getWeatherList(@RequestParam String cityId){
-        String http = "http://t.weather.sojson.com/api/weather/city/" + cityId;
+        //String http = "http://t.weather.sojson.com/api/weather/city/" + cityId;
+        String http = "http://t.weather.itboy.net/api/weather/city/" + cityId;
         HttpMethod method = HttpMethod.GET;
         MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
         return httpClient.clint(http, method, multiValueMap);

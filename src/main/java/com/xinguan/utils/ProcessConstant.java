@@ -286,7 +286,7 @@ public interface ProcessConstant {
     }
 
     /**
-     * 巡视流程常量
+     * 见证取样流程常量
      */
     interface WitnessSampling {
         /**

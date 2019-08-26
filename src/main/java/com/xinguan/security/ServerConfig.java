@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -27,12 +26,12 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    RedisConnectionFactory redisConnectionFactory;
+//    @Autowired
+//    RedisConnectionFactory redisConnectionFactory;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerConfig.class);
 
-    @Qualifier("myUserDetailsService")
+    @Qualifier("customUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -48,7 +47,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 配置token获取和验证时的策略
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()").allowFormAuthenticationForClients();
     }
 
     @Override

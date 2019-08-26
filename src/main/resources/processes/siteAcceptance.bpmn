@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1557753763610" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="siteAcceptanceProcess" isClosed="false" isExecutable="true" processType="None">
+    <startEvent id="_2" name="StartEvent"/>
+    <userTask activiti:assignee="#{userId}" activiti:exclusive="true" id="_commit" name="提交进场验收记录"/>
+    <exclusiveGateway gatewayDirection="Unspecified" id="_4" name="是否发送到相关责任人"/>
+    <userTask activiti:assignee="#{auditUserId}" activiti:exclusive="true" id="_audit" name="相关人员审核"/>
+    <serviceTask activiti:class="com.xinguan.workprocess.process.SiteAcceptanceCollect" activiti:exclusive="true" id="_collect" name="汇总到功能台账"/>
+    <endEvent id="_7" name="EndEvent"/>
+    <sequenceFlow id="_8" sourceRef="_2" targetRef="_commit"/>
+    <sequenceFlow id="_9" sourceRef="_commit" targetRef="_4"/>
+    <sequenceFlow id="_10" name="否" sourceRef="_4" targetRef="_collect">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${sendToCharge=='false'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_11" name="是" sourceRef="_4" targetRef="_audit">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${sendToCharge=='true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_12" sourceRef="_audit" targetRef="_collect"/>
+    <sequenceFlow id="_13" sourceRef="_collect" targetRef="_7"/>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="siteAcceptanceProcess">
+      <bpmndi:BPMNShape bpmnElement="_2" id="Shape-_2">
+        <omgdc:Bounds height="32.0" width="32.0" x="385.0" y="25.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_commit" id="Shape-_commit">
+        <omgdc:Bounds height="55.0" width="120.0" x="350.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="120.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" id="Shape-_4" isMarkerVisible="false">
+        <omgdc:Bounds height="32.0" width="32.0" x="395.0" y="260.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_audit" id="Shape-_audit">
+        <omgdc:Bounds height="55.0" width="85.0" x="550.0" y="380.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_collect" id="Shape-_collect">
+        <omgdc:Bounds height="55.0" width="85.0" x="370.0" y="510.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="55.0" width="85.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" id="Shape-_7">
+        <omgdc:Bounds height="32.0" width="32.0" x="400.0" y="665.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_13" id="BPMNEdge__13" sourceElement="_collect" targetElement="_7">
+        <omgdi:waypoint x="416.0" y="565.0"/>
+        <omgdi:waypoint x="416.0" y="665.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12" id="BPMNEdge__12" sourceElement="_audit" targetElement="_collect">
+        <omgdi:waypoint x="595.0" y="435.0"/>
+        <omgdi:waypoint x="595.0" y="470.0"/>
+        <omgdi:waypoint x="455.0" y="537.5"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="_2" targetElement="_commit">
+        <omgdi:waypoint x="401.0" y="57.0"/>
+        <omgdi:waypoint x="401.0" y="140.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9" id="BPMNEdge__9" sourceElement="_commit" targetElement="_4">
+        <omgdi:waypoint x="411.0" y="195.0"/>
+        <omgdi:waypoint x="411.0" y="260.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11" id="BPMNEdge__11" sourceElement="_4" targetElement="_audit">
+        <omgdi:waypoint x="427.0" y="276.0"/>
+        <omgdi:waypoint x="595.0" y="350.0"/>
+        <omgdi:waypoint x="595.0" y="380.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10" id="BPMNEdge__10" sourceElement="_4" targetElement="_collect">
+        <omgdi:waypoint x="411.0" y="292.0"/>
+        <omgdi:waypoint x="411.0" y="510.0"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

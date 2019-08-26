@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Qualifier("myUserDetailsService")
+    @Qualifier("customUserDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 
